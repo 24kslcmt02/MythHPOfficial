@@ -1,0 +1,291 @@
+/* UserHomeMockup — My-th App Home Screen */
+
+.phoneFrame {
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  height: 680px;
+  background: #ffffff;
+  border-radius: 46px;
+  box-shadow:
+    0 0 0 12px #1f2229,
+    0 16px 48px rgba(0, 0, 0, 0.25),
+    inset 0 0 0 2px rgba(255, 255, 255, 0.4);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+
+.notch {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 140px;
+  height: 30px;
+  background: #1f2229;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  z-index: 20;
+}
+
+.homeIndicator {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 100px;
+  z-index: 20;
+}
+
+.screen {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #FAFBFE;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Status Bar */
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 24px 0;
+  height: 44px;
+  flex-shrink: 0;
+}
+
+.time {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #333;
+  letter-spacing: 0.02em;
+}
+
+.statusIcons {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+/* Greeting */
+.greeting {
+  padding: 12px 20px 8px;
+}
+
+.greetRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.greetText {
+  font-size: 0.75rem;
+  color: #999;
+  font-weight: 400;
+}
+
+.userName {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  margin-top: 2px;
+}
+
+.userAvatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #EEF2FF 0%, #E0E7FF 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.groupBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 6px;
+  font-size: 0.625rem;
+  color: #888;
+  background: rgba(74, 173, 232, 0.06);
+  padding: 3px 8px;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+.groupDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #F5D623;
+  flex-shrink: 0;
+}
+
+/* Quick Actions */
+.quickActions {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+  padding: 8px 16px 10px;
+}
+
+.actionItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  padding: 10px 4px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.actionIcon {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.actionLabel {
+  font-size: 0.5625rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.actionCount {
+  font-size: 0.625rem;
+  font-weight: 700;
+}
+
+/* Events Section */
+.eventsSection {
+  flex: 1;
+  padding: 4px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+.sectionTitle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  padding: 0 2px;
+}
+
+.seeAll {
+  font-size: 0.5625rem;
+  color: #4AADE8;
+  font-weight: 600;
+}
+
+.eventCard {
+  display: flex;
+  gap: 10px;
+  padding: 10px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03);
+  align-items: center;
+}
+
+.eventDateBadge {
+  width: 38px;
+  height: 42px;
+  background: linear-gradient(135deg, #4AADE8 0%, #3B8DD9 100%);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #fff;
+}
+
+.eventMonth {
+  font-size: 0.5rem;
+  font-weight: 500;
+  opacity: 0.85;
+  line-height: 1.2;
+}
+
+.eventDay {
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+.eventInfo {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  min-width: 0;
+}
+
+.eventTitle {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.eventVenue {
+  font-size: 0.5625rem;
+  color: #999;
+}
+
+.eventStatus {
+  font-size: 0.5625rem;
+  font-weight: 600;
+  margin-top: 1px;
+}
+
+/* Tab Bar */
+.tabBar {
+  display: flex;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+  padding: 6px 0 20px;
+  background: #fff;
+  flex-shrink: 0;
+}
+
+.tabItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  font-size: 0.5rem;
+  color: #aaa;
+  padding-top: 4px;
+}
+
+.tabActive {
+  color: #4AADE8;
+}
+
+.tabActive span {
+  color: #4AADE8;
+  font-weight: 600;
+}

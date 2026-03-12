@@ -1,0 +1,287 @@
+/* ChekiMockup — Cheki Management Dashboard UI */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #fdfdfd;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 9px;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 18%;
+  min-width: 60px;
+  background: #f4f5f7;
+  border-right: 1px solid rgba(0,0,0,0.05);
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebarLogo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  margin-bottom: 4px;
+}
+
+.logoIcon {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #F5D623, #FBE96A);
+}
+
+.logoText {
+  height: 8px;
+  width: 60%;
+  background: #d0d3d9;
+  border-radius: 2px;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.navItem {
+  height: 20px;
+  border-radius: 4px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+}
+
+.navActive {
+  background: #e8e9ed;
+  font-weight: 600;
+}
+
+.navDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #4AADE8;
+}
+
+.navLabel {
+  font-size: 7px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fafafc;
+  overflow: hidden;
+}
+
+.header {
+  height: 30px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background: #fff;
+}
+
+.headerTitle {
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+}
+
+.headerActions {
+  display: flex;
+  gap: 6px;
+}
+
+.btnOutline {
+  font-size: 7px;
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid #4AADE8;
+  color: #4AADE8;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Content */
+.content {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  overflow: hidden;
+  flex: 1;
+}
+
+/* Stats Row */
+.statsRow {
+  display: flex;
+  gap: 6px;
+}
+
+.miniStat {
+  flex: 1;
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.05);
+  border-radius: 6px;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.miniStatLabel {
+  font-size: 7px;
+  color: #888;
+}
+
+.miniStatValue {
+  font-size: 11px;
+  font-weight: 700;
+  color: #111;
+}
+
+.activeValue {
+  color: #10b981;
+}
+
+/* Cheki Cards Grid */
+.chekiGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  flex: 1;
+}
+
+.chekiCard {
+  background: #fff;
+  border: 1px solid rgba(0,0,0,0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* QR Area */
+.qrArea {
+  position: relative;
+  background: linear-gradient(135deg, #f8f9fc, #eef1f8);
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 40px;
+}
+
+.qrCode {
+  width: 28px;
+  height: 28px;
+  position: relative;
+}
+
+.qrPattern {
+  width: 100%;
+  height: 100%;
+  background:
+    /* QR corners */
+    linear-gradient(#333 0 0) 0 0 / 30% 30% no-repeat,
+    linear-gradient(#333 0 0) 70% 0 / 30% 30% no-repeat,
+    linear-gradient(#333 0 0) 0 70% / 30% 30% no-repeat,
+    /* Inner pattern */
+    linear-gradient(90deg, #333 25%, transparent 25%, transparent 50%, #333 50%, #333 75%, transparent 75%) 35% 35% / 30% 30% no-repeat,
+    linear-gradient(#ddd 0 0) 0 0 / 100% 100%;
+  border-radius: 2px;
+  opacity: 0.7;
+}
+
+/* Scan line animation */
+.scanLine {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #4AADE8, transparent);
+  animation: scan 2s ease-in-out infinite;
+  border-radius: 1px;
+  box-shadow: 0 0 8px rgba(74, 173, 232, 0.5);
+}
+
+@keyframes scan {
+  0%, 100% { top: 15%; opacity: 0.6; }
+  50% { top: 80%; opacity: 1; }
+}
+
+/* Cheki Info */
+.chekiInfo {
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chekiMember {
+  font-size: 8px;
+  font-weight: 700;
+  color: #111;
+}
+
+.chekiMeta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 7px;
+  color: #888;
+}
+
+.chekiCode {
+  font-family: monospace;
+  font-size: 6px;
+}
+
+.chekiBottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 2px;
+}
+
+.chekiPrice {
+  font-size: 8px;
+  font-weight: 700;
+  color: #333;
+}
+
+.chekiStatus {
+  font-size: 6px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.valid {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.used {
+  background: #f1f5f9;
+  color: #94a3b8;
+}

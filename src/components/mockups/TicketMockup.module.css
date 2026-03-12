@@ -1,0 +1,279 @@
+/* TicketMockup — Ticket Sales Dashboard UI */
+
+.container {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background: #fdfdfd;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.06);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 9px;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 18%;
+  min-width: 60px;
+  background: #f4f5f7;
+  border-right: 1px solid rgba(0,0,0,0.05);
+  padding: 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.sidebarLogo {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 4px;
+  margin-bottom: 4px;
+}
+
+.logoIcon {
+  width: 14px;
+  height: 14px;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #F5D623, #FBE96A);
+}
+
+.logoText {
+  height: 8px;
+  width: 60%;
+  background: #d0d3d9;
+  border-radius: 2px;
+}
+
+.sidebarNav {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.navItem {
+  height: 20px;
+  border-radius: 4px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 0 6px;
+}
+
+.navActive {
+  background: #e8e9ed;
+  font-weight: 600;
+}
+
+.navDot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #4AADE8;
+}
+
+.navLabel {
+  font-size: 7px;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Main */
+.main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: #fafafc;
+  overflow: hidden;
+}
+
+.header {
+  height: 30px;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  background: #fff;
+}
+
+.headerTitle {
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+}
+
+.headerBadge {
+  font-size: 6px;
+  padding: 2px 5px;
+  border-radius: 8px;
+  background: #dcfce7;
+  color: #16a34a;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.headerBadge::before {
+  content: "";
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #16a34a;
+  animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+/* Content */
+.content {
+  padding: 8px 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+  flex: 1;
+}
+
+/* Stats */
+.statsRow {
+  display: flex;
+  gap: 5px;
+}
+
+.statCard {
+  flex: 1;
+  padding: 6px 8px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.statBlue { background: #eff6ff; border: 1px solid #bfdbfe; }
+.statGreen { background: #f0fdf4; border: 1px solid #bbf7d0; }
+.statPurple { background: #faf5ff; border: 1px solid #e9d5ff; }
+
+.statIcon {
+  font-size: 10px;
+}
+
+.statLabel {
+  font-size: 6px;
+  color: #888;
+}
+
+.statValue {
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tab {
+  font-size: 7px;
+  padding: 4px 10px;
+  color: #888;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+
+.tabActive {
+  color: #4AADE8;
+  border-bottom-color: #4AADE8;
+  font-weight: 600;
+}
+
+/* Table */
+.table {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  flex: 1;
+}
+
+.tableHeader {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1.2fr 1fr;
+  gap: 4px;
+  padding: 4px 6px;
+  font-size: 6px;
+  font-weight: 600;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.tableRow {
+  display: grid;
+  grid-template-columns: 2.5fr 1fr 1fr 1.2fr 1fr;
+  gap: 4px;
+  padding: 5px 6px;
+  font-size: 7px;
+  align-items: center;
+  border-bottom: 1px solid #f8fafc;
+  transition: background 0.15s;
+}
+
+.tableRow:hover {
+  background: #f8fafc;
+}
+
+.eventName {
+  font-weight: 600;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.qty {
+  font-weight: 600;
+  color: #333;
+}
+
+.total {
+  font-weight: 700;
+  color: #111;
+  font-family: -apple-system, BlinkMacSystemFont, monospace;
+}
+
+.statusBadge {
+  font-size: 6px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 600;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.onSale {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.almostOut {
+  background: #fef3c7;
+  color: #d97706;
+}
+
+.soldOut {
+  background: #f1f5f9;
+  color: #94a3b8;
+}

@@ -1,0 +1,399 @@
+/* === Hero === */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+/* Stage Background */
+.stageBg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  transform: scale(1.05);
+  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.heroLoaded .stageBg {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.stageOverlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to right, rgba(250, 251, 254, 0.95) 0%, rgba(250, 251, 254, 0.6) 50%, rgba(250, 251, 254, 0.1) 100%),
+    linear-gradient(to top, rgba(250, 251, 254, 0.95) 0%, transparent 40%);
+  z-index: 1;
+}
+
+.heroInner {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: 1fr 1.6fr 1fr; /* キャラクター(中央)を8割程度見せる定率 */
+  gap: 40px;
+  align-items: center;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  min-height: 80vh;
+  /* Override global container to provide a wider staging area */
+  max-width: 1540px !important;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s,
+              transform 0.8s cubic-bezier(0.22, 1, 0.36, 1) 0.6s;
+}
+
+.heroLoaded .heroContent {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.heroLabel {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-primary);
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2.25rem, 5vw, 3.75rem);
+  letter-spacing: -0.03em;
+  line-height: 1.15;
+  color: var(--color-text-primary);
+}
+
+.heroAccent {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@media (max-width: 767px) {
+  .heroTitle {
+    font-size: 2.25rem;
+  }
+}
+
+/* --- Splash Screen --- */
+.splashScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #f4f6fa;
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.splashPhone {
+  width: 100%;
+  max-width: 320px;
+}
+
+.heroDesc {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+  max-width: 480px;
+}
+
+.heroBtns {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.heroSwitch {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  transition: color var(--transition-fast);
+}
+
+.heroSwitch:hover {
+  color: var(--color-primary);
+}
+
+/* Character Visual */
+.heroVisualCenter {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+/* Smartphone Mockup */
+.heroVisualRight {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.smartphoneWrap {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.6s,
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 1.6s;
+}
+
+.heroLoaded .smartphoneWrap {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.smartphoneImg {
+  object-fit: contain;
+}
+
+.characterWrap {
+  position: relative;
+  opacity: 0;
+  transform: translateY(40px) scale(0.95);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s,
+              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 1.2s;
+  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.25)); /* Re-add shadow for character */
+}
+
+.heroLoaded .characterWrap {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.characterImg {
+  width: auto;
+  height: 85vh; /* 画面の約85%の高さ */
+  max-height: 860px; /* 余白を確保して上限設定 */
+  object-fit: contain;
+  object-position: bottom center;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
+  margin-bottom: -5vh; /* 下部にはみ出させるダイナミックな配置 */
+}
+
+
+/* === About === */
+.about {
+  background: var(--color-bg-alt);
+}
+
+/* Mini Character — shared */
+.miniCharImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.miniCharImg:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* Mini Character — About section */
+.sectionHeaderWithMascot {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.miniCharAbout {
+  position: absolute;
+  right: 5%;
+  top: -10px;
+  width: 90px;
+  height: 90px;
+  pointer-events: auto;
+}
+
+/* Mini Character — CTA section */
+.miniCharCta {
+  width: 120px;
+  height: 120px;
+  margin-bottom: var(--space-sm);
+}
+
+.aboutGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-xl);
+}
+
+.aboutCard {
+  text-align: center;
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  align-items: center;
+}
+
+.aboutIconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: var(--space-sm);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.aboutCard h3 {
+  font-size: 1.125rem;
+}
+
+.aboutCard p {
+  font-size: 0.9375rem;
+}
+
+/* === Features === */
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-2xl);
+}
+
+/* === How to Use === */
+.howto {
+  background: var(--color-bg-alt);
+}
+
+/* === FAQ === */
+.faq {
+  background: var(--color-bg);
+}
+
+.faqChatWrap {
+  margin-bottom: var(--space-2xl);
+}
+
+/* === CTA === */
+.cta {
+  padding: var(--space-5xl) 0;
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+}
+
+.ctaInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.ctaInner h2 {
+  font-family: var(--font-display), sans-serif;
+}
+
+.ctaInner p {
+  font-size: 1.125rem;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+/* === Responsive === */
+@media (max-width: 1023px) {
+  .heroInner {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .heroContent {
+    align-items: center;
+  }
+
+  .heroDesc {
+    max-width: 100%;
+  }
+
+  .heroVisualCenter {
+    order: -1;
+    justify-content: center;
+  }
+
+  .heroVisualRight {
+    order: 1;
+    justify-content: center;
+    margin-top: var(--space-xl);
+  }
+
+  .characterImg {
+    max-height: 45vh;
+  }
+
+  .stageOverlay {
+    background:
+      linear-gradient(to bottom, rgba(250, 251, 254, 0.6) 0%, rgba(250, 251, 254, 0.85) 60%, rgba(250, 251, 254, 1) 100%);
+  }
+
+  .aboutGrid {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .miniCharAbout {
+    position: static;
+    width: 70px;
+    height: 70px;
+    margin: 0 auto var(--space-sm);
+  }
+
+  .miniCharCta {
+    width: 90px;
+    height: 90px;
+  }
+}
+
+@media (max-width: 767px) {
+  .characterImg {
+    max-height: 35vh;
+  }
+
+  .heroBtns,
+  .ctaBtns {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .heroBtns .btn,
+  .ctaBtns .btn {
+    width: 100%;
+  }
+}
+

@@ -1,0 +1,249 @@
+/* UserChekiMockup — Smartphone App: My Cheki Screen */
+
+.phone {
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+  background: #111;
+  border-radius: 24px;
+  padding: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.notch {
+  width: 45%;
+  height: 12px;
+  background: #111;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.screen {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 8px;
+  color: #333;
+}
+
+/* App Header */
+.appHeader {
+  background: linear-gradient(135deg, #F5D623, #FBE96A);
+  padding: 18px 12px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.appLogo {
+  font-size: 8px;
+  font-weight: 800;
+  color: #4AADE8;
+  letter-spacing: -0.02em;
+}
+
+.headerTitle {
+  font-size: 10px;
+  font-weight: 700;
+  color: #333;
+  flex: 1;
+}
+
+.headerCount {
+  font-size: 7px;
+  color: #666;
+  background: rgba(255,255,255,0.6);
+  padding: 2px 6px;
+  border-radius: 8px;
+  font-weight: 600;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0 8px;
+  background: #fff;
+}
+
+.tab {
+  font-size: 7px;
+  padding: 5px 8px;
+  color: #999;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  font-weight: 500;
+}
+
+.tabActive {
+  color: #4AADE8;
+  border-bottom-color: #4AADE8;
+  font-weight: 600;
+}
+
+/* Cheki List */
+.chekiList {
+  flex: 1;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  overflow: hidden;
+}
+
+.chekiCard {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px;
+  background: #fafafa;
+  border-radius: 8px;
+  border: 1px solid #f0f0f0;
+}
+
+.chekiPhoto {
+  width: 32px;
+  height: 40px;
+  border-radius: 4px;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.photoPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 50%, #e8e8e8 100%);
+  position: relative;
+}
+
+.photoPlaceholder::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.5);
+}
+
+.chekiInfo {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.chekiMember {
+  font-size: 8px;
+  font-weight: 700;
+  color: #111;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.chekiType {
+  font-size: 6px;
+  color: #888;
+}
+
+.chekiCode {
+  font-size: 5.5px;
+  color: #bbb;
+  font-family: monospace;
+}
+
+.chekiRight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+  flex-shrink: 0;
+}
+
+.chekiStatus {
+  font-size: 5.5px;
+  padding: 1px 4px;
+  border-radius: 3px;
+  font-weight: 600;
+}
+
+.active {
+  background: #dcfce7;
+  color: #16a34a;
+}
+
+.used {
+  background: #f1f5f9;
+  color: #94a3b8;
+}
+
+.qrMini {
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border: 1px solid #eee;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrPattern {
+  width: 12px;
+  height: 12px;
+  background:
+    linear-gradient(#333 0 0) 0 0 / 30% 30% no-repeat,
+    linear-gradient(#333 0 0) 70% 0 / 30% 30% no-repeat,
+    linear-gradient(#333 0 0) 0 70% / 30% 30% no-repeat,
+    linear-gradient(90deg, #333 25%, transparent 25%, transparent 50%, #333 50%, #333 75%, transparent 75%) 35% 35% / 30% 30% no-repeat,
+    linear-gradient(#f5f5f5 0 0) 0 0 / 100% 100%;
+  opacity: 0.5;
+}
+
+/* Bottom Navigation */
+.bottomNav {
+  display: flex;
+  border-top: 1px solid #f0f0f0;
+  padding: 4px 0 6px;
+  background: #fff;
+}
+
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-size: 5px;
+  color: #aaa;
+}
+
+.navActive {
+  color: #4AADE8;
+}
+
+.navActive span {
+  color: #4AADE8;
+}
+
+.navIcon {
+  width: 14px;
+  height: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

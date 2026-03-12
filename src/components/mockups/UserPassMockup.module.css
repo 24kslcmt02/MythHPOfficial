@@ -1,0 +1,269 @@
+/* UserPassMockup — Smartphone App: Pass Received Screen */
+
+.phone {
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+  background: #111;
+  border-radius: 24px;
+  padding: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.notch {
+  width: 45%;
+  height: 12px;
+  background: #111;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.screen {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 8px;
+  color: #333;
+}
+
+/* Header */
+.appHeader {
+  padding: 16px 10px 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.backBtn {
+  font-size: 12px;
+  color: #4AADE8;
+  font-weight: 300;
+}
+
+.headerTitle {
+  flex: 1;
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 10px 10px 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* Success Area */
+.successArea {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.checkCircle {
+  margin-bottom: 2px;
+}
+
+.successText {
+  font-size: 10px;
+  font-weight: 800;
+  color: #16a34a;
+}
+
+.successSub {
+  font-size: 6px;
+  color: #888;
+}
+
+/* Pass Card */
+.passCard {
+  width: 100%;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+}
+
+.passGradient {
+  background: linear-gradient(135deg, #F5D623, #F472B6, #4AADE8);
+  padding: 10px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.passLabel {
+  font-size: 5.5px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.8);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.passTitle {
+  font-size: 11px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+
+.passMember {
+  font-size: 7px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.9);
+}
+
+.passExpiry {
+  font-size: 5.5px;
+  color: rgba(255,255,255,0.65);
+  margin-top: 2px;
+}
+
+.passQrArea {
+  background: #fff;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3px;
+}
+
+.passQr {
+  width: 40px;
+  height: 40px;
+  background: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qrPattern {
+  width: 28px;
+  height: 28px;
+  background:
+    linear-gradient(#333 0 0) 0 0 / 30% 30% no-repeat,
+    linear-gradient(#333 0 0) 70% 0 / 30% 30% no-repeat,
+    linear-gradient(#333 0 0) 0 70% / 30% 30% no-repeat,
+    linear-gradient(90deg, #333 25%, transparent 25%, transparent 50%, #333 50%, #333 75%, transparent 75%) 35% 35% / 30% 30% no-repeat,
+    linear-gradient(#f5f5f5 0 0) 0 0 / 100% 100%;
+  opacity: 0.5;
+}
+
+.passCode {
+  font-size: 6px;
+  color: #999;
+  font-family: monospace;
+  letter-spacing: 0.03em;
+}
+
+/* Flow Indicator */
+.flowIndicator {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  padding: 0 4px;
+}
+
+.flowStep {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  flex: 0 0 auto;
+}
+
+.flowStep span {
+  font-size: 5.5px;
+  color: #888;
+  white-space: nowrap;
+}
+
+.flowLine {
+  flex: 1;
+  height: 1px;
+  background: #d0d0d0;
+  margin: 0 2px;
+  margin-bottom: 12px;
+}
+
+.flowDot {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 7px;
+  font-weight: 600;
+}
+
+.flowDone {
+  background: #dcfce7;
+  color: #16a34a;
+  border: 1px solid #bbf7d0;
+}
+
+.flowCurrent {
+  background: linear-gradient(135deg, #F5D623, #FBE96A);
+  color: #333;
+  border: 1px solid rgba(245, 214, 35, 0.4);
+  box-shadow: 0 0 0 3px rgba(245, 214, 35, 0.15);
+}
+
+/* Hint */
+.hint {
+  font-size: 6px;
+  color: #aaa;
+  text-align: center;
+  padding: 2px 8px;
+  background: #fafafa;
+  border-radius: 6px;
+  width: 100%;
+}
+
+/* Bottom Navigation */
+.bottomNav {
+  display: flex;
+  border-top: 1px solid #f0f0f0;
+  padding: 4px 0 6px;
+  background: #fff;
+}
+
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-size: 5px;
+  color: #aaa;
+}
+
+.navActive {
+  color: #4AADE8;
+}
+
+.navActive span {
+  color: #4AADE8;
+}

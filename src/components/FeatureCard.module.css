@@ -1,0 +1,88 @@
+/* ============================================
+   FeatureCard — Stripe-style Card with UI Mock
+   ============================================ */
+
+.card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-bg-card);
+  border-radius: 16px;
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08),
+              0 0 0 1px rgba(0, 0, 0, 0.04);
+}
+
+/* Mock UI Area — top section of card */
+.mockArea {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+/* Accent gradient backgrounds for each card type */
+.primary .mockArea {
+  background: linear-gradient(135deg, #FFF9DB 0%, #FBE96A22 50%, #f0f4ff 100%);
+}
+
+.secondary .mockArea {
+  background: linear-gradient(135deg, #E3F2FD 0%, #7DC4F022 50%, #f0f4ff 100%);
+}
+
+.pink .mockArea {
+  background: linear-gradient(135deg, #FCE4EC 0%, #F472B622 50%, #f5f0ff 100%);
+}
+
+.cyan .mockArea {
+  background: linear-gradient(135deg, #E0F7FA 0%, #22D3EE22 50%, #f0f8ff 100%);
+}
+
+.mockContent {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+/* Text Area — bottom section of card */
+.textArea {
+  padding: 24px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  letter-spacing: -0.01em;
+}
+
+.description {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--color-text-secondary);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .textArea {
+    padding: 20px 22px 24px;
+  }
+
+  .mockArea {
+    aspect-ratio: 16 / 9;
+  }
+}

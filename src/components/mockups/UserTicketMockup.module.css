@@ -1,0 +1,305 @@
+/* UserTicketMockup — Smartphone App: Ticket Purchase Screen */
+
+.phone {
+  width: 100%;
+  max-width: 220px;
+  margin: 0 auto;
+  background: #111;
+  border-radius: 24px;
+  padding: 4px;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.notch {
+  width: 45%;
+  height: 12px;
+  background: #111;
+  border-radius: 0 0 10px 10px;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 3;
+}
+
+.screen {
+  background: #fff;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 380px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 8px;
+  color: #333;
+}
+
+/* Header */
+.appHeader {
+  padding: 16px 10px 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: #fff;
+  border-bottom: 1px solid #f5f5f5;
+}
+
+.backBtn {
+  font-size: 12px;
+  color: #4AADE8;
+  font-weight: 300;
+  cursor: default;
+}
+
+.headerTitle {
+  flex: 1;
+  font-size: 10px;
+  font-weight: 700;
+  color: #111;
+  text-align: center;
+}
+
+.cartIcon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Content */
+.content {
+  flex: 1;
+  padding: 6px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  overflow: hidden;
+}
+
+/* Event Card */
+.eventCard {
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid #f0f0f0;
+}
+
+.eventBanner {
+  position: relative;
+}
+
+.bannerGradient {
+  background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
+  padding: 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.eventDate {
+  font-size: 6px;
+  color: rgba(255,255,255,0.7);
+  font-weight: 500;
+}
+
+.eventName {
+  font-size: 10px;
+  font-weight: 800;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.eventVenue {
+  font-size: 6px;
+  color: rgba(255,255,255,0.6);
+}
+
+.eventMeta {
+  display: flex;
+  gap: 4px;
+  padding: 5px 8px;
+  background: #fafafa;
+}
+
+.metaTag {
+  font-size: 6px;
+  color: #666;
+  background: #fff;
+  padding: 2px 5px;
+  border-radius: 3px;
+  border: 1px solid #eee;
+  font-weight: 500;
+}
+
+/* Section Label */
+.sectionLabel {
+  font-size: 7px;
+  font-weight: 700;
+  color: #111;
+  padding-top: 2px;
+}
+
+/* Ticket Options */
+.ticketOption {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid #eee;
+  cursor: default;
+  transition: border-color 0.15s;
+}
+
+.ticketOption:has(.selected) {
+  border-color: #4AADE8;
+  background: rgba(74, 173, 232, 0.04);
+}
+
+.optionRadio {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid #d0d0d0;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.selected {
+  border-color: #4AADE8;
+}
+
+.selected::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #4AADE8;
+}
+
+.optionInfo {
+  flex: 1;
+}
+
+.optionName {
+  font-size: 8px;
+  font-weight: 600;
+  color: #111;
+}
+
+.optionDesc {
+  font-size: 5.5px;
+  color: #888;
+  margin-top: 1px;
+}
+
+.optionPrice {
+  font-size: 9px;
+  font-weight: 800;
+  color: #111;
+  white-space: nowrap;
+}
+
+/* Quantity */
+.qtyRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 0;
+}
+
+.qtyLabel {
+  font-size: 7px;
+  font-weight: 600;
+  color: #333;
+}
+
+.qtyControl {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f5f5f5;
+  border-radius: 6px;
+  padding: 2px;
+}
+
+.qtyBtn {
+  width: 18px;
+  height: 18px;
+  border: none;
+  background: #fff;
+  border-radius: 4px;
+  font-size: 10px;
+  color: #333;
+  cursor: default;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+}
+
+.qtyValue {
+  font-size: 9px;
+  font-weight: 700;
+  color: #111;
+  min-width: 14px;
+  text-align: center;
+}
+
+/* Security Badge */
+.securityBadge {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 6px;
+  color: #16a34a;
+  background: #f0fdf4;
+  padding: 4px 6px;
+  border-radius: 4px;
+  border: 1px solid #bbf7d0;
+  font-weight: 500;
+}
+
+/* Purchase Button */
+.purchaseBtn {
+  background: linear-gradient(135deg, #F5D623, #FBE96A);
+  color: #333;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  padding: 8px;
+  border-radius: 8px;
+  cursor: default;
+  box-shadow: 0 2px 8px rgba(245, 214, 35, 0.3);
+}
+
+/* Bottom Navigation */
+.bottomNav {
+  display: flex;
+  border-top: 1px solid #f0f0f0;
+  padding: 4px 0 6px;
+  background: #fff;
+}
+
+.navItem {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1px;
+  font-size: 5px;
+  color: #aaa;
+}
+
+.navActive {
+  color: #4AADE8;
+}
+
+.navActive span {
+  color: #4AADE8;
+}

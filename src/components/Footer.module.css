@@ -1,0 +1,89 @@
+.footer {
+  background: var(--color-text-primary);
+  color: var(--color-text-on-dark);
+  padding: var(--space-4xl) 0 var(--space-xl);
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.brandLogo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+}
+
+.logoImg {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-sm);
+  object-fit: contain;
+}
+
+.logoText {
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 1.25rem;
+  margin-top: var(--space-xs);
+}
+
+.tagline {
+  color: var(--color-text-tertiary);
+  font-size: 0.875rem;
+}
+
+.links {
+  display: flex;
+  gap: var(--space-4xl);
+}
+
+.linkGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.linkGroup h4 {
+  color: var(--color-text-tertiary);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--space-xs);
+}
+
+.linkGroup a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9375rem;
+  transition: color var(--transition-fast);
+}
+
+.linkGroup a:hover {
+  color: var(--color-primary);
+}
+
+.bottom {
+  padding-top: var(--space-2xl);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bottom p {
+  color: var(--color-text-tertiary);
+  font-size: 0.8125rem;
+}
+
+@media (max-width: 767px) {
+  .links {
+    flex-direction: column;
+    gap: var(--space-2xl);
+  }
+}
