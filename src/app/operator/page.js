@@ -13,7 +13,7 @@ export default function OperatorPage() {
     <>
       <Header mode="operator" />
       <main>
-        <OperatorView onViewModeChange={() => {}} />
+        <OperatorView />
       </main>
       <Footer mode="operator" />
     </>
