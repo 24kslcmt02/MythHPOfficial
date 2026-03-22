@@ -1,4 +1,4 @@
-import { Outfit, Noto_Sans_JP } from "next/font/google";
+import { Outfit, Noto_Sans_JP, Jost } from "next/font/google";
 import "./globals.css";
 
 const outfit = Outfit({
@@ -12,6 +12,14 @@ const notoSansJP = Noto_Sans_JP({
   subsets: ["latin"],
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const logoFont = Jost({
+  subsets: ["latin"],
+  variable: "--font-logo",
+  weight: ["300", "400", "500"],
+  style: ["normal", "italic"],
   display: "swap",
 });
 
@@ -31,7 +39,7 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ja" className={`${outfit.variable} ${notoSansJP.variable}`}>
+    <html lang="ja" className={`${outfit.variable} ${notoSansJP.variable} ${logoFont.variable}`}>
       <body style={{ fontFamily: "var(--font-body), sans-serif" }}>
         {children}
       </body>

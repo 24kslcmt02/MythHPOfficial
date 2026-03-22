@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 135 40" width="135" height="40">
+  <rect width="135" height="40" rx="6" fill="#000"/>
+  <rect x=".5" y=".5" width="134" height="39" rx="5.5" fill="none" stroke="#a6a6a6" stroke-width=".8"/>
+  <!-- Google Play Triangle Icon -->
+  <g transform="translate(8, 5)">
+    <path d="M5.43 3.5L16.5 15l-11.07 11.5c-.42-.44-.68-1.08-.68-1.82V5.32c0-.74.26-1.38.68-1.82z" fill="#4285F4"/>
+    <path d="M20.88 13.04L17.3 15l3.58 1.96 2.62-1.44c.72-.4.72-1.04 0-1.44l-2.62-1.04z" fill="#FBBC04"/>
+    <path d="M5.43 26.5L16.5 15l4.38 4.96-13.66 7.5c-.62.34-1.24.3-1.79.04z" fill="#EA4335"/>
+    <path d="M5.43 3.5c.55-.26 1.17-.3 1.79.04l13.66 7.5L16.5 15 5.43 3.5z" fill="#34A853"/>
+  </g>
+  <!-- Text -->
+  <text fill="#fff" font-family="'Hiragino Sans', 'Helvetica Neue', sans-serif" font-size="7" x="34" y="14" letter-spacing=".02em">Google Play で手に入れよう</text>
+  <text fill="#fff" font-family="'Hiragino Sans', 'Helvetica Neue', sans-serif" font-weight="600" font-size="14" x="34" y="30" letter-spacing=".01em">Google Play</text>
+</svg>

@@ -15,17 +15,25 @@
   align-items: center;
   justify-content: space-between;
   height: 64px;
+  width: 100%;
+  padding: 0 var(--space-xl);
 }
 
 .logo {
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  font-family: var(--font-display), sans-serif;
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-family: var(--font-logo), var(--font-display), sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 1.5rem;
   color: var(--color-text-primary);
   text-decoration: none;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
 }
 
 .logoImg {
@@ -36,16 +44,68 @@
 }
 
 .logoText {
-  letter-spacing: -0.01em;
+  letter-spacing: 0.05em;
 }
 
 .nav {
   display: flex;
   align-items: center;
-  gap: var(--space-md);
+  gap: var(--space-sm);
 }
 
-.switchBtn {
+/* --- Navigation Buttons --- */
+.navBtn {
   font-size: 0.8125rem;
+  font-weight: 500;
   padding: 0.5rem 1.25rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid var(--color-border);
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+  white-space: nowrap;
+}
+
+.navBtn:hover:not(.active) {
+  border-color: var(--color-secondary-light);
+  color: var(--color-secondary);
+  background: rgba(74, 173, 232, 0.04);
+}
+
+/* Active state — blue border indicator */
+.navBtn.active {
+  border-color: var(--color-secondary);
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary-dark);
+  font-weight: 600;
+  box-shadow: 0 0 0 1px var(--color-secondary);
+  cursor: default;
+}
+
+/* --- Responsive --- */
+@media (max-width: 767px) {
+  .inner {
+    padding: 0 var(--space-md);
+  }
+
+  .nav {
+    gap: 0.375rem;
+  }
+
+  .navBtn {
+    font-size: 0.6875rem;
+    padding: 0.375rem 0.75rem;
+  }
+}
+
+@media (max-width: 374px) {
+  .navBtn {
+    font-size: 0.625rem;
+    padding: 0.3rem 0.5rem;
+  }
 }

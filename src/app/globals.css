@@ -246,6 +246,16 @@ p {
   border-color: var(--color-border);
 }
 
+/* レスポンシブ改行用ユーティリティ */
+.brPc { display: block; }
+.brSp { display: none; }
+.noBreak { display: inline-block; white-space: nowrap; }
+
+@media (max-width: 768px) {
+  .brPc { display: none; }
+  .brSp { display: block; }
+}
+
 /* === Gradient Backgrounds === */
 .gradient-mesh {
   background:

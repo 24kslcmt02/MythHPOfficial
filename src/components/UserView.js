@@ -5,38 +5,38 @@ import FeatureCard from "@/components/FeatureCard";
 import StepFlow from "@/components/StepFlow";
 import FAQ from "@/components/FAQ";
 import AIChatBot from "@/components/AIChatBot";
-import UserHomeMockup from "@/components/mockups/UserHomeMockup";
-import UserChekiMockup from "@/components/mockups/UserChekiMockup";
-import UserTicketMockup from "@/components/mockups/UserTicketMockup";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
-import UserAlbumMockup from "@/components/mockups/UserAlbumMockup";
 import styles from "../app/page.module.css";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import FlowingBackground from "@/components/FlowingBackground";
 
+// ストアURL
+const APP_STORE_URL = "https://apps.apple.com/jp/app/my-th/id6759365931";
+const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=jp.ms_capital.my_th";
+
 const features = [
   {
     title: "デジタルチェキ券",
-    description: "紙チェキ券を廃止し、購入から使用までアプリで完結。QRコードで偽造・紛失リスクゼロ。限定チェキや抽選販売も対応。",
+    description: <>紙チェキ券を廃止し、購入から使用まで<br className="brPc" />アプリで完結。<br className="brSp" />QRコードで偽造・紛失リスクゼロ。<br className="brPc" />限定チェキや抽選販売も対応。</>,
     accent: "primary",
     mockup: "cheki",
   },
   {
     title: "チケット購入",
-    description: "公式チケットをアプリで一括購入。Bot対策で公平な販売を実現し、お目当て特典も自動で受け取れます。",
+    description: <>公式チケットをアプリで一括購入。<br className="brPc" />Bot対策で公平な販売を実現し、<br className="brSp" />お目当て特典も自動で受け取れます。</>,
     accent: "secondary",
     mockup: "ticket",
   },
   {
     title: "入場特典",
-    description: "会場受付でQR認証するだけ。デジタル入場特典がその場で即時付与。もう紙の特典券をなくす心配はありません。",
+    description: <>会場受付でQR認証するだけ。<br className="brPc" />デジタル入場特典がその場で即時付与。<br className="brSp" />もう紙の特典券をなくす心配はありません。</>,
     accent: "pink",
     mockup: "pass",
   },
   {
     title: "デジタルアルバム",
-    description: "撮影したチェキや入場特典はアプリ内のアルバム機能でいつでも見返すことができます。推し活の思い出を永久保存。",
+    description: <>撮影したチェキや入場特典はアプリ内の<br className="brPc" />アルバム機能でいつでも見返すことができます。<br className="brSp" /><span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span>。</>,
     accent: "cyan",
     mockup: "album",
   },
@@ -55,11 +55,12 @@ const faqItems = [
   { question: "購入したチェキ券のキャンセルはできますか？", answer: "イベント主催者の規定によります。基本的にはお客様都合によるキャンセル・返金は致しかねますが、イベント中止時などは自動で返金処理を行います。" },
 ];
 
-const mockupMap = {
-  cheki: UserChekiMockup,
-  ticket: UserTicketMockup,
-  pass: UserPassMockup,
-  album: UserAlbumMockup,
+// スクリーンショット画像マッピング
+const screenshotMap = {
+  cheki: { src: "/images/screenshots/screenshot-collection.webp", alt: "チェキ券コレクション画面" },
+  ticket: { src: "/images/screenshots/screenshot-tickets.webp", alt: "チケットコレクション画面" },
+  pass: null, // 入場特典は既存モックを維持（該当スクリーンショットなし）
+  album: { src: "/images/screenshots/screenshot-cheki-detail.webp", alt: "デジタルアルバム詳細画面" },
 };
 
 const containerVariants = {
@@ -135,23 +136,23 @@ export default function UserView({ onViewModeChange }) {
           <motion.div className={styles.heroContent} variants={containerVariants}>
             <motion.p layoutId="hero-label" variants={itemVariants} className={styles.heroLabel}>MY-TH OS V1.0</motion.p>
             <motion.h1 layoutId="hero-title" variants={itemVariants} className={styles.heroTitle}>
-              すべての体験
-              <br />
-              をつなぐ
-              <br />
-              <span className={styles.heroAccent}>アイドルOS</span>
+              すべての
+              <br className="brSp" />
+              体験をつなぐ
+              <br className="brSp" />
+              <span className={`${styles.heroAccent} noBreak`}>アイドルOS</span>
             </motion.h1>
             <motion.p layoutId="hero-desc" variants={itemVariants} className={styles.heroDesc}>
               チェキ券・チケット・入場特典をアプリひとつで。
-              <br />
+              <br className="brPc" />
               推し活をもっとスマートに、もっと楽しく。
             </motion.p>
             <motion.div variants={itemVariants} className={styles.heroBtns}>
-              <a href="#download-ios" className="btn btn-primary">
-                App Store
+              <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={styles.storeBadge}>
+                <Image src="/images/badge-appstore.svg" alt="App Storeからダウンロード" width={150} height={50} unoptimized />
               </a>
-              <a href="#download-android" className="btn btn-secondary">
-                Google Play
+              <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className={styles.storeBadge}>
+                <Image src="/images/badge-googleplay.svg" alt="Google Playで手に入れよう" width={168} height={50} unoptimized />
               </a>
             </motion.div>
             <motion.button
@@ -183,7 +184,16 @@ export default function UserView({ onViewModeChange }) {
 
           <motion.div className={styles.heroVisualRight} variants={itemVariants}>
             <div className={styles.smartphoneWrap}>
-              <UserHomeMockup />
+              <div className={styles.screenshotPhone}>
+                <Image
+                  src="/images/screenshots/screenshot-home.webp"
+                  alt="My-th ホーム画面"
+                  width={324}
+                  height={702}
+                  unoptimized
+                  className={styles.screenshotImg}
+                />
+              </div>
             </div>
           </motion.div>
         </div>
@@ -234,7 +244,7 @@ export default function UserView({ onViewModeChange }) {
                 </svg>
               </div>
               <h3>スマートな体験</h3>
-              <p>スマホひとつで購入から入場まで、すべてがシームレスに</p>
+              <p>スマホひとつで購入から入場まで、<span className="noBreak">すべて</span>がシームレスに</p>
             </div>
             <div className={styles.aboutCard}>
               <div className={styles.aboutIconWrap}>
@@ -246,7 +256,7 @@ export default function UserView({ onViewModeChange }) {
                 </svg>
               </div>
               <h3>データ資産化</h3>
-              <p>チェキ券がデジタルアルバムに。推し活の思い出を永久保存</p>
+              <p>チェキ券がデジタルアルバムに。<span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span></p>
             </div>
           </div>
         </div>
@@ -264,14 +274,27 @@ export default function UserView({ onViewModeChange }) {
           <div className="section-header">
             <span className="section-label">Features</span>
             <h2>主な機能</h2>
-            <p>推し活に必要なすべてが、ここに</p>
+            <p><span className="noBreak">推し活</span>に必要な<span className="noBreak">すべて</span>が、ここに</p>
           </div>
           <div className={styles.featureGrid}>
             {features.map((f, i) => {
-              const MockComponent = mockupMap[f.mockup];
+              const screenshot = screenshotMap[f.mockup];
               return (
                 <FeatureCard key={i} title={f.title} description={f.description} accent={f.accent}>
-                  {MockComponent && <MockComponent />}
+                  {screenshot ? (
+                    <div className={styles.featureScreenshot}>
+                      <Image
+                        src={screenshot.src}
+                        alt={screenshot.alt}
+                        width={280}
+                        height={607}
+                        unoptimized
+                        className={styles.screenshotImg}
+                      />
+                    </div>
+                  ) : f.mockup === "pass" ? (
+                    <UserPassMockup />
+                  ) : null}
                 </FeatureCard>
               );
             })}
@@ -333,8 +356,12 @@ export default function UserView({ onViewModeChange }) {
           <h2>My-thで、推し活をもっと自由に</h2>
           <p>今すぐダウンロードして、新しい体験を始めよう。</p>
           <div className={styles.ctaBtns}>
-            <a href="#app-store" className="btn btn-primary">App Store</a>
-            <a href="#google-play" className="btn btn-secondary">Google Play</a>
+            <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={styles.storeBadge}>
+              <Image src="/images/badge-appstore.svg" alt="App Storeからダウンロード" width={150} height={50} unoptimized />
+            </a>
+            <a href={GOOGLE_PLAY_URL} target="_blank" rel="noopener noreferrer" className={styles.storeBadge}>
+              <Image src="/images/badge-googleplay.svg" alt="Google Playで手に入れよう" width={168} height={50} unoptimized />
+            </a>
           </div>
         </div>
       </section>

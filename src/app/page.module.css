@@ -125,6 +125,25 @@
   display: flex;
   gap: var(--space-md);
   margin-top: var(--space-sm);
+  align-items: center;
+}
+
+/* Store Badge Links */
+.storeBadge {
+  display: inline-block;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  border-radius: var(--radius-md);
+}
+
+.storeBadge:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.storeBadge img {
+  display: block;
+  height: 50px;
+  width: auto;
 }
 
 .heroSwitch {
@@ -170,6 +189,31 @@
 
 .smartphoneImg {
   object-fit: contain;
+}
+
+/* Screenshot Phone Display (real app screenshots) */
+.screenshotPhone {
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  width: 100%;
+}
+
+.screenshotImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.featureScreenshot {
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 260px;
+  width: 100%;
+  margin: 0 auto;
 }
 
 .characterWrap {
@@ -389,11 +433,12 @@
   .ctaBtns {
     flex-direction: column;
     width: 100%;
+    align-items: center;
   }
 
-  .heroBtns .btn,
-  .ctaBtns .btn {
-    width: 100%;
+  .heroBtns .storeBadge,
+  .ctaBtns .storeBadge {
+    width: auto;
   }
 }
 

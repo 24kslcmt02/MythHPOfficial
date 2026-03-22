@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 40" width="120" height="40">
+  <defs>
+    <linearGradient id="a" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a1a2e"/>
+      <stop offset="100%" stop-color="#000"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="40" rx="6" fill="url(#a)"/>
+  <rect x=".5" y=".5" width="119" height="39" rx="5.5" fill="none" stroke="#a6a6a6" stroke-width=".8"/>
+  <!-- Apple Logo -->
+  <g transform="translate(8, 6)">
+    <path d="M15.77 13.29c-.03-2.84 2.32-4.21 2.43-4.28-1.33-1.94-3.39-2.2-4.12-2.23-1.74-.18-3.43 1.04-4.32 1.04-.9 0-2.27-1.02-3.74-.99-1.91.03-3.68 1.13-4.66 2.86-2.01 3.48-.51 8.61 1.42 11.43.96 1.38 2.09 2.93 3.57 2.87 1.44-.06 1.98-.92 3.72-.92 1.73 0 2.23.92 3.73.89 1.55-.03 2.53-1.39 3.46-2.78 1.1-1.59 1.55-3.14 1.57-3.22-.03-.01-2.99-1.15-3.02-4.55l-.04-.12z" fill="#fff"/>
+    <path d="M13.02 4.49c.78-.97 1.32-2.3 1.17-3.64-1.13.05-2.52.77-3.33 1.72-.72.84-1.36 2.21-1.19 3.5 1.27.1 2.57-.64 3.35-1.58z" fill="#fff"/>
+  </g>
+  <!-- Text -->
+  <text fill="#fff" font-family="'Hiragino Sans', 'Helvetica Neue', sans-serif" font-size="7" x="30" y="14" letter-spacing=".02em">からダウンロード</text>
+  <text fill="#fff" font-family="'Hiragino Sans', 'Helvetica Neue', sans-serif" font-weight="600" font-size="14" x="30" y="30" letter-spacing=".01em">App Store</text>
+</svg>
