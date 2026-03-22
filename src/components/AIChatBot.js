@@ -68,7 +68,7 @@ export default function AIChatBot({ compact = false }) {
     <>
       {/* Header */}
       <div className={`${styles.header} ${compact ? styles.headerCompact : ''}`}>
-        <Image src="/images/logo.jpg" alt="My-th" width={compact ? 24 : 28} height={compact ? 24 : 28} className={styles.headerLogo} />
+        <Image src="/images/Mythlogo.svg" alt="My-th" width={compact ? 24 : 28} height={compact ? 24 : 28} className={styles.headerLogo} />
         <div className={styles.headerTitle}>
           <span className={styles.botName}>My-th AIガイド</span>
           <span className={styles.status}>🟢 オンライン</span>

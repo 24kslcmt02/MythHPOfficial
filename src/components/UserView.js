@@ -44,7 +44,7 @@ const features = [
 
 const steps = [
   { title: "アプリをDL", description: "iOS / Android対応" },
-  { title: "会員登録", description: "SNSアカウントで10秒登録" },
+  { title: "会員登録", description: "メールアドレスで登録" },
   { title: "チケット・チェキ券購入", description: "事前決済で当日スムーズ" },
   { title: "会場で使う", description: "QRコードを見せるだけ" },
 ];
@@ -83,15 +83,15 @@ const itemVariants = {
 
 const characterVariants = {
   hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
-  visible: { 
-    opacity: 1, 
-    y: 0, 
+  visible: {
+    opacity: 1,
+    y: 0,
     filter: "blur(0px)",
-    transition: { 
+    transition: {
       delay: 1.2,
-      duration: 1.0, 
-      ease: [0.22, 1, 0.36, 1] 
-    } 
+      duration: 1.0,
+      ease: [0.22, 1, 0.36, 1]
+    }
   },
   exit: { opacity: 0, scale: 0.95, transition: { duration: 0.3 } }
 };
@@ -122,8 +122,8 @@ export default function UserView({ onViewModeChange }) {
       {/* Hero */}
       <section className={styles.hero}>
         <FlowingBackground variant="btoc" />
-        <motion.div 
-          className={styles.stageBg} 
+        <motion.div
+          className={styles.stageBg}
           style={{ backgroundImage: 'url(/images/stage-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
           initial={{ opacity: 0, scale: 1.05 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -143,9 +143,9 @@ export default function UserView({ onViewModeChange }) {
               <span className={`${styles.heroAccent} noBreak`}>アイドルOS</span>
             </motion.h1>
             <motion.p layoutId="hero-desc" variants={itemVariants} className={styles.heroDesc}>
-              チェキ券・チケット・入場特典をアプリひとつで。
-              <br className="brPc" />
-              推し活をもっとスマートに、もっと楽しく。
+              チケット・チェキ券・入場特典をMy-thで。<br />
+              推し活をもっとスマートに、<br />
+              もっと楽しく。
             </motion.p>
             <motion.div variants={itemVariants} className={styles.heroBtns}>
               <a href={APP_STORE_URL} target="_blank" rel="noopener noreferrer" className={styles.storeBadge}>
@@ -228,9 +228,9 @@ export default function UserView({ onViewModeChange }) {
             <div className={styles.aboutCard}>
               <div className={styles.aboutIconWrap}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <circle cx="10" cy="14" r="5" stroke="var(--color-primary)" strokeWidth="2" fill="none"/>
-                  <circle cx="18" cy="14" r="5" stroke="var(--color-secondary)" strokeWidth="2" fill="none"/>
-                  <path d="M14 10.5V17.5" stroke="var(--color-primary)" strokeWidth="1.5" opacity="0.5"/>
+                  <circle cx="10" cy="14" r="5" stroke="var(--color-primary)" strokeWidth="2" fill="none" />
+                  <circle cx="18" cy="14" r="5" stroke="var(--color-secondary)" strokeWidth="2" fill="none" />
+                  <path d="M14 10.5V17.5" stroke="var(--color-primary)" strokeWidth="1.5" opacity="0.5" />
                 </svg>
               </div>
               <h3>オールインワン統合</h3>
@@ -239,8 +239,8 @@ export default function UserView({ onViewModeChange }) {
             <div className={styles.aboutCard}>
               <div className={styles.aboutIconWrap}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <path d="M14 4L17 11H24L18.5 15.5L20.5 23L14 18.5L7.5 23L9.5 15.5L4 11H11L14 4Z" stroke="var(--color-primary)" strokeWidth="1.5" fill="var(--color-primary-subtle)" strokeLinejoin="round"/>
-                  <circle cx="14" cy="14" r="3" fill="var(--color-primary)" opacity="0.3"/>
+                  <path d="M14 4L17 11H24L18.5 15.5L20.5 23L14 18.5L7.5 23L9.5 15.5L4 11H11L14 4Z" stroke="var(--color-primary)" strokeWidth="1.5" fill="var(--color-primary-subtle)" strokeLinejoin="round" />
+                  <circle cx="14" cy="14" r="3" fill="var(--color-primary)" opacity="0.3" />
                 </svg>
               </div>
               <h3>スマートな体験</h3>
@@ -249,10 +249,10 @@ export default function UserView({ onViewModeChange }) {
             <div className={styles.aboutCard}>
               <div className={styles.aboutIconWrap}>
                 <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <rect x="5" y="7" width="18" height="14" rx="3" stroke="var(--color-primary)" strokeWidth="1.5" fill="none"/>
-                  <rect x="8" y="10" width="5" height="5" rx="1" fill="var(--color-secondary)" opacity="0.3"/>
-                  <rect x="15" y="10" width="5" height="5" rx="1" fill="var(--color-primary)" opacity="0.3"/>
-                  <rect x="8" y="16" width="12" height="1.5" rx="0.75" fill="var(--color-primary)" opacity="0.2"/>
+                  <rect x="5" y="7" width="18" height="14" rx="3" stroke="var(--color-primary)" strokeWidth="1.5" fill="none" />
+                  <rect x="8" y="10" width="5" height="5" rx="1" fill="var(--color-secondary)" opacity="0.3" />
+                  <rect x="15" y="10" width="5" height="5" rx="1" fill="var(--color-primary)" opacity="0.3" />
+                  <rect x="8" y="16" width="12" height="1.5" rx="0.75" fill="var(--color-primary)" opacity="0.2" />
                 </svg>
               </div>
               <h3>データ資産化</h3>

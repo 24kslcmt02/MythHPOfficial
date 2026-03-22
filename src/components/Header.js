@@ -16,7 +16,7 @@ export default function Header({ variant = "user", onViewModeChange }) {
           }} 
           className={styles.logo}
         >
-          <Image src="/images/logo.jpg" alt="My-th" width={32} height={32} className={styles.logoImg} />
+          <Image src="/images/Mythlogo.svg" alt="My-th" width={150} height={150} quality={100} className={styles.logoImg} />
           <span className={styles.logoText}>My-th</span>
         </button>
         <nav className={styles.nav}>

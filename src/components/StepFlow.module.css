@@ -74,13 +74,16 @@
     gap: var(--space-xl);
   }
   .step {
-    max-width: 100%;
+    width: 100%;
+    max-width: 320px;
     flex-direction: row;
     text-align: left;
+    align-items: flex-start;
     gap: var(--space-lg);
   }
   .number {
     margin-bottom: 0;
+    margin-top: 4px; /* テキストの1行目と高さを合わせる */
     flex-shrink: 0;
   }
 }

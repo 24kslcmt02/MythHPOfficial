@@ -58,7 +58,7 @@ export default function Home() {
                   transition={{ duration: 0.6, ease: "easeOut" }}
                 >
                   <Image
-                    src="/images/logo.jpg"
+                    src="/images/Mythlogo.svg"
                     alt="My-th Logo"
                     width={200}
                     height={200}
