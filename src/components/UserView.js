@@ -155,17 +155,7 @@ export default function UserView({ onViewModeChange }) {
                 <Image src="/images/badge-googleplay.svg" alt="Google Playで手に入れよう" width={168} height={50} unoptimized />
               </a>
             </motion.div>
-            <motion.button
-              variants={itemVariants}
-              onClick={() => {
-                onViewModeChange('operator');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
-              className={styles.heroSwitch}
-              style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', cursor: 'pointer', textAlign: 'left' }}
-            >
-              イベンター・運営の方はこちら →
-            </motion.button>
+
           </motion.div>
 
           <motion.div className={styles.heroVisualCenter} variants={characterVariants}>

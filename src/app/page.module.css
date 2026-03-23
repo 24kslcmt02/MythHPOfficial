@@ -114,6 +114,51 @@
   max-width: 320px;
 }
 
+/* Entrance Buttons */
+.entranceBtns {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  width: 100%;
+  max-width: 320px;
+}
+
+.entranceBtnPrimary {
+  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+  color: white;
+  border: none;
+  padding: 16px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(74, 173, 232, 0.3);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.entranceBtnPrimary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(74, 173, 232, 0.4);
+}
+
+.entranceBtnSecondary {
+  background: white;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  padding: 16px 24px;
+  border-radius: 30px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.entranceBtnSecondary:hover {
+  background: var(--color-bg-alt);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
 .heroDesc {
   font-size: 1.125rem;
   line-height: 1.8;

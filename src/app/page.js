@@ -15,21 +15,21 @@ export default function Home() {
 
   useEffect(() => {
     // Phase 1 (0 -> 1.5s): ロゴ画像の表示
-    // Phase 2 (1.5s -> 2.3s): ロゴが拡大・発光しながら消え、ホワイトアウトする
+    // Phase 2 (1.5s ~): ロゴが上に移動し、下部に選択ボタン(Entrance)が表示される
     const timer1 = setTimeout(() => {
-      setLoadPhase("whiteout");
+      setLoadPhase("entrance");
     }, 1500);
 
-    // Phase 3 (2.3s ~): ホワイトアウトが明け、メインコンテンツ（ステージ背景・UI）が現れる
-    const timer2 = setTimeout(() => {
-      setLoadPhase("reveal");
-    }, 2300);
-
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
+    return () => clearTimeout(timer1);
   }, []);
+
+  const handleEnter = (mode) => {
+    setViewMode(mode);
+    setLoadPhase("whiteout");
+    setTimeout(() => {
+      setLoadPhase("reveal");
+    }, 800);
+  };
 
   return (
     <>
@@ -45,17 +45,20 @@ export default function Home() {
              style={{
                position: "fixed", inset: 0, zIndex: 9999,
                display: "flex", alignItems: "center", justifyContent: "center",
-               backgroundColor: "#ffffff"
+               backgroundColor: "#ffffff",
+               flexDirection: "column",
+               gap: "2rem"
              }}
           >
             <AnimatePresence>
-              {loadPhase === "logo" && (
+              {(loadPhase === "logo" || loadPhase === "entrance") && (
                 <motion.div
                   key="logo-wrapper"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
+                  initial={{ opacity: 0, scale: 0.95, y: 0 }}
+                  animate={{ opacity: 1, scale: 1, y: loadPhase === "entrance" ? -80 : 0 }}
                   exit={{ opacity: 0, scale: 1.2, filter: "brightness(2) blur(10px)" }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                  style={{ position: "relative", display: "flex", flexDirection: "column", alignItems: "center" }}
                 >
                   <Image
                     src="/images/Mythlogo.svg"
@@ -65,6 +68,27 @@ export default function Home() {
                     style={{ borderRadius: "40px", boxShadow: "0 20px 50px rgba(0,0,0,0.1)" }}
                     priority
                   />
+                  
+                  <AnimatePresence>
+                    {loadPhase === "entrance" && (
+                      <motion.div
+                        key="entrance-buttons"
+                        initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
+                        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+                        exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
+                        transition={{ delay: 0.1, duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+                        className={styles.entranceBtns}
+                        style={{ position: "absolute", top: "100%", marginTop: "3rem" }}
+                      >
+                        <button className={styles.entranceBtnPrimary} onClick={() => handleEnter('user')}>
+                          ホームページへ移動
+                        </button>
+                        <button className={styles.entranceBtnSecondary} onClick={() => handleEnter('operator')}>
+                          運営・イベンター様<br />管理画面へ移動
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </motion.div>
               )}
             </AnimatePresence>
