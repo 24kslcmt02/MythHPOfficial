@@ -4,8 +4,36 @@ import Link from "next/link";
 import Image from "next/image";
 import styles from "./Footer.module.css";
 
+import { useRouter } from "next/navigation";
+
 export default function Footer({ variant = "user", onViewModeChange }) {
   const isOperator = variant === "operator";
+  const router = useRouter();
+
+  const handleViewChange = (mode) => {
+    if (onViewModeChange) {
+      onViewModeChange(mode);
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      router.push("/");
+    }
+  };
+
+  const handleContactClick = () => {
+    if (onViewModeChange) {
+      if (!isOperator) {
+        onViewModeChange("operator");
+        setTimeout(() => {
+          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      } else {
+        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      router.push("/");
+    }
+  };
+
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
@@ -20,17 +48,11 @@ export default function Footer({ variant = "user", onViewModeChange }) {
           <div className={styles.linkGroup}>
             <h4>サービス</h4>
             <button
-              onClick={() => {
-                onViewModeChange("user");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => handleViewChange("user")}
               style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
             >ファンの方はこちら</button>
             <button
-              onClick={() => {
-                onViewModeChange("operator");
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              }}
+              onClick={() => handleViewChange("operator")}
               style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
             >イベンター・運営の方はこちら</button>
             <Link href="/subscription">コレクション機能</Link>
@@ -38,16 +60,7 @@ export default function Footer({ variant = "user", onViewModeChange }) {
           <div className={styles.linkGroup}>
             <h4>サポート</h4>
             <button
-              onClick={() => {
-                if (!isOperator) {
-                  onViewModeChange("operator");
-                  setTimeout(() => {
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                  }, 100);
-                } else {
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }
-              }}
+              onClick={handleContactClick}
               style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
             >
               お問い合わせ
