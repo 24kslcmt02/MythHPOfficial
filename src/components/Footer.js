@@ -33,6 +33,7 @@ export default function Footer({ variant = "user", onViewModeChange }) {
               }}
               style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
             >イベンター・運営の方はこちら</button>
+            <Link href="/subscription">コレクション機能</Link>
           </div>
           <div className={styles.linkGroup}>
             <h4>サポート</h4>

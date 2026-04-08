@@ -1,0 +1,530 @@
+/* === Subscription Page Styles === */
+
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  display: flex;
+  align-items: center;
+  padding-top: 64px;
+  overflow: hidden;
+  background: var(--color-bg);
+}
+
+.heroBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+.heroBgImage {
+  object-fit: cover;
+  object-position: center right;
+}
+
+.heroBgOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to right, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.7) 40%, rgba(255, 255, 255, 0) 100%);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 10;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  width: 100%;
+  max-width: 580px;
+}
+
+.heroLabel {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+}
+
+.heroTitle {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  color: var(--color-text-primary);
+}
+
+.heroAccent {
+  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-secondary));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroDesc {
+  font-size: 1.0625rem;
+  line-height: 1.9;
+  color: var(--color-text-secondary);
+}
+
+.heroPriceTag {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  padding: 10px 24px;
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-border-light);
+  width: fit-content;
+}
+
+.priceLabel {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.priceAmount {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.02em;
+}
+
+.priceTax {
+  font-size: 0.75rem;
+  color: var(--color-text-tertiary);
+}
+
+.heroBtns {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+  align-items: center;
+}
+
+/* Store Badge */
+.storeBadge {
+  display: inline-block;
+  transition: transform var(--transition-fast), opacity var(--transition-fast);
+  border-radius: var(--radius-md);
+}
+
+.storeBadge:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+.storeBadge img {
+  display: block;
+  height: 50px;
+  width: auto;
+}
+
+/* Features */
+.features {
+  background: var(--color-bg-alt);
+}
+
+.featureGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-2xl);
+}
+
+.featureCard {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-align: center;
+  transition: all var(--transition-base);
+  position: relative;
+}
+
+.featureCard:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-4px);
+  border-color: var(--color-border);
+}
+
+.featureIconWrap {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto var(--space-xs);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.featureNumber {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.featureNumber span {
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-text-tertiary);
+  opacity: 0.5;
+  letter-spacing: 0.05em;
+}
+
+.featureCard h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.featureCard p {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+/* Visual Demo */
+.demo {
+  background: var(--color-bg);
+}
+
+.demoInner {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.demoVisual {
+  display: flex;
+  justify-content: center;
+}
+
+.screenshotPhone {
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(0, 0, 0, 0.08);
+  max-width: 280px;
+  width: 100%;
+}
+
+.screenshotImg {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.demoContent {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.demoContent h2 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.demoSteps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.demoStep {
+  display: flex;
+  gap: var(--space-lg);
+  align-items: flex-start;
+}
+
+.stepNumber {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  color: var(--color-text-on-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(245, 214, 35, 0.3);
+}
+
+.demoStep h4 {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 4px;
+}
+
+.demoStep p {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+}
+
+/* Pricing */
+.pricing {
+  background: var(--color-bg-alt);
+}
+
+.priceCardWrap {
+  max-width: 520px;
+  margin: 0 auto;
+}
+
+.priceCard {
+  background: var(--color-bg-card);
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  box-shadow: var(--shadow-xl);
+  padding: var(--space-3xl);
+  text-align: center;
+  transition: all var(--transition-base);
+}
+
+.priceCard:hover {
+  box-shadow: 0 24px 48px rgba(15, 23, 42, 0.12);
+  transform: translateY(-2px);
+}
+
+.priceCardHeader {
+  margin-bottom: var(--space-xl);
+}
+
+.planBadge {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  padding: 6px 20px;
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+  color: var(--color-text-primary);
+  letter-spacing: 0.03em;
+}
+
+.priceDisplay {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+  margin-bottom: var(--space-xl);
+}
+
+.priceCurrency {
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.priceValue {
+  font-family: var(--font-display), sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.priceInterval {
+  font-size: 0.9375rem;
+  color: var(--color-text-tertiary);
+  margin-left: 4px;
+}
+
+.planFeatures {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  text-align: left;
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border-light);
+  border-bottom: 1px solid var(--color-border-light);
+  margin-bottom: var(--space-xl);
+}
+
+.planFeatures li {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: 0.9375rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+}
+
+.planFeatures li svg {
+  flex-shrink: 0;
+}
+
+.priceCardCta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.priceNote {
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+  text-align: center;
+}
+
+.storeBadges {
+  display: flex;
+  gap: var(--space-md);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* CTA */
+.cta {
+  padding: var(--space-5xl) 0;
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+}
+
+.ctaInner {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+}
+
+.ctaInner h2 {
+  font-family: var(--font-display), sans-serif;
+}
+
+.ctaInner p {
+  font-size: 1.125rem;
+}
+
+.ctaBtns {
+  display: flex;
+  gap: var(--space-md);
+  margin-top: var(--space-sm);
+}
+
+.miniCharCta {
+  width: 100px;
+  height: 100px;
+  margin-bottom: var(--space-xs);
+}
+
+.miniCharImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.1));
+  transition: transform 0.3s ease;
+}
+
+.miniCharImg:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+.backLink {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  transition: color var(--transition-fast);
+  margin-top: var(--space-md);
+}
+
+.backLink:hover {
+  color: var(--color-secondary);
+}
+
+/* === Responsive === */
+@media (max-width: 1023px) {
+  .heroBgOverlay {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 60%, rgba(255, 255, 255, 0.4) 100%);
+  }
+
+  .heroInner {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .heroContent {
+    align-items: center;
+  }
+
+  .heroBtns {
+    justify-content: center;
+  }
+
+  .featureGrid {
+    grid-template-columns: 1fr;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .demoInner {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: var(--space-2xl);
+  }
+
+  .demoVisual {
+    order: -1;
+  }
+
+  .demoContent {
+    align-items: center;
+  }
+
+  .demoSteps {
+    text-align: left;
+    max-width: 480px;
+  }
+
+  .screenshotPhone {
+    max-width: 240px;
+  }
+}
+
+@media (max-width: 767px) {
+  .heroBtns,
+  .ctaBtns,
+  .storeBadges {
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+  }
+
+  .heroBtns .storeBadge,
+  .ctaBtns .storeBadge,
+  .storeBadges .storeBadge {
+    width: auto;
+  }
+
+  .priceCard {
+    padding: var(--space-2xl);
+  }
+}

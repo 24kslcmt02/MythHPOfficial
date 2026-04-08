@@ -412,6 +412,56 @@
   margin-top: var(--space-sm);
 }
 
+/* === Promo Section === */
+.promoCard {
+  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+  border-radius: var(--radius-2xl);
+  padding: var(--space-4xl);
+  display: flex;
+  align-items: center;
+  gap: var(--space-4xl);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--color-border-light);
+  overflow: hidden;
+  position: relative;
+}
+
+.promoCardContent {
+  flex: 1;
+}
+
+.promoLabel {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--color-secondary);
+  background: var(--color-bg);
+  padding: 4px 12px;
+  border-radius: var(--radius-full);
+  margin-bottom: var(--space-md);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.promoCardContent h3 {
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  margin-bottom: var(--space-md);
+  color: var(--color-text-primary);
+}
+
+.promoCardContent p {
+  font-size: 1.0625rem;
+  line-height: 1.8;
+  color: var(--color-text-secondary);
+}
+
+.promoCardVisual {
+  flex-shrink: 0;
+  display: flex;
+  justify-content: center;
+}
+
 /* === Responsive === */
 @media (max-width: 1023px) {
   .heroInner {
@@ -454,6 +504,13 @@
 
   .featureGrid {
     grid-template-columns: 1fr;
+  }
+
+  .promoCard {
+    flex-direction: column;
+    text-align: center;
+    padding: var(--space-2xl);
+    gap: var(--space-2xl);
   }
 
   .miniCharAbout {

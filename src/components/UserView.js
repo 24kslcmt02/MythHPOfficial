@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import Link from "next/link";
 import FeatureCard from "@/components/FeatureCard";
 import StepFlow from "@/components/StepFlow";
 import FAQ from "@/components/FAQ";
@@ -292,6 +293,34 @@ export default function UserView({ onViewModeChange }) {
         </div>
       </motion.section>
 
+      {/* Subscription Promo */}
+      <motion.section
+        className={`section ${styles.promo}`}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-80px" }}
+        variants={sectionVariants}
+      >
+        <div className="container">
+          <div className={styles.promoCard}>
+            <div className={styles.promoCardContent}>
+              <span className={styles.promoLabel}>COLLECTION PLAN</span>
+              <h3>チェキ券の新しい楽しみ方</h3>
+              <p>
+                「My-th Collection」では、紙チェキだけでなく月額制の新しいコレクション機能を提供しています。<br className="brPc"/>
+                デジタルアルバムをもっと特別に残したい方はこちらから。
+              </p>
+              <Link href="/subscription" className="btn btn-primary" style={{ marginTop: 'var(--space-md)' }}>
+                コレクション機能について詳しく見る
+              </Link>
+            </div>
+            <div className={styles.promoCardVisual}>
+              <Image src="/images/kv-subscription-final-v2.png" alt="コレクション機能" width={300} height={300} unoptimized className={styles.screenshotImg} style={{ borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
+            </div>
+          </div>
+        </div>
+      </motion.section>
+
       {/* How to Use */}
       <motion.section
         className={`section ${styles.howto}`}
@@ -353,6 +382,9 @@ export default function UserView({ onViewModeChange }) {
               <Image src="/images/badge-googleplay.svg" alt="Google Playで手に入れよう" width={168} height={50} unoptimized />
             </a>
           </div>
+          <Link href="/subscription" className={styles.heroSwitch} style={{ marginTop: 'var(--space-md)', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.9375rem', fontWeight: '600', color: 'var(--color-text-tertiary)', transition: 'color 0.2s' }}>
+            コレクション機能について詳しく見る →
+          </Link>
         </div>
       </section>
     </motion.div>
