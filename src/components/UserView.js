@@ -315,7 +315,7 @@ export default function UserView({ onViewModeChange }) {
               </Link>
             </div>
             <div className={styles.promoCardVisual}>
-              <Image src="/images/kv-subscription-final-v2.png" alt="コレクション機能" width={300} height={300} unoptimized className={styles.screenshotImg} style={{ borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
+              <Image src="/images/kv-subscription-final-v3.png" alt="コレクション機能" width={300} height={300} unoptimized className={styles.screenshotImg} style={{ borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
             </div>
           </div>
         </div>

@@ -83,7 +83,7 @@ export default function SubscriptionView() {
       <section className={styles.hero}>
         <div className={styles.heroBg}>
           <Image 
-            src="/images/kv-subscription-final-v2.png" 
+            src="/images/kv-subscription-final-v3.png" 
             alt="My-th Collection Key Visual" 
             legacyBehavior={false}
             fill 
