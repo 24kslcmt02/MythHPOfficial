@@ -6,6 +6,7 @@ import FeatureCard from "@/components/FeatureCard";
 import StepFlow from "@/components/StepFlow";
 import FAQ from "@/components/FAQ";
 import AIChatBot from "@/components/AIChatBot";
+import FanContactForm from "@/components/FanContactForm";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
 import styles from "../app/page.module.css";
 import Image from "next/image";
@@ -357,6 +358,19 @@ export default function UserView({ onViewModeChange }) {
             <AIChatBot compact />
           </div>
           <FAQ items={faqItems} />
+
+          {/* Contact (FAQ内統合) */}
+          <div id="contact" className={styles.faqContactBlock}>
+            <div className={styles.faqContactHeader}>
+              <span className="section-label">Contact</span>
+              <h3>ご意見・ご感想を<br className="brSp" />お聞かせください</h3>
+              <p>
+                My-thをもっと良くするため、皆さまの声をお待ちしています。<br className="brPc" />
+                お気軽にメッセージをお寄せください。
+              </p>
+            </div>
+            <FanContactForm />
+          </div>
         </div>
       </motion.section>
 

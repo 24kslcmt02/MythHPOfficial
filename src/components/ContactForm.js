@@ -3,15 +3,7 @@
 import { useState } from "react";
 import styles from "./ContactForm.module.css";
 import { motion } from "framer-motion";
-import { Send, Building2, User, Mail, Phone, MessageSquare } from "lucide-react";
-
-const INQUIRY_TYPES = [
-  { value: "", label: "選択してください" },
-  { value: "introduction", label: "導入のご相談" },
-  { value: "document", label: "資料請求" },
-  { value: "demo", label: "デモのご依頼" },
-  { value: "other", label: "その他" },
-];
+import { Send, Building2, User, Mail, Phone } from "lucide-react";
 
 export default function ContactForm() {
   const [form, setForm] = useState({
@@ -19,7 +11,6 @@ export default function ContactForm() {
     contactName: "",
     email: "",
     phone: "",
-    inquiryType: "",
     message: "",
   });
   const [errors, setErrors] = useState({});
@@ -34,7 +25,6 @@ export default function ContactForm() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
       errs.email = "正しいメールアドレスを入力してください";
     }
-    if (!form.inquiryType) errs.inquiryType = "お問い合わせ種別を選択してください";
     return errs;
   };
 
@@ -55,20 +45,17 @@ export default function ContactForm() {
       return;
     }
 
-    // Build mailto body
-    const inquiryLabel = INQUIRY_TYPES.find((t) => t.value === form.inquiryType)?.label || "";
     const body = [
       `【団体名・事務所名】${form.companyName}`,
       `【ご担当者名】${form.contactName}`,
       `【メールアドレス】${form.email}`,
       form.phone ? `【電話番号】${form.phone}` : "",
-      `【お問い合わせ種別】${inquiryLabel}`,
       form.message ? `\n【メッセージ】\n${form.message}` : "",
     ]
       .filter(Boolean)
       .join("\n");
 
-    const subject = encodeURIComponent(`[My-th] ${inquiryLabel} — ${form.companyName}`);
+    const subject = encodeURIComponent(`[My-th] 運営者様お問い合わせ — ${form.companyName}`);
     const mailBody = encodeURIComponent(body);
     const mailto = `mailto:info@my-th.jp?subject=${subject}&body=${mailBody}`;
 
@@ -112,7 +99,6 @@ export default function ContactForm() {
               contactName: "",
               email: "",
               phone: "",
-              inquiryType: "",
               message: "",
             });
           }}
@@ -201,28 +187,7 @@ export default function ContactForm() {
         </motion.div>
       </div>
 
-      {/* Row 3: Inquiry Type */}
-      <motion.div className={styles.field} variants={itemVariants}>
-        <label className={styles.label}>
-          <MessageSquare size={14} className={styles.labelIcon} />
-          お問い合わせ種別 <span className={styles.required}>*</span>
-        </label>
-        <select
-          name="inquiryType"
-          value={form.inquiryType}
-          onChange={handleChange}
-          className={`${styles.select} ${errors.inquiryType ? styles.inputError : ""}`}
-        >
-          {INQUIRY_TYPES.map((type) => (
-            <option key={type.value} value={type.value}>
-              {type.label}
-            </option>
-          ))}
-        </select>
-        {errors.inquiryType && <span className={styles.error}>{errors.inquiryType}</span>}
-      </motion.div>
-
-      {/* Row 4: Message */}
+      {/* Row 3: Message */}
       <motion.div className={styles.field} variants={itemVariants}>
         <label className={styles.label}>
           メッセージ（任意）
