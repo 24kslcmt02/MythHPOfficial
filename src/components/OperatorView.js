@@ -140,21 +140,6 @@ export default function OperatorView({ onViewModeChange }) {
               <br />
               ゼロへ
             </motion.h1>
-            <motion.div variants={itemVariants} className={styles.heroBtns} style={{ flexWrap: 'wrap' }}>
-              <a href="https://manager.my-th.jp" target="_blank" rel="noopener noreferrer" className="btn btn-primary">
-                運営管理画面ログイン
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-              <a href="https://eventer.my-th.jp" target="_blank" rel="noopener noreferrer" className="btn btn-secondary">
-                イベンター管理画面ログイン
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ marginLeft: '8px' }}>
-                  <path d="M5 12h14M12 5l7 7-7 7"/>
-                </svg>
-              </a>
-            </motion.div>
-            
             <motion.p layoutId="hero-desc" variants={itemVariants} style={{ fontSize: '0.9375rem', lineHeight: '1.6', color: 'var(--color-text-tertiary)', maxWidth: '480px', marginTop: '1rem' }}>
               チェキ券・チケット・入場特典・売上管理を完全自動化。アイドル運営に特化したOSアプリで、クリエイティブな業務に集中できます。
             </motion.p>
