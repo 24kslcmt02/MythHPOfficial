@@ -1,5 +1,6 @@
 import { Outfit, Noto_Sans_JP, Jost } from "next/font/google";
 import "./globals.css";
+import { site, company, contact, stores } from "@/config/site";
 
 const outfit = Outfit({
   subsets: ["latin"],
@@ -23,18 +24,52 @@ const logoFont = Jost({
   display: "swap",
 });
 
+const TITLE = "My-th（マイス）| すべての体験をつなぐ アイドルOS";
+
 export const metadata = {
-  title: "My-th（マイス）| すべての体験をつなぐ アイドルOS",
-  description:
-    "チェキ券・チケット・入場特典・売上管理をひとつに統合。アイドル運営のアナログをゼロにする業界特化OSアプリ。",
+  metadataBase: new URL(site.url),
+  title: {
+    default: TITLE,
+    template: "%s",
+  },
+  description: site.description,
   keywords: ["My-th", "マイス", "アイドル", "チェキ", "チケット", "イベント管理", "デジタル券"],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "My-th（マイス）| すべての体験をつなぐ アイドルOS",
-    description:
-      "チェキ券・チケット・入場特典・売上管理をひとつに統合。アイドル運営のアナログをゼロにする業界特化OSアプリ。",
+    title: TITLE,
+    description: site.description,
     type: "website",
     locale: "ja_JP",
+    siteName: "My-th",
+    url: site.url,
   },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: site.description,
+  },
+};
+
+/** サイト全体で共通の Organization 構造化データ（NFR-03） */
+const organizationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: company.name,
+  alternateName: company.nameEn,
+  url: site.url,
+  email: contact.email,
+  ...(contact.tel ? { telephone: contact.tel } : {}),
+  sameAs: [stores.appStore, stores.googlePlay],
+};
+
+const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  name: "My-th",
+  applicationCategory: "EntertainmentApplication",
+  operatingSystem: "iOS, Android",
+  description: site.description,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "JPY" },
 };
 
 export default function RootLayout({ children }) {
@@ -42,6 +77,14 @@ export default function RootLayout({ children }) {
     <html lang="ja" className={`${outfit.variable} ${notoSansJP.variable} ${logoFont.variable}`}>
       <body style={{ fontFamily: "var(--font-body), sans-serif" }}>
         {children}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+        />
       </body>
     </html>
   );

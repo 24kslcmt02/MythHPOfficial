@@ -87,6 +87,71 @@
   cursor: default;
 }
 
+/* --- ヘルプメニュー（v0.2 FR-12） --- */
+.help {
+  position: relative;
+}
+
+.helpBtn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  padding: 0.5rem 0.875rem;
+  border-radius: var(--radius-full);
+  border: 1.5px solid transparent;
+  background: transparent;
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.helpBtn:hover,
+.helpBtnOpen {
+  color: var(--color-secondary);
+  background: rgba(74, 173, 232, 0.06);
+}
+
+.helpChevron {
+  transition: transform var(--transition-fast);
+}
+
+.helpChevronOpen {
+  transform: rotate(180deg);
+}
+
+.helpMenu {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  min-width: 220px;
+  list-style: none;
+  margin: 0;
+  padding: var(--space-xs);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  z-index: 110;
+  animation: fadeIn 0.15s ease-out;
+}
+
+.helpMenu a {
+  display: block;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.helpMenu a:hover {
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary-dark);
+}
+
 /* --- Responsive --- */
 @media (max-width: 767px) {
   .inner {
@@ -105,6 +170,20 @@
   .navBtn {
     font-size: 0.6875rem;
     padding: 0.375rem 0.75rem;
+  }
+
+  /* スマホではヘルプはアイコンのみ表示して横幅を確保する */
+  .helpLabel,
+  .helpChevron {
+    display: none;
+  }
+
+  .helpBtn {
+    padding: 0.375rem 0.5rem;
+  }
+
+  .helpMenu {
+    min-width: 200px;
   }
 }
 

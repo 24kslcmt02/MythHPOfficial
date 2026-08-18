@@ -10,7 +10,7 @@ import AnalyticsMockup from "@/components/mockups/AnalyticsMockup";
 import styles from "../app/operator/page.module.css";
 import { motion } from "framer-motion";
 import FlowingBackground from "@/components/FlowingBackground";
-import ContactForm from "@/components/ContactForm";
+import InquiryForm from "@/components/contact/InquiryForm";
 
 const problems = [
   {
@@ -294,7 +294,7 @@ export default function OperatorView({ onViewModeChange }) {
             <h2>導入をご検討の運営者様へ</h2>
             <p>まずはお気軽にご相談ください。担当者が2営業日以内にご連絡いたします。</p>
           </div>
-          <ContactForm />
+          <InquiryForm defaultType="organizer" showTypeSwitch={false} />
         </div>
       </section>
     </motion.div>

@@ -6,7 +6,9 @@ import FeatureCard from "@/components/FeatureCard";
 import StepFlow from "@/components/StepFlow";
 import FAQ from "@/components/FAQ";
 import AIChatBot from "@/components/AIChatBot";
-import FanContactForm from "@/components/FanContactForm";
+import InquiryForm from "@/components/contact/InquiryForm";
+import { userFaq } from "@/content/faq/user";
+import { publishedFaq } from "@/lib/faq.mjs";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
 import styles from "../app/page.module.css";
 import Image from "next/image";
@@ -51,11 +53,8 @@ const steps = [
   { title: "会場で使う", description: "QRコードを見せるだけ" },
 ];
 
-const faqItems = [
-  { question: "利用料はかかりますか？", answer: "アプリのダウンロードおよび基本機能の利用は無料です。チケットやチェキ券の購入時にのみ、設定された料金と所定の手数料（※決済システムによる）が発生します。" },
-  { question: "スマホを持っていないと使えませんか？", answer: "原則としてスマートフォンアプリ（iOS/Android）でのご利用を前提としております。フィーチャーフォンには対応しておりません。" },
-  { question: "購入したチェキ券のキャンセルはできますか？", answer: "イベント主催者の規定によります。基本的にはお客様都合によるキャンセル・返金は致しかねますが、イベント中止時などは自動で返金処理を行います。" },
-];
+// FAQの本文は /faq と同じデータ（content/faq/user.js）を参照し、内容の食い違いを防ぐ
+const faqItems = publishedFaq(userFaq).slice(0, 5);
 
 // スクリーンショット画像マッピング
 const screenshotMap = {
@@ -358,6 +357,11 @@ export default function UserView({ onViewModeChange }) {
             <AIChatBot compact />
           </div>
           <FAQ items={faqItems} />
+          <div className={styles.faqMoreWrap}>
+            <Link href="/faq" className={styles.faqMoreLink}>
+              よくある質問をすべて見る →
+            </Link>
+          </div>
 
           {/* Contact (FAQ内統合) */}
           <div id="contact" className={styles.faqContactBlock}>
@@ -369,7 +373,7 @@ export default function UserView({ onViewModeChange }) {
                 お気軽にメッセージをお寄せください。
               </p>
             </div>
-            <FanContactForm />
+            <InquiryForm defaultType="user" showTypeSwitch={false} />
           </div>
         </div>
       </motion.section>

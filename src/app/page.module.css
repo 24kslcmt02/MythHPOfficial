@@ -572,3 +572,29 @@
   }
 }
 
+
+/* --- FAQ「すべて見る」導線（v0.2） --- */
+.faqMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+.faqMoreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.625rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.faqMoreLink:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background: var(--color-secondary-subtle);
+}
