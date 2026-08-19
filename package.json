@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "node --test src/lib/*.test.mjs",
-    "test:watch": "node --test --watch src/lib/*.test.mjs"
+    "test": "node --test src/lib/*.test.mjs src/content/**/*.test.mjs",
+    "test:watch": "node --test --watch src/lib/*.test.mjs src/content/**/*.test.mjs"
   },
   "dependencies": {
     "framer-motion": "^12.35.2",

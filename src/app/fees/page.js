@@ -5,6 +5,7 @@ import Notice from "@/components/common/Notice";
 import ExternalLink from "@/components/common/ExternalLink";
 import {
   fees,
+  payout,
   subscriptionPrice,
   organizerCommissionRate,
   legalLinks,
@@ -34,6 +35,11 @@ export default function FeesPage() {
           <p>
             アプリのダウンロードおよび基本機能のご利用は無料です。
             費用が発生するのは、チケット・チェキ券をご購入いただくときのみです。
+          </p>
+          <p>
+            My-thには、他のプレイガイドにあるようなシステム利用料や発券手数料といった別建ての加算はありません。
+            かかるのは販売手数料{organizerCommissionRate}のみで、主催者の設定により購入者負担となる場合と、
+            主催者負担で購入者には加算されない場合があります。
           </p>
 
           {fees?.buyer ? (
@@ -146,18 +152,25 @@ export default function FeesPage() {
             </table>
           </div>
 
-          {!fees?.organizer && (
+          {!fees?.transferFee && (
             <Pending
-              label="振込手数料・払い戻し時の手数料"
-              hint="site.js の fees.organizer と payout を設定してください"
+              label="振込手数料"
+              hint="site.js の fees.transferFee / payout.transferFee を設定してください"
             />
           )}
 
-          <p className={styles.note}>
-            売上金のお振込の時期については
-            <Link href="/faq/organizer#q-payout-cycle"> 運営者向けのよくある質問 </Link>
-            をご覧ください。
-          </p>
+          {payout?.rules && (
+            <>
+              <h3>売上金のお振込</h3>
+              <p>{payout.basis}を基点として、開催日ごとにお振込します。</p>
+              <ul className={styles.list}>
+                {payout.rules.map((rule) => (
+                  <li key={rule}>{rule}</li>
+                ))}
+              </ul>
+              <p className={styles.note}>金融機関の休業日にあたる場合は前後することがあります。</p>
+            </>
+          )}
         </section>
 
         <section className={styles.block}>

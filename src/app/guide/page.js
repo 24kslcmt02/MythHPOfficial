@@ -1,7 +1,6 @@
 import Link from "next/link";
 import PageShell from "@/components/common/PageShell";
 import Notice from "@/components/common/Notice";
-import Pending from "@/components/common/Pending";
 import styles from "@/components/common/page.module.css";
 
 export const metadata = {
@@ -96,12 +95,36 @@ export default function GuidePage() {
           </ul>
         </section>
 
+        <section className={styles.block} id="transfer">
+          <h2>同行者へのチケットの分配</h2>
+          <p>
+            複数枚ご購入いただいた場合は、アプリ内で同行者の方にチケットを送ることができます。
+            受け取った方はご自身のアプリでチケットを表示し、それぞれ入場していただけます。
+          </p>
+        </section>
+
         <section className={styles.block} id="device">
           <h2>機種変更・端末の紛失について</h2>
-          <Pending
-            label="機種変更時のチケットの引き継ぎ手順"
-            hint="アプリの引継ぎ仕様を確認し、content/faq/user.js の device-change / device-lost と、このセクションの本文を確定してください"
-          />
+          <p>
+            チケット・チェキ券・デジタルアルバムはアカウントに紐づいて管理されています。
+            新しい端末にアプリをインストールし、同じアカウントでログインしていただくだけで、そのままご利用いただけます。
+            特別な引き継ぎ手続きは必要ありません。
+          </p>
+          <Notice>
+            <p>
+              機種変更の前に、ご登録のメールアドレスとパスワードをご確認ください。
+              端末を紛失・故障された場合も、別の端末から同じアカウントでログインすればご利用いただけます。
+            </p>
+          </Notice>
+        </section>
+
+        <section className={styles.block} id="web">
+          <h2>アプリを使わずに購入した場合</h2>
+          <p>
+            チケットのご購入はWebブラウザからも行えますが、入場に使うQRコードの表示にはMy-thアプリが必要です。
+            ご購入後はアプリをインストールし、ご購入時と同じアカウントでログインしてください。
+            海外にお住まいなどでアプリをインストールできない場合は、ご購入前にイベント主催者へお問い合わせください。
+          </p>
         </section>
 
         <section className={styles.block} id="more">

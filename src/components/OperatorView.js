@@ -229,7 +229,7 @@ export default function OperatorView({ onViewModeChange }) {
                 <span className={styles.priceNumber}>5</span>
                 <span className={styles.priceUnit}>%</span>
               </div>
-              <p className={styles.priceNote}>販売手数料のみ</p>
+              <p className={styles.priceNote}>販売手数料のみ（負担者は主催者・購入者から選択可）</p>
               <ul className={styles.priceFeatures}>
                 <li>初期費用 無料</li>
                 <li>月額費用 無料</li>
@@ -253,7 +253,7 @@ export default function OperatorView({ onViewModeChange }) {
                 <span className={styles.priceNumber}>5</span>
                 <span className={styles.priceUnit}>%</span>
               </div>
-              <p className={styles.priceNote}>販売手数料のみ</p>
+              <p className={styles.priceNote}>販売手数料のみ（負担者は主催者・購入者から選択可）</p>
               <div className={styles.simulation}>
                 <h4>収益シミュレーション</h4>
                 <div className={styles.simRow}>

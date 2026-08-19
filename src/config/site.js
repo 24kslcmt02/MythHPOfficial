@@ -125,35 +125,71 @@ export const social = {
 };
 
 /**
- * 対応決済手段
- * @todo 確定必要。ブランドロゴの使用可否は各ブランドのガイドラインを確認すること
- * 例: { cards: ["Visa", "Mastercard", "JCB"], convenience: [...], others: [...] }
+ * 対応決済手段（2026-08-19 確定: クレジットカード＋コンビニ決済）
+ * @todo カードブランドの内訳（Visa / Mastercard / JCB / AMEX 等）を確認して cards を置き換える。
+ *       ブランドロゴの使用可否は各ブランドのガイドラインを確認すること
  */
-export const payments = null;
+export const payments = {
+  cards: ["クレジットカード"],
+  convenience: ["コンビニ決済"],
+  others: [],
+};
+
+/** 運営者向け販売手数料（確定値） */
+export const organizerCommissionRate = "5%";
 
 /**
- * 手数料（FR-08）
- * @todo 確定必要。null の間は /fees が「準備中」表示になる
- * 例: {
- *   buyer: [{ target: "チケット", rate: "5%", perTicket: "165円/枚", payment: "決済手数料 別途" }],
- *   organizer: [...],
- *   notes: [...]
- * }
+ * 手数料（FR-08）— 2026-08-19 確定
+ *
+ * 販売手数料5%は「主催者負担」「購入者負担」のどちらにするかを主催者がイベントごとに選べる。
+ * 他社のようなシステム利用料・発券手数料といった別建ての加算はない。
  */
-export const fees = null;
+export const fees = {
+  /** 手数料の負担者: 主催者が選択する（organizer-choice） */
+  bearer: "organizer-choice",
+  buyer: [
+    {
+      target: "チケット・チェキ券",
+      systemFee: "販売手数料5%（主催者が購入者負担を選択した場合のみ加算）",
+      paymentFee: "コンビニ決済手数料の有無は購入画面でご確認ください",
+    },
+  ],
+  organizer: [
+    { label: "販売手数料の負担者", value: "主催者負担／購入者負担から選択できます" },
+    {
+      label: "払い戻し発生時の手数料",
+      value: "イベント中止等で返金が発生した場合、販売手数料5%相当は主催者のご負担となります（請求書をお送りします）",
+    },
+  ],
+  refund: {
+    feePolicy:
+      "イベント中止による払い戻しの場合、お客さまには手数料分を含めたお支払い金額の全額を返金いたします。",
+    timing:
+      "ご利用いただいた決済方法に応じて返金いたします。クレジットカードの場合はカード会社を通じた返金となり、反映時期はカード会社の締め日により異なります。",
+  },
+  /** @todo 確定必要: 振込手数料の実額。null の間は /fees と FAQ で未掲載 */
+  transferFee: null,
+  /** @todo 確定必要: コンビニ決済手数料の実額と負担者 */
+  conveniencePaymentFee: null,
+};
 
 /** コレクション機能の料金（確定済み） */
 export const subscriptionPrice = { amount: 500, tax: "税込", interval: "月" };
 
-/** 運営者向け販売手数料（LPに掲載済みの確定値） */
-export const organizerCommissionRate = "5%";
-
 /**
- * 入金サイクル（FR-13）
- * @todo 確定必要
- * 例: { cutoffs: ["毎月15日締め → 当月末振込"], transferFee: "○円/回", earlyTransfer: false }
+ * 入金サイクル（FR-13）— 2026-08-19 確定（表現は要最終確認）
+ * 水曜日を基点に、開催日ごとにお振込。
  */
-export const payout = null;
+export const payout = {
+  basis: "水曜日",
+  rules: [
+    "開催日が月曜日〜土曜日のイベント: 翌週の金曜日にお振込",
+    "開催日が日曜日のイベント: 翌週の金曜日にお振込（当日券の売上分のみ、翌々週の金曜日）",
+  ],
+  /** @todo 確定必要（fees.transferFee と同じ値） */
+  transferFee: null,
+  earlyTransfer: null,
+};
 
 /**
  * 動作環境（FR-05）
@@ -166,6 +202,12 @@ export const requirements = {
   /** 確定済み: フィーチャーフォンは非対応（既存FAQの記載） */
   notSupported: ["フィーチャーフォン（ガラケー）"],
 };
+
+/**
+ * 会員登録時の本人確認（2026-08-19 確定: メール認証のみ）
+ * SMS認証・マイナンバー認証はHPの新規ページでは案内しない。
+ */
+export const verification = { method: "email" };
 
 /**
  * 公式ドメイン・公式アプリ（FR-10 フィッシング対策）
