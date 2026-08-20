@@ -1,4 +1,4 @@
-/* === Hero (Operator) === */
+/* === Hero (Operator) — 濃紺ステージ×ダッシュボード主役 === */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -6,17 +6,20 @@
   padding-top: 64px;
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 55% 45% at 78% 30%, rgba(var(--color-secondary-rgb), 0.12) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 55% at 10% 85%, rgba(var(--color-primary-rgb), 0.07) 0%, transparent 60%),
+    var(--color-dark-bg);
 }
-
 
 .heroInner {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4xl);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-3xl);
   align-items: center;
   padding-top: var(--space-4xl);
   padding-bottom: var(--space-4xl);
-  max-width: 1540px !important;
+  max-width: 1240px;
   width: 100%;
   margin: 0 auto;
   position: relative;
@@ -34,29 +37,46 @@
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--color-secondary);
+  color: var(--color-secondary-light);
   text-transform: uppercase;
 }
 
 .heroTitle {
   font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  font-weight: 900;
+  font-size: clamp(2.25rem, 4vw, 3.25rem);
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  color: var(--color-white);
 }
 
 .heroAccent {
-  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-primary);
+  white-space: nowrap;
 }
 
 .heroDesc {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
+  font-size: var(--text-base);
+  line-height: 1.9;
+  color: var(--color-text-on-dark-secondary);
   max-width: 480px;
+  margin-top: var(--space-sm);
+}
+
+/* ヒーロー内のテキストCTA（矢印アイコン付き） */
+.heroCtaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-primary);
+  transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.heroCtaLink:hover {
+  color: var(--color-primary-light);
+  gap: 10px;
 }
 
 .heroBtns {
@@ -143,63 +163,119 @@
   background: var(--color-bg-alt);
 }
 
-.problemGrid {
+.problemLayout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-4xl);
+  align-items: start;
   margin-bottom: var(--space-2xl);
 }
 
-.problemCard {
-  text-align: center;
-  padding: var(--space-2xl);
-  background: var(--color-bg-card);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  align-items: center;
+.problemLayout :global(.section-header) {
+  margin-bottom: 0;
 }
 
-.problemIconWrap {
-  width: 48px;
-  height: 48px;
+.problemList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.problemItem {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.problemItem:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.problemIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-alt);
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary-dark);
+}
+
+.problemItem h3 {
+  font-size: var(--text-lg);
   margin-bottom: var(--space-xs);
 }
 
-.problemCard h3 {
-  font-size: 1.125rem;
-  color: var(--color-text-primary);
+.problemItem p {
+  font-size: var(--text-sm);
+  line-height: 1.8;
 }
 
-.problemCard p {
-  font-size: 0.9375rem;
-}
-
+/* 帰結の一文。黄の縦罫で引用的に */
 .problemResult {
-  text-align: center;
-  padding: var(--space-xl);
-  background: linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(74, 173, 232, 0.08));
-  border-radius: var(--radius-lg);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-xl);
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-bg-card);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
 .problemResult p {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
-/* === Solutions === */
-.solutionGrid {
+/* === Solutions（左右交互ショーケース） === */
+.solutionShowcase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+}
+
+.solutionRow {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2xl);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-4xl);
+  align-items: center;
+}
+
+.solutionRowReverse .solutionVisual {
+  order: 2;
+}
+
+.solutionVisual {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-bg-alt);
+  overflow: hidden;
+}
+
+.solutionMockInner {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+}
+
+.solutionText h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 3px solid var(--color-secondary);
+  display: inline-block;
+}
+
+.solutionText p {
+  font-size: var(--text-base);
+  line-height: 2;
+  max-width: 440px;
 }
 
 /* === Pricing === */
@@ -237,11 +313,14 @@
 }
 
 .priceIconWrap {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary-dark);
 }
 
 .priceHeader h3 {
@@ -259,17 +338,16 @@
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-accent-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text-primary);
+  padding: 0 0.1em;
+  background: linear-gradient(transparent 58%, rgba(var(--color-primary-rgb), 0.65) 58%);
 }
 
 .priceUnit {
   font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-text-primary);
 }
 
 .priceNote {
@@ -287,16 +365,14 @@
 .priceFeatures li {
   font-size: 0.9375rem;
   color: var(--color-text-secondary);
-  padding-left: 1.5rem;
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
-.priceFeatures li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--color-secondary);
-  font-weight: 700;
+.priceFeatures li svg {
+  color: var(--color-secondary-dark);
+  flex-shrink: 0;
 }
 
 .simulation {
@@ -411,17 +487,27 @@
     order: 1;
   }
 
-  .dashboardMockup {
-    width: 100%;
-    max-width: 360px;
+  .problemLayout {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
   }
 
-  .problemGrid {
+  .solutionRow {
     grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
   }
 
-  .solutionGrid {
-    grid-template-columns: 1fr;
+  .solutionRowReverse .solutionVisual {
+    order: 0;
+  }
+
+  .solutionText h3 {
+    padding-top: var(--space-sm);
+  }
+
+  .solutionText p {
+    max-width: 100%;
   }
 
   .pricingGrid {

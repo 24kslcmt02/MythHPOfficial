@@ -1,7 +1,17 @@
 import styles from './DashboardMockup.module.css';
 import { motion } from 'framer-motion';
+import { CalendarDays } from 'lucide-react';
 
 export default function DashboardMockup() {
+  const menuItems = ["ダッシュボード", "イベント", "チェキ券", "チケット", "売上管理"];
+
+  // モックアップ用のダミーデータ（実在のイベント・数値ではない）
+  const events = [
+    { name: "定期公演 Vol.12", meta: "2026.09.01 · チケット販売中", status: "公開中", statusType: "live" },
+    { name: "生誕祭スペシャル", meta: "2026.09.15 · チェキ券準備中", status: "準備中", statusType: "draft" },
+    { name: "夏の対バンフェス", meta: "2026.08.10 · 集計完了", status: "終了", statusType: "done" },
+  ];
+
   const stats = [
     { label: "今月の売上", value: "¥1,284,500", trend: "+12.4%", trendUp: true },
     { label: "動員数", value: "1,420人", trend: "+5.2%", trendUp: true },
@@ -37,13 +47,13 @@ export default function DashboardMockup() {
     <div className={styles.dashboardContainer}>
       {/* Sidebar Mockup */}
       <div className={styles.sidebar}>
-        <div className={styles.sidebarLogo}></div>
+        <div className={styles.sidebarLogo}>My-th</div>
         <div className={styles.sidebarMenu}>
-          <div className={`${styles.menuItem} ${styles.active}`}></div>
-          <div className={styles.menuItem}></div>
-          <div className={styles.menuItem}></div>
-          <div className={styles.menuItem}></div>
-          <div className={styles.menuItem}></div>
+          {menuItems.map((label, i) => (
+            <div key={label} className={`${styles.menuItem} ${i === 0 ? styles.active : ""}`}>
+              {label}
+            </div>
+          ))}
         </div>
       </div>
 
@@ -51,7 +61,7 @@ export default function DashboardMockup() {
       <div className={styles.main}>
         <div className={styles.header}>
           <div className={styles.breadcrumb}>ダッシュボード</div>
-          <div className={styles.userAvatar}></div>
+          <div className={styles.userAvatar}>M</div>
         </div>
 
         <motion.div 
@@ -109,14 +119,18 @@ export default function DashboardMockup() {
               <div className={styles.cardTitle}>最近のイベント</div>
             </div>
             <div className={styles.eventList}>
-              {[1, 2, 3].map(i => (
-                <div key={i} className={styles.eventRow}>
-                  <div className={styles.eventIcon}></div>
-                  <div className={styles.eventDetails}>
-                    <div className={styles.eventName}></div>
-                    <div className={styles.eventMeta}></div>
+              {events.map((ev) => (
+                <div key={ev.name} className={styles.eventRow}>
+                  <div className={styles.eventIcon}>
+                    <CalendarDays size={16} strokeWidth={1.8} aria-hidden="true" />
                   </div>
-                  <div className={styles.eventStatus}></div>
+                  <div className={styles.eventDetails}>
+                    <div className={styles.eventName}>{ev.name}</div>
+                    <div className={styles.eventMeta}>{ev.meta}</div>
+                  </div>
+                  <div className={`${styles.eventStatus} ${styles[`status_${ev.statusType}`]}`}>
+                    {ev.status}
+                  </div>
                 </div>
               ))}
             </div>
