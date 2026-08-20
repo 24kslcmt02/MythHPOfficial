@@ -1,4 +1,4 @@
-/* === Hero（濃紺ステージ×実機UI主役） === */
+/* === Hero（ライトステージ×実機UI主役） === */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -7,9 +7,9 @@
   padding-top: 64px;
   overflow: hidden;
   background:
-    radial-gradient(ellipse 55% 45% at 76% 40%, rgba(var(--color-primary-rgb), 0.09) 0%, transparent 65%),
-    radial-gradient(ellipse 50% 55% at 12% 85%, rgba(var(--color-secondary-rgb), 0.1) 0%, transparent 60%),
-    var(--color-dark-bg);
+    radial-gradient(ellipse 55% 45% at 76% 40%, rgba(var(--color-primary-rgb), 0.16) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 55% at 12% 85%, rgba(var(--color-secondary-rgb), 0.12) 0%, transparent 60%),
+    var(--color-bg);
 }
 
 .heroInner {
@@ -47,7 +47,7 @@
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
   text-transform: uppercase;
 }
 
@@ -57,11 +57,13 @@
   font-size: clamp(2.5rem, 5.2vw, 4.25rem);
   letter-spacing: 0.01em;
   line-height: 1.18;
-  color: var(--color-white);
+  color: var(--color-text-primary);
 }
 
+/* 墨色＋ペンライト黄マーカー（ライト基調の強調） */
 .heroAccent {
-  color: var(--color-primary);
+  padding: 0 0.06em;
+  background: linear-gradient(transparent 62%, rgba(var(--color-primary-rgb), 0.7) 62%);
 }
 
 @media (max-width: 767px) {
@@ -137,7 +139,7 @@
 .heroDesc {
   font-size: var(--text-lg);
   line-height: 1.9;
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
   max-width: 480px;
 }
 
@@ -191,9 +193,8 @@
   border-radius: 39px; /* 焼き込みベゼル角丸 ≒ 幅の11.5% */
   overflow: hidden;
   box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.45),
-    0 4px 20px rgba(0, 0, 0, 0.3),
-    0 0 120px rgba(var(--color-primary-rgb), 0.14);
+    0 28px 70px rgba(14, 27, 44, 0.2),
+    0 4px 18px rgba(14, 27, 44, 0.1);
 }
 
 .screenshotImg {
@@ -395,13 +396,13 @@
   margin: 0 auto;
 }
 
-/* === CTA（濃紺帯・ヒーローと対） === */
+/* === CTA（ペンライト黄のライト帯・ヒーローと対） === */
 .cta {
   padding: var(--space-5xl) 0;
   background:
-    radial-gradient(ellipse 50% 60% at 82% 20%, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 60%),
-    radial-gradient(ellipse 45% 55% at 12% 90%, rgba(var(--color-secondary-rgb), 0.09) 0%, transparent 60%),
-    var(--color-dark-bg);
+    radial-gradient(ellipse 50% 60% at 82% 20%, rgba(var(--color-primary-rgb), 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 55% at 12% 90%, rgba(var(--color-secondary-rgb), 0.12) 0%, transparent 60%),
+    var(--color-primary-subtle);
 }
 
 .ctaInner {
@@ -414,12 +415,12 @@
 
 .ctaInner h2 {
   font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
-  color: var(--color-white);
+  color: var(--color-text-primary);
 }
 
 .ctaInner p {
   font-size: var(--text-lg);
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
 }
 
 .ctaBtns {
@@ -436,12 +437,12 @@
   margin-top: var(--space-md);
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
   transition: color var(--transition-fast), gap var(--transition-fast);
 }
 
 .ctaSubLink:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
   gap: 10px;
 }
 
@@ -488,9 +489,9 @@
   color: var(--color-secondary);
 }
 
-/* === Promo Section（チケット半券モチーフのダーク帯） === */
+/* === Promo Section（チケット半券モチーフのライト帯） === */
 .promo {
-  background: var(--color-dark-bg);
+  background: var(--color-bg-alt);
 }
 
 .promoTicket {
@@ -498,9 +499,10 @@
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: var(--space-3xl);
-  background: var(--color-dark-bg-alt);
-  border: 1px solid var(--color-dark-border);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
   padding: var(--space-3xl);
   position: relative;
 }
@@ -509,7 +511,7 @@
 .promoDivider {
   align-self: stretch;
   width: 0;
-  border-left: 2px dashed rgba(255, 255, 255, 0.22);
+  border-left: 2px dashed rgba(15, 23, 42, 0.18);
   position: relative;
   margin: calc(-1 * var(--space-3xl)) 0;
 }
@@ -522,7 +524,8 @@
   width: 24px;
   height: 24px;
   border-radius: var(--radius-full);
-  background: var(--color-dark-bg);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
 }
 
 .promoDivider::before {
@@ -560,13 +563,13 @@
   font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   margin-bottom: var(--space-md);
-  color: var(--color-white);
+  color: var(--color-text-primary);
 }
 
 .promoCardContent p {
   font-size: var(--text-base);
   line-height: 1.9;
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
 }
 
 .promoCardVisual {
@@ -636,7 +639,7 @@
     width: auto;
     height: 0;
     border-left: none;
-    border-top: 2px dashed rgba(255, 255, 255, 0.22);
+    border-top: 2px dashed rgba(15, 23, 42, 0.18);
     margin: 0 calc(-1 * var(--space-2xl));
   }
 

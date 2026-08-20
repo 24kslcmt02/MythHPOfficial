@@ -82,8 +82,8 @@ export default function FlowingBackground({ variant = "btob" }) {
         <defs>
           {/* ブランド2色のペンライト光跡（黄 → 青）。トークンと同期させるためvar()参照 */}
           <linearGradient id={`${id}-grad1`} x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.85" />
-            <stop offset="55%" stopColor="var(--color-secondary)" stopOpacity="0.5" />
+            <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.6" />
+            <stop offset="55%" stopColor="var(--color-secondary)" stopOpacity="0.4" />
             <stop offset="100%" stopColor="var(--color-secondary)" stopOpacity="0" />
           </linearGradient>
 

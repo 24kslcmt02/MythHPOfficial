@@ -8,9 +8,9 @@
 .pricingBand {
   margin-bottom: var(--space-4xl);
   padding: var(--space-2xl);
-  background: var(--color-dark-bg);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-xl);
-  color: var(--color-text-on-dark);
 }
 
 .pricingGrid {
@@ -25,16 +25,17 @@
   align-items: center;
   gap: var(--space-sm);
   padding: var(--space-lg);
-  background: var(--color-dark-bg-alt);
-  border: 1px solid var(--color-dark-border);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-light);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   text-align: center;
 }
 
 .pricingLabel {
   font-size: var(--text-sm);
   font-weight: 600;
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
 }
 
 .pricingValue {
@@ -42,9 +43,9 @@
   font-size: 2.5rem;
   font-weight: 800;
   line-height: 1;
-  color: var(--color-white);
+  color: var(--color-text-primary);
   padding: 0 0.1em;
-  background: linear-gradient(transparent 58%, rgba(var(--color-primary-rgb), 0.45) 58%);
+  background: linear-gradient(transparent 58%, rgba(var(--color-primary-rgb), 0.65) 58%);
 }
 
 .pricingValue small {
@@ -57,12 +58,12 @@
   margin-top: var(--space-lg);
   font-size: var(--text-sm);
   line-height: 1.9;
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
   text-align: center;
 }
 
 .pricingNote a {
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
   text-decoration: underline;
   text-underline-offset: 3px;
 }
@@ -212,20 +213,21 @@
   margin-top: var(--space-3xl);
   padding: var(--space-3xl) var(--space-2xl);
   background:
-    radial-gradient(ellipse 50% 60% at 85% 15%, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 60%),
-    var(--color-dark-bg);
+    radial-gradient(ellipse 50% 60% at 85% 15%, rgba(var(--color-primary-rgb), 0.22) 0%, transparent 60%),
+    var(--color-primary-subtle);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.35);
   border-radius: var(--radius-xl);
   text-align: center;
 }
 
 .ctaBand h2 {
-  color: var(--color-white);
+  color: var(--color-text-primary);
   font-size: var(--text-2xl);
   margin-bottom: var(--space-sm);
 }
 
 .ctaBand p {
-  color: var(--color-text-on-dark-secondary);
+  color: var(--color-text-secondary);
   margin-bottom: var(--space-xl);
 }
 
@@ -242,15 +244,16 @@
   border-radius: var(--radius-full);
   font-weight: 600;
   font-size: 0.9375rem;
-  color: var(--color-white);
-  border: 1.5px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-text-primary);
+  border: 1.5px solid var(--color-border);
+  background: var(--color-bg-card);
   transition: all var(--transition-base);
   white-space: nowrap;
 }
 
 .ctaGhostBtn:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
+  border-color: var(--color-secondary);
+  color: var(--color-secondary-dark);
 }
 
 /* === Responsive === */
