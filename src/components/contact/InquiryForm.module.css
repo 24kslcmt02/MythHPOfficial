@@ -270,3 +270,26 @@
     flex-direction: column;
   }
 }
+
+/* --- 案内ボックス（会員登録: 本文の入力が不要なことを伝える） --- */
+.infoBox {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-sm);
+  padding: var(--space-md);
+  border-radius: var(--radius-sm);
+  background: #EFF8FD;
+  border: 1px solid #BFE3F7;
+  color: #1D6FA5;
+}
+
+.infoBox p {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #1D6FA5;
+  line-height: 1.7;
+}
+
+.infoBox strong {
+  color: #155A87;
+}

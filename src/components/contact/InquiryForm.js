@@ -1,11 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Loader2, Info } from "lucide-react";
 import {
   CONTACT_CATEGORIES,
   CONTACT_TYPES,
   CONTACT_TYPE_LABELS,
+  isSignupRequest,
   validateContact,
 } from "@/lib/contact-schema.mjs";
 import { contact as contactConfig } from "@/config/site";
@@ -29,17 +30,26 @@ const EMPTY_FORM = {
  * 送信はサーバー（/api/contact）で処理する。メーラーの起動は行わない。
  * 検証ロジックはサーバーと同じ contact-schema を使う。
  *
- * 初期表示する種別は defaultType で受け取る。
+ * 初期表示する種別は defaultType、初期選択するカテゴリは defaultCategory で受け取る。
  * /contact?type=organizer のようなURLの解釈はページ側（サーバー）で行う。
+ *
+ * 運営者の「無料で会員登録」カテゴリは本文を任意にし、名前とメールだけで送れるようにする
+ * （ログインURLはHPに置かず、運営側がメールで手動返信する運用）。
  */
-export default function InquiryForm({ defaultType = "user", showTypeSwitch = true }) {
-  const [form, setForm] = useState({ ...EMPTY_FORM, type: defaultType });
+export default function InquiryForm({
+  defaultType = "user",
+  defaultCategory = "",
+  showTypeSwitch = true,
+}) {
+  const initialForm = { ...EMPTY_FORM, type: defaultType, category: defaultCategory };
+  const [form, setForm] = useState(initialForm);
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending | done | error
   const [errorMessage, setErrorMessage] = useState("");
 
   const categories = useMemo(() => CONTACT_CATEGORIES[form.type] ?? [], [form.type]);
   const isOrganizer = form.type === "organizer";
+  const isSignup = isSignupRequest(form);
 
   const update = (name, value) => {
     setForm((prev) => ({ ...prev, [name]: value }));
@@ -98,11 +108,13 @@ export default function InquiryForm({ defaultType = "user", showTypeSwitch = tru
     return (
       <div className={styles.success} role="status">
         <CheckCircle2 size={40} className={styles.successIcon} aria-hidden="true" />
-        <h3>お問い合わせを受け付けました</h3>
+        <h3>{isSignup ? "会員登録のお申し込みを受け付けました" : "お問い合わせを受け付けました"}</h3>
         <p>
           ご登録のメールアドレス宛に受付確認のメールをお送りしました。
           <br />
-          担当者より{contactConfig.replyTarget}にご返信いたします。
+          {isSignup
+            ? `担当者より${contactConfig.replyTarget}に、管理画面のログインURLをメールでお送りします。`
+            : `担当者より${contactConfig.replyTarget}にご返信いたします。`}
         </p>
         <p className={styles.successNote}>
           確認メールが届かない場合は、迷惑メールフォルダをご確認ください。
@@ -111,7 +123,7 @@ export default function InquiryForm({ defaultType = "user", showTypeSwitch = tru
           type="button"
           className={styles.resetBtn}
           onClick={() => {
-            setForm({ ...EMPTY_FORM, type: defaultType });
+            setForm(initialForm);
             setStatus("idle");
           }}
         >
@@ -270,17 +282,39 @@ export default function InquiryForm({ defaultType = "user", showTypeSwitch = tru
         </span>
       </div>
 
+      {isSignup && (
+        <div className={styles.infoBox} role="note">
+          <Info size={18} aria-hidden="true" />
+          <p>
+            <strong>入力はここまでで完了です。このまま送信してください。</strong>
+            <br />
+            担当者より{contactConfig.replyTarget}に、管理画面のログインURLをメールでお送りします。
+            ご要望があれば下の欄にご記入ください（任意）。
+          </p>
+        </div>
+      )}
+
       <div className={styles.field}>
         <label htmlFor="contact-message" className={styles.label}>
-          お問い合わせ内容 <span className={styles.required}>必須</span>
+          {isSignup ? (
+            "補足・ご要望（任意）"
+          ) : (
+            <>
+              お問い合わせ内容 <span className={styles.required}>必須</span>
+            </>
+          )}
         </label>
         <textarea
           id="contact-message"
           name="message"
           value={form.message}
           onChange={handleChange}
-          rows={6}
-          placeholder="お困りの内容やご質問をご記入ください。"
+          rows={isSignup ? 3 : 6}
+          placeholder={
+            isSignup
+              ? "空欄のままで構いません。"
+              : "お困りの内容やご質問をご記入ください。"
+          }
           className={`${styles.textarea} ${errors.message ? styles.inputError : ""}`}
           aria-invalid={Boolean(errors.message)}
           aria-describedby={errors.message ? "err-message" : undefined}
@@ -323,13 +357,14 @@ export default function InquiryForm({ defaultType = "user", showTypeSwitch = tru
           ) : (
             <>
               <Send size={16} aria-hidden="true" />
-              この内容で送信する
+              {isSignup ? "このまま送信する" : "この内容で送信する"}
             </>
           )}
         </button>
         <p className={styles.note}>
-          送信いただいた内容は、お問い合わせへの回答のみに利用します。
-          担当者より{contactConfig.replyTarget}にご返信いたします。
+          {isSignup
+            ? `送信いただいた内容は、会員登録のご案内のみに利用します。担当者より${contactConfig.replyTarget}にログインURLをお送りします。`
+            : `送信いただいた内容は、お問い合わせへの回答のみに利用します。担当者より${contactConfig.replyTarget}にご返信いたします。`}
         </p>
       </div>
     </form>

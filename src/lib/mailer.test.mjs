@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { buildEmails, isMailerConfigured } from "./mailer.mjs";
+import { SIGNUP_CATEGORY } from "./contact-schema.mjs";
 
 const data = {
   type: "organizer",
@@ -58,4 +59,29 @@ test("入力値を変更しない", () => {
   const snapshot = JSON.parse(JSON.stringify(data));
   buildEmails(data, env);
   assert.deepEqual(data, snapshot);
+});
+
+// ───────────────────────── 無料会員登録
+const signupData = {
+  ...data,
+  category: SIGNUP_CATEGORY,
+  name: "田中 花子",
+  email: "hanako@example.com",
+  message: "",
+};
+
+test("会員登録の自動返信は担当者がログインURLをメールで送る旨を案内する", () => {
+  const [, reply] = buildEmails(signupData, env);
+  assert.match(reply.subject, /会員登録/);
+  assert.match(reply.text, /田中 花子/);
+  assert.match(reply.text, /ログインURL/);
+  assert.match(reply.text, /2営業日以内/);
+  assert.doesNotMatch(reply.text, /以下の内容で承りました/);
+});
+
+test("会員登録の管理者宛メールは件名で判別でき、reply_to は申込者", () => {
+  const [admin] = buildEmails(signupData, env);
+  assert.match(admin.subject, /会員登録/);
+  assert.equal(admin.reply_to, "hanako@example.com");
+  assert.match(admin.text, /ログインURL/);
 });

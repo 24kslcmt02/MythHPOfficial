@@ -5,6 +5,15 @@
  * 入力値は変更せず、常に新しいオブジェクトを返す。
  */
 
+/**
+ * 運営者の「無料で会員登録」カテゴリ。
+ *
+ * 管理画面のログインURLはHP上に掲載しない方針のため、会員登録はこのフォーム経由で受け付け、
+ * 運営側が手動でログインURLをメール返信する（暫定運用）。
+ * 心理的ハードルを下げるため、このカテゴリだけはお問い合わせ本文を任意にする。
+ */
+export const SIGNUP_CATEGORY = "無料で会員登録";
+
 /** 問い合わせ種別ごとのカテゴリ */
 export const CONTACT_CATEGORIES = Object.freeze({
   user: Object.freeze([
@@ -16,6 +25,7 @@ export const CONTACT_CATEGORIES = Object.freeze({
     "その他",
   ]),
   organizer: Object.freeze([
+    SIGNUP_CATEGORY,
     "導入相談",
     "料金・手数料",
     "売上・入金",
@@ -46,6 +56,11 @@ const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const OPTIONAL_FIELDS = Object.freeze(["phone", "organization", "subjectRef"]);
 
 const asText = (value) => (typeof value === "string" ? value.trim() : "");
+
+/** 運営者の会員登録（ログインURL送付希望）かどうか */
+export function isSignupRequest(data) {
+  return Boolean(data) && data.type === "organizer" && data.category === SIGNUP_CATEGORY;
+}
 
 /**
  * 入力値を検証して正規化する。
@@ -104,7 +119,8 @@ export function validateContact(input) {
     errors.email = "正しいメールアドレスを入力してください";
   }
 
-  if (!data.message) {
+  // 会員登録は本文なしで送信できる（名前・メールアドレスだけで受け付ける）
+  if (!data.message && !isSignupRequest(data)) {
     errors.message = "お問い合わせ内容を入力してください";
   } else if (data.message.length > LIMITS.message) {
     errors.message = `お問い合わせ内容は${LIMITS.message}文字以内で入力してください`;
@@ -119,9 +135,14 @@ export function validateContact(input) {
   return { ok: Object.keys(errors).length === 0, data, errors, botDetected: false };
 }
 
+/** 会員登録希望メールに付ける運営向けの対応メモ */
+const SIGNUP_ACTION_NOTE = "※ 会員登録のお申し込みです。申込者へ管理画面のログインURLをメールで返信してください。";
+
 /** 管理者宛メールの本文を組み立てる */
 export function buildMailText(data) {
+  const signup = isSignupRequest(data);
   const lines = [
+    signup ? SIGNUP_ACTION_NOTE : "",
     `【お問い合わせ種別】${CONTACT_TYPE_LABELS[data.type] ?? data.type}`,
     `【カテゴリ】${data.category}`,
     `【お名前】${data.name}`,
@@ -130,15 +151,18 @@ export function buildMailText(data) {
     data.phone ? `【電話番号】${data.phone}` : "",
     data.subjectRef ? `【イベント名・注文番号】${data.subjectRef}` : "",
     "",
-    "【お問い合わせ内容】",
-    data.message,
+    signup ? "【補足・ご要望】" : "【お問い合わせ内容】",
+    data.message || (signup ? "（記入なし）" : ""),
   ];
   return lines.filter((line) => line !== "").join("\n");
 }
 
-/** 管理者宛メールの件名 */
+/** 管理者宛メールの件名（会員登録は一目で判別できるよう接頭辞を変える） */
 export function buildMailSubject(data) {
   const who = CONTACT_TYPE_LABELS[data.type] ?? data.type;
+  if (isSignupRequest(data)) {
+    return `[My-th 会員登録希望/${who}] ${data.name} 様 — ログインURL送付`;
+  }
   return `[My-th お問い合わせ/${who}] ${data.category} — ${data.name} 様`;
 }
 

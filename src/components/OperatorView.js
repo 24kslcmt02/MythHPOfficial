@@ -13,6 +13,7 @@ import styles from "../app/operator/page.module.css";
 import { motion } from "framer-motion";
 import { makeViewContainer, itemFadeUp, slideIn } from "@/components/motion";
 import InquiryForm from "@/components/contact/InquiryForm";
+import { SIGNUP_CATEGORY } from "@/lib/contact-schema.mjs";
 
 const problems = [
   {
@@ -122,7 +123,7 @@ export default function OperatorView({ onViewModeChange }) {
 
             <motion.div variants={itemVariants} className={styles.heroCtas}>
               <a href="#contact" className="btn btn-primary">
-                導入について相談する
+                無料で会員登録
               </a>
               <Link href="/operator/features" className={styles.heroCtaLink}>
                 すべての機能を見る
@@ -271,7 +272,7 @@ export default function OperatorView({ onViewModeChange }) {
           <div className="section-header">
             <span className="section-label">Implementation</span>
             <h2>導入までの流れ</h2>
-            <p>最短1週間で運用開始可能。専門スタッフがサポートします</p>
+            <p>最短30分で運用開始可能。専門スタッフがサポートします</p>
           </div>
           <StepFlow steps={implementSteps} />
         </div>
@@ -282,10 +283,16 @@ export default function OperatorView({ onViewModeChange }) {
         <div className="container">
           <div className="section-header">
             <span className="section-label">Contact</span>
-            <h2>導入をご検討の運営者様へ</h2>
-            <p>まずはお気軽にご相談ください。担当者が2営業日以内にご連絡いたします。</p>
+            <h2>無料で会員登録・導入のご相談</h2>
+            <p>
+              お名前とメールアドレスだけで会員登録をお申し込みいただけます。担当者が2営業日以内にログインURLをお送りします。
+            </p>
           </div>
-          <InquiryForm defaultType="organizer" showTypeSwitch={false} />
+          <InquiryForm
+            defaultType="organizer"
+            defaultCategory={SIGNUP_CATEGORY}
+            showTypeSwitch={false}
+          />
         </div>
       </section>
     </motion.div>
