@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import CharacterImage from "@/components/common/CharacterImage";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import CollectionMockup from "@/components/mockups/CollectionMockup";
@@ -82,15 +83,14 @@ export default function SubscriptionView() {
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroBg}>
-          <Image 
-            src="/images/kv-subscription-final-v3.png" 
-            alt="My-th Collection Key Visual" 
-            legacyBehavior={false}
-            fill 
+          <CharacterImage
+            variant="subscriptionKv"
+            alt="My-th Collection Key Visual"
+            fill
             sizes="100vw"
             quality={90}
             priority
-            className={styles.heroBgImage} 
+            className={styles.heroBgImage}
           />
           <div className={styles.heroBgOverlay}></div>
         </div>
@@ -278,7 +278,7 @@ export default function SubscriptionView() {
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Image src="/images/character_mini.png" alt="" width={100} height={100} unoptimized className={styles.miniCharImg} />
+            <CharacterImage variant="mini" size={100} sizes="100px" className={styles.miniCharImg} />
           </motion.div>
           <h2>
             「好き」をもっと深く、

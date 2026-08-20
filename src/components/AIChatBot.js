@@ -1,6 +1,7 @@
 "use client";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import CharacterImage from "@/components/common/CharacterImage";
 import { Send } from "lucide-react";
 import styles from "./AIChatBot.module.css";
 
@@ -81,7 +82,7 @@ export default function AIChatBot({ compact = false }) {
           <div key={idx} className={`${styles.messageWrapper} ${msg.role === "user" ? styles.wrapperUser : styles.wrapperAssistant}`}>
             {msg.role === "assistant" && (
               <div className={`${styles.avatar} ${compact ? styles.avatarCompact : ''}`}>
-                <Image src="/images/character.png" alt="広報キャラクター" fill style={{objectFit: 'cover', objectPosition: 'top'}} unoptimized />
+                <CharacterImage variant="avatar" fill sizes="48px" style={{ objectFit: "cover", objectPosition: "top" }} />
               </div>
             )}
             <div className={`${styles.messageBubble} ${msg.role === "user" ? styles.bubbleUser : styles.bubbleAssistant} ${compact ? styles.bubbleCompact : ''}`}>
@@ -92,7 +93,7 @@ export default function AIChatBot({ compact = false }) {
         {isTyping && (
           <div className={`${styles.messageWrapper} ${styles.wrapperAssistant}`}>
             <div className={`${styles.avatar} ${compact ? styles.avatarCompact : ''}`}>
-              <Image src="/images/character.png" alt="広報キャラクター" fill style={{objectFit: 'cover', objectPosition: 'top'}} unoptimized />
+              <CharacterImage variant="avatar" fill sizes="48px" style={{ objectFit: "cover", objectPosition: "top" }} />
             </div>
             <div className={`${styles.messageBubble} ${styles.bubbleAssistant} ${styles.typing} ${compact ? styles.bubbleCompact : ''}`}>
               <span>.</span><span>.</span><span>.</span>

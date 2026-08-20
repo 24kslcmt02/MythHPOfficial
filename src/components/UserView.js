@@ -12,6 +12,7 @@ import { publishedFaq } from "@/lib/faq.mjs";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
 import styles from "../app/page.module.css";
 import Image from "next/image";
+import CharacterImage from "@/components/common/CharacterImage";
 import { motion } from "framer-motion";
 import FlowingBackground from "@/components/FlowingBackground";
 
@@ -161,13 +162,12 @@ export default function UserView({ onViewModeChange }) {
 
           <motion.div className={styles.heroVisualCenter} variants={characterVariants}>
             <div className={styles.characterWrap}>
-              <Image
-                src="/images/character.png"
-                alt="My-th 広報キャラクター"
+              <CharacterImage
+                variant="standing"
                 width={700}
                 height={900}
+                sizes="(max-width: 767px) 70vw, 640px"
                 priority
-                unoptimized
                 className={styles.characterImg}
               />
             </div>
@@ -212,7 +212,7 @@ export default function UserView({ onViewModeChange }) {
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <Image src="/images/character_mini.png" alt="" width={90} height={90} unoptimized className={styles.miniCharImg} />
+              <CharacterImage variant="mini" size={90} sizes="90px" className={styles.miniCharImg} />
             </motion.div>
           </div>
           <div className={styles.aboutGrid}>
@@ -315,7 +315,7 @@ export default function UserView({ onViewModeChange }) {
               </Link>
             </div>
             <div className={styles.promoCardVisual}>
-              <Image src="/images/kv-subscription-final-v3.png" alt="コレクション機能" width={300} height={300} unoptimized className={styles.screenshotImg} style={{ borderRadius: '24px', boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }} />
+              <CharacterImage variant="subscriptionKv" size={300} sizes="300px" className={styles.screenshotImg} style={{ borderRadius: "24px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }} />
             </div>
           </div>
         </div>
@@ -388,7 +388,7 @@ export default function UserView({ onViewModeChange }) {
             viewport={{ once: true }}
             transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
           >
-            <Image src="/images/character_mini.png" alt="" width={120} height={120} unoptimized className={styles.miniCharImg} />
+            <CharacterImage variant="mini" size={120} sizes="120px" className={styles.miniCharImg} />
           </motion.div>
           <h2>My-thで、推し活をもっと自由に</h2>
           <p>今すぐダウンロードして、新しい体験を始めよう。</p>
