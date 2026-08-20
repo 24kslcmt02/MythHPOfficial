@@ -15,6 +15,7 @@ import Image from "next/image";
 import CharacterImage from "@/components/common/CharacterImage";
 import { motion } from "framer-motion";
 import FlowingBackground from "@/components/FlowingBackground";
+import { makeViewContainer, itemFadeUp, sectionFadeUp, slideIn, blurIn, EASE_OUT } from "@/components/motion";
 
 // ストアURL
 const APP_STORE_URL = "https://apps.apple.com/jp/app/my-th/id6759365931";
@@ -65,28 +66,9 @@ const screenshotMap = {
   album: { src: "/images/screenshots/screenshot-cheki-detail.webp", alt: "デジタルアルバム詳細画面" },
 };
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.2, delayChildren: 0.6 }
-  },
-  exit: {
-    opacity: 0,
-    transition: { staggerChildren: 0.05, staggerDirection: -1, duration: 0.4 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
-};
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
-};
+const containerVariants = makeViewContainer({ stagger: 0.2, delay: 0.6 });
+const itemVariants = itemFadeUp;
+const sectionVariants = sectionFadeUp;
 
 export default function UserView({ onViewModeChange }) {
   useEffect(() => {
@@ -137,7 +119,7 @@ export default function UserView({ onViewModeChange }) {
 
           </motion.div>
 
-          <motion.div className={styles.heroVisual} variants={itemVariants}>
+          <motion.div className={styles.heroVisual} variants={blurIn}>
             <div className={styles.heroPhone}>
               <Image
                 src="/images/screenshots/screenshot-home.webp"
@@ -174,7 +156,7 @@ export default function UserView({ onViewModeChange }) {
                 initial={{ opacity: 0, y: 20, rotate: -5 }}
                 whileInView={{ opacity: 1, y: 0, rotate: 0 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ delay: 0.4, duration: 0.6, ease: EASE_OUT }}
               >
                 <CharacterImage variant="mini" size={90} sizes="90px" className={styles.miniCharImg} />
               </motion.div>
@@ -227,10 +209,10 @@ export default function UserView({ onViewModeChange }) {
                 <motion.div
                   key={f.title}
                   className={`${styles.showcaseRow} ${i % 2 === 1 ? styles.showcaseRowReverse : ""}`}
-                  initial={{ opacity: 0, x: i % 2 === 1 ? 48 : -48 }}
-                  whileInView={{ opacity: 1, x: 0 }}
+                  variants={slideIn(i % 2 === 1 ? 48 : -48)}
+                  initial="hidden"
+                  whileInView="visible"
                   viewport={{ once: true, margin: "-80px" }}
-                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <div className={styles.showcaseVisual}>
                     {screenshot ? (
@@ -355,7 +337,7 @@ export default function UserView({ onViewModeChange }) {
             initial={{ opacity: 0, x: 30, rotate: 5 }}
             whileInView={{ opacity: 1, x: 0, rotate: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.3, duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.3, duration: 0.7, ease: EASE_OUT }}
           >
             <CharacterImage variant="mini" size={120} sizes="120px" className={styles.miniCharImg} />
           </motion.div>

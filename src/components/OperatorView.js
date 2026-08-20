@@ -10,6 +10,7 @@ import AnalyticsMockup from "@/components/mockups/AnalyticsMockup";
 import styles from "../app/operator/page.module.css";
 import { motion } from "framer-motion";
 import FlowingBackground from "@/components/FlowingBackground";
+import { makeViewContainer, itemFadeUp, slideIn } from "@/components/motion";
 import InquiryForm from "@/components/contact/InquiryForm";
 
 const problems = [
@@ -64,23 +65,8 @@ const implementSteps = [
   { title: "運用開始", description: "イベントですぐに使えます" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-  },
-  exit: {
-    opacity: 0,
-    transition: { staggerChildren: 0.05, staggerDirection: -1, duration: 0.4 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
-};
+const containerVariants = makeViewContainer({ stagger: 0.1, delay: 0.1 });
+const itemVariants = itemFadeUp;
 
 function MockupComponent({ type }) {
   switch (type) {
@@ -172,10 +158,10 @@ export default function OperatorView({ onViewModeChange }) {
               <motion.div
                 key={sol.title}
                 className={`${styles.solutionRow} ${i % 2 === 1 ? styles.solutionRowReverse : ""}`}
-                initial={{ opacity: 0, x: i % 2 === 1 ? 48 : -48 }}
-                whileInView={{ opacity: 1, x: 0 }}
+                variants={slideIn(i % 2 === 1 ? 48 : -48)}
+                initial="hidden"
+                whileInView="visible"
                 viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
               >
                 <div className={styles.solutionVisual}>
                   <div className={styles.solutionMockInner}>
