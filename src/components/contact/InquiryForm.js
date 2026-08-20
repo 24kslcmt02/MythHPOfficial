@@ -190,7 +190,7 @@ export default function InquiryForm({
             value={form.name}
             onChange={handleChange}
             autoComplete="name"
-            placeholder="例：山田 太郎"
+            placeholder="例：マイス マイ"
             className={`${styles.input} ${errors.name ? styles.inputError : ""}`}
             aria-invalid={Boolean(errors.name)}
             aria-describedby={errors.name ? "err-name" : undefined}
@@ -239,7 +239,7 @@ export default function InquiryForm({
               value={form.organization}
               onChange={handleChange}
               autoComplete="organization"
-              placeholder="例：株式会社スターライト"
+              placeholder="例：株式会社〇〇"
               className={styles.input}
             />
           </div>
@@ -272,7 +272,7 @@ export default function InquiryForm({
           name="subjectRef"
           value={form.subjectRef}
           onChange={handleChange}
-          placeholder={isOrganizer ? "例：〇〇定期公演" : "お問い合わせ対象のイベント名など"}
+          placeholder={isOrganizer ? "例：〇〇日の公演" : "お問い合わせ対象のイベント名など"}
           className={styles.input}
         />
         <span className={styles.hint}>
