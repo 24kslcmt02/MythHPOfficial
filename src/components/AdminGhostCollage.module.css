@@ -1,0 +1,102 @@
+/* 運営者ヒーロー背景の管理画面ゴーストコラージュ。
+   z-index: コラージュ(0) < ワッシュ(1) < ヒーローコンテンツ(2以上) */
+
+.collage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.layer {
+  position: absolute;
+  filter: saturate(0.9);
+}
+
+/* 右上: 売上管理（スタット＋表＋チャート） */
+.layerAnalytics {
+  top: 4%;
+  right: -6%;
+  width: min(52vw, 720px);
+  transform: rotate(-6deg);
+  opacity: 0.62;
+}
+
+/* 左下: イベント編集＋AI入力＋カスタムURL */
+.layerEventCreate {
+  bottom: 4%;
+  left: 10%;
+  width: min(38vw, 540px);
+  transform: rotate(4deg);
+  opacity: 0.58;
+}
+
+/* 右下: チケット販売設定（PCのみ） */
+.layerTicket {
+  bottom: -6%;
+  right: 6%;
+  width: min(34vw, 480px);
+  transform: rotate(-3deg);
+  opacity: 0.52;
+}
+
+/* 白ワッシュ: 左＝コピーの可読域（濃い白）、右＝モックが透ける（薄い白）、下端フェード */
+.wash {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(to bottom, rgba(250, 251, 254, 0.2) 0%, transparent 18%, transparent 82%, rgba(250, 251, 254, 0.95) 100%),
+    linear-gradient(to right,
+      rgba(250, 251, 254, 0.95) 0%,
+      rgba(250, 251, 254, 0.82) 36%,
+      rgba(250, 251, 254, 0.45) 60%,
+      rgba(250, 251, 254, 0.22) 100%);
+}
+
+@media (max-width: 1023px) {
+  .layerTicket {
+    display: none;
+  }
+
+  .layerAnalytics {
+    width: min(72vw, 620px);
+    right: -14%;
+  }
+
+  .layerEventCreate {
+    width: min(56vw, 480px);
+    left: -10%;
+  }
+
+  .wash {
+    background:
+      linear-gradient(to bottom, rgba(250, 251, 254, 0.5) 0%, transparent 25%, transparent 70%, rgba(250, 251, 254, 0.97) 100%),
+      rgba(250, 251, 254, 0.72);
+  }
+}
+
+@media (max-width: 767px) {
+  /* モバイルは売上管理1枚を上部に大きく傾けて薄く敷く */
+  .layerEventCreate {
+    display: none;
+  }
+
+  .layerAnalytics {
+    top: 0;
+    right: -28%;
+    width: 150vw;
+    transform: rotate(-8deg);
+    opacity: 0.45;
+  }
+
+  .wash {
+    background:
+      linear-gradient(to bottom,
+        rgba(250, 251, 254, 0.55) 0%,
+        rgba(250, 251, 254, 0.82) 34%,
+        rgba(250, 251, 254, 0.92) 60%,
+        rgba(250, 251, 254, 0.98) 100%);
+  }
+}

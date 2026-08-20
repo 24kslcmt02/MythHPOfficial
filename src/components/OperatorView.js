@@ -3,14 +3,14 @@
 import Link from "next/link";
 import StepFlow from "@/components/StepFlow";
 import { ArrowRight, Banknote, Check, ClipboardList, Files, Camera, Ticket } from "lucide-react";
-import DashboardMockup from "@/components/DashboardMockup";
+import AdminGhostCollage from "@/components/AdminGhostCollage";
 import ChekiMockup from "@/components/mockups/ChekiMockup";
 import TicketMockup from "@/components/mockups/TicketMockup";
 import DigitalPassMockup from "@/components/mockups/DigitalPassMockup";
 import AnalyticsMockup from "@/components/mockups/AnalyticsMockup";
+import { organizerCommissionRate, pricing } from "@/config/site";
 import styles from "../app/operator/page.module.css";
 import { motion } from "framer-motion";
-import FlowingBackground from "@/components/FlowingBackground";
 import { makeViewContainer, itemFadeUp, slideIn } from "@/components/motion";
 import InquiryForm from "@/components/contact/InquiryForm";
 
@@ -87,9 +87,9 @@ export default function OperatorView({ onViewModeChange }) {
       animate="visible"
       exit="exit"
     >
-      {/* Hero */}
+      {/* Hero — 背景に管理画面が透けるゴーストコラージュ */}
       <section className={styles.hero}>
-        <FlowingBackground variant="btob" />
+        <AdminGhostCollage />
         <div className={`container ${styles.heroInner}`}>
           <motion.div className={styles.heroContent} variants={containerVariants}>
             <motion.p layoutId="hero-label" variants={itemVariants} className={styles.heroLabel}>FOR OPERATORS</motion.p>
@@ -104,15 +104,31 @@ export default function OperatorView({ onViewModeChange }) {
               チェキ券・チケット・入場特典・売上管理を完全自動化。アイドル運営に特化したOSアプリで、クリエイティブな業務に集中できます。
             </motion.p>
 
-            <motion.div variants={itemVariants} style={{ marginTop: '0.5rem' }}>
-              <a href="#contact" className={styles.heroCtaLink}>
-                導入のご相談はこちら
-                <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+            {/* 半券スタットチップ（数値はsite.jsから差し込み） */}
+            <motion.ul variants={itemVariants} className={styles.statChips}>
+              <li className={styles.statChip}>
+                <span className={styles.statChipLabel}>初期費用・月額</span>
+                <span className={styles.statChipValue}><em>{pricing.initialFee}</em></span>
+              </li>
+              <li className={styles.statChip}>
+                <span className={styles.statChipLabel}>販売手数料</span>
+                <span className={styles.statChipValue}><em>{organizerCommissionRate}</em>のみ</span>
+              </li>
+              <li className={styles.statChip}>
+                <span className={styles.statChipLabel}>イベント作成</span>
+                <span className={styles.statChipValue}><em>AI入力</em>対応</span>
+              </li>
+            </motion.ul>
+
+            <motion.div variants={itemVariants} className={styles.heroCtas}>
+              <a href="#contact" className="btn btn-primary">
+                導入について相談する
               </a>
+              <Link href="/operator/features" className={styles.heroCtaLink}>
+                すべての機能を見る
+                <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+              </Link>
             </motion.div>
-          </motion.div>
-          <motion.div className={styles.heroVisual} variants={itemVariants}>
-            <DashboardMockup />
           </motion.div>
         </div>
       </section>
