@@ -160,7 +160,7 @@ export const fees = {
     {
       target: "チケット・チェキ券",
       systemFee: "販売手数料5%（主催者が購入者負担を選択した場合のみ加算）",
-      paymentFee: "コンビニ決済手数料の有無は購入画面でご確認ください",
+      paymentFee: "コンビニ決済を選択した場合、1決済につき220円",
     },
   ],
   organizer: [
@@ -178,8 +178,8 @@ export const fees = {
   },
   /** @todo 確定必要: 振込手数料の実額。null の間は /fees と FAQ で未掲載 */
   transferFee: null,
-  /** @todo 確定必要: コンビニ決済手数料の実額と負担者 */
-  conveniencePaymentFee: null,
+  /** 2026-08-21 確定（運営者FAQ extra-fees と同期） */
+  conveniencePaymentFee: "1決済につき220円（購入者負担）",
 };
 
 /** コレクション機能の料金（確定済み） */
