@@ -19,7 +19,7 @@ export default function EventCreateMockup() {
 
       <div className={styles.body}>
         <div className={styles.memoPane}>
-          <div className={styles.paneLabel}>メモを貼り付け</div>
+          <div className={styles.paneLabel}>X告知文・メモを貼り付け</div>
           <p className={styles.memoText}>
             9/23(水) 定期公演 Vol.3
             <br />
@@ -54,6 +54,14 @@ export default function EventCreateMockup() {
             </div>
           </dl>
         </div>
+      </div>
+
+      {/* AIが抽出した販売窓（実画面のプレビューマトリクスに準拠。当日券は自動追加される） */}
+      <div className={styles.ticketRow}>
+        <span className={styles.paneLabel}>チケット抽出</span>
+        <span className={`${styles.ticketPill} ${styles.pillLottery}`}>抽選 先行抽選</span>
+        <span className={`${styles.ticketPill} ${styles.pillFcfs}`}>先着 一般先着</span>
+        <span className={`${styles.ticketPill} ${styles.pillDoor}`}>当日 当日券（自動追加）</span>
       </div>
 
       <div className={styles.urlBar}>

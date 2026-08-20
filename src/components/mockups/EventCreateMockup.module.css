@@ -103,6 +103,43 @@
   padding-bottom: 4px;
 }
 
+.ticketRow {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  padding: 10px 16px;
+  background: #fafafc;
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.ticketRow .paneLabel {
+  margin-bottom: 0;
+}
+
+.ticketPill {
+  font-size: 9.5px;
+  font-weight: 600;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.pillLottery {
+  background: #F3E8FF;
+  color: #7C3AED;
+}
+
+.pillFcfs {
+  background: #E8F5E9;
+  color: #2E9E4F;
+}
+
+.pillDoor {
+  background: rgba(var(--color-primary-rgb), 0.35);
+  color: #7a6d00;
+}
+
 .urlBar {
   display: flex;
   align-items: center;
