@@ -1,8 +1,22 @@
 import Link from "next/link";
 import PageShell from "@/components/common/PageShell";
 import Notice from "@/components/common/Notice";
-import { organizerCommissionRate } from "@/config/site";
-import styles from "@/components/common/page.module.css";
+import { organizerCommissionRate, pricing } from "@/config/site";
+import { features } from "@/content/features";
+import { publishedFeatures, isPublishedFeature, featureDescText, groupFeaturesByCategory } from "@/lib/features.mjs";
+import EventCreateMockup from "@/components/mockups/EventCreateMockup";
+import TicketMockup from "@/components/mockups/TicketMockup";
+import ChekiMockup from "@/components/mockups/ChekiMockup";
+import DigitalPassMockup from "@/components/mockups/DigitalPassMockup";
+import AnalyticsMockup from "@/components/mockups/AnalyticsMockup";
+import {
+  CalendarPlus, Sparkles, Link2, Clock, Image as ImageIcon, Users, Copy,
+  Ticket, Dices, ListOrdered, CalendarClock, SlidersHorizontal, Tag, Send, ShieldCheck,
+  QrCode, Layers, Timer, Star, Gift, Smartphone, PenLine, Database,
+  LayoutDashboard, Eye, BarChart3, Banknote, Check, ArrowRight,
+} from "lucide-react";
+import shared from "@/components/common/page.module.css";
+import styles from "./features.module.css";
 
 export const metadata = {
   title: "機能一覧（運営者向け）| My-th（マイス）",
@@ -11,63 +25,44 @@ export const metadata = {
   alternates: { canonical: "/operator/features" },
 };
 
-const FEATURE_GROUPS = [
-  {
-    title: "イベントページの作成",
-    items: [
-      { name: "イベントページ作成・チケット販売", desc: "管理画面からイベント情報とチケットを登録して公開します。" },
-      { name: "AI入力", desc: "メモを貼り付けるだけでAIがイベント情報を下書きします。" },
-      { name: "カスタムURL", desc: "user.my-th.jp/tickets/event/ に続く部分を自由に設定し、届けやすいURLにできます。" },
-      { name: "開場・開演時間の設定", desc: "開催日に加えて、開場時間と開演時間を個別に設定できます。" },
-      { name: "サムネイルの自動調整", desc: "縦横どちらの画像でも自動で調整されます。" },
-      { name: "出演者の登録", desc: "My-th登録済みのグループはもちろん、未登録のグループもフリー入力で追加できます。" },
-      { name: "下書き・公開予約・複製", desc: "非公開のまま作成しておく、公開日時を予約する、過去イベントを複製する、に対応しています。" },
-    ],
+/** content/features の icon キー → lucide コンポーネント */
+const ICONS = {
+  CalendarPlus, Sparkles, Link2, Clock, Image: ImageIcon, Users, Copy,
+  Ticket, Dices, ListOrdered, CalendarClock, SlidersHorizontal, Tag, Send, ShieldCheck,
+  QrCode, Layers, Timer, Star, Gift, Smartphone, PenLine, Database,
+  LayoutDashboard, Eye, BarChart3, Banknote,
+};
+
+/** カテゴリごとの見せ方（リード文とCSSモックの割当）。データ本体は content/features */
+const CATEGORY_META = {
+  "イベントページの作成": {
+    lead: "メモからのAI下書きとカスタムURLで、告知ページづくりを最短に。",
+    Mockup: EventCreateMockup,
   },
-  {
-    title: "チケット販売",
-    items: [
-      { name: "電子チケットの販売", desc: "アプリ内で完結する電子チケットを販売できます。購入自体はWebブラウザからも可能です。" },
-      { name: "先着・抽選の販売方式", desc: "先着販売と抽選販売の両方に対応。抽選結果は設定日の正午12時に購入者へメールで通知されます。" },
-      { name: "整理番号付き販売", desc: "ご購入順に整理番号を付与して販売できます。" },
-      { name: "チケットごとの販売期間", desc: "チケットごとに販売開始・終了日時を設定できます。当日券の販売にも対応。" },
-      { name: "購入枚数の上限設定", desc: "1人あたりの購入枚数・抽選申込口数の上限をチケットごとに設定できます。" },
-      { name: "0円チケット", desc: "無料のチケットも発行できます。" },
-      { name: "同行者への分配", desc: "購入者がアプリ内で同行者にチケットを送れます。" },
-      { name: "Bot対策", desc: "自動プログラムによる大量購入を防ぎ、公平な販売機会を確保します。" },
-    ],
+  "チケット販売": {
+    lead: "先着・抽選・整理番号・当日券まで、プレイガイドの基本をひと通り。",
+    Mockup: TicketMockup,
   },
-  {
-    title: "チェキ券の管理",
-    items: [
-      { name: "デジタルチェキ券の発行", desc: "紙のチェキ券をQRコードに置き換え、偽造・紛失のリスクをなくします。" },
-      { name: "まとめ出し", desc: "複数枚のチェキ券をまとめて処理できます。" },
-      { name: "有効期限の設定", desc: "チェキ券ごとに有効期限を設定できます。" },
-      { name: "限定チェキの販売", desc: "数量を絞った限定チェキを販売できます。" },
-      { name: "抽選販売", desc: "受付期間を設けて抽選で販売できます。" },
-    ],
+  "チェキ券の管理": {
+    lead: "紙のチェキ券をQRコードに置き換えて、偽造・紛失をなくす。",
+    Mockup: ChekiMockup,
   },
-  {
-    title: "入場特典・当日の受付",
-    items: [
-      { name: "入場特典券のデジタル配布", desc: "入場特典を「入場特典券」として購入者のアプリに配布します。内容は自由で、印刷・郵送・手渡しは不要です（My-th登録済みグループのみ）。" },
-      { name: "スタッフアプリでの受付", desc: "スタッフのスマートフォン・タブレット（iOS / Android）で入場受付と特典券の使用処理を行えます。専用機材は不要です。" },
-      { name: "手動での入場処理", desc: "QRコードのほか、整理番号などの情報から手動で入場処理を行えます。" },
-      { name: "入場記録のデータ化", desc: "誰がいつ入場したかを記録として残せます。" },
-    ],
+  "入場特典・当日の受付": {
+    lead: "受付はスタッフのスマホだけ。特典券もその場で使用処理。",
+    Mockup: DigitalPassMockup,
   },
-  {
-    title: "売上・バックオフィス",
-    items: [
-      { name: "リアルタイムダッシュボード", desc: "販売状況と売上をその場で確認できます。" },
-      { name: "動員状況の共有", desc: "My-th登録済みのグループは、出演イベントの動員状況を自グループ分に限って自身の管理画面でリアルタイムに確認できます。" },
-      { name: "イベント別・メンバー別の集計", desc: "集計作業を自動化し、手作業による集計ミスと遅延をなくします。" },
-      { name: "売上の自動集計・送金", desc: "売上を自動で集計し、開催日ごとにお振込します。" },
-    ],
+  "売上・バックオフィス": {
+    lead: "売れたその瞬間から、集計とお振込は自動で。",
+    Mockup: AnalyticsMockup,
   },
-];
+};
 
 export default function OperatorFeaturesPage() {
+  // 開発時のみ確認待ち機能を「確認待ち」バッジ付きで表示する（FAQと同じ運用）
+  const includeDrafts = process.env.NODE_ENV !== "production";
+  const visibleFeatures = publishedFeatures(features, { includeDrafts });
+  const groups = groupFeaturesByCategory(visibleFeatures);
+
   return (
     <PageShell
       variant="operator"
@@ -79,62 +74,113 @@ export default function OperatorFeaturesPage() {
         { label: "機能一覧" },
       ]}
     >
-      <div className={styles.prose}>
-        {FEATURE_GROUPS.map((group) => (
-          <section className={styles.block} key={group.title}>
-            <h2>{group.title}</h2>
-            <div className={styles.tableWrap}>
-              <table className={styles.table}>
-                <thead>
-                  <tr>
-                    <th>機能</th>
-                    <th>内容</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {group.items.map((item) => (
-                    <tr key={item.name}>
-                      <td>{item.name}</td>
-                      <td>{item.desc}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </section>
-        ))}
-
-        <section className={styles.block}>
-          <h2>料金</h2>
-          <p>
-            初期費用・月額費用は無料です。チケット・チェキ券が売れたときの販売手数料
-            {organizerCommissionRate}のみで、システム利用料や発券手数料のような別建ての費用はありません。
-            販売手数料を主催者負担にするか購入者負担にするかは、イベントごとにお選びいただけます。
-          </p>
-          <Notice>
-            <p>
-              入場受付には通信環境が必要です。電波が届きにくい会場では、会場のWi-Fiや
-              モバイルルーターのご用意をおすすめします。
-            </p>
-          </Notice>
-          <Notice>
-            <p>
-              費用の詳細は<Link href="/fees#organizer"> 手数料について </Link>
-              を、導入の流れやよくいただくご質問は
-              <Link href="/faq/organizer"> 運営者向けのよくある質問 </Link>
-              をご覧ください。
-            </p>
-          </Notice>
-          <div className={styles.ctaRow}>
-            <Link href="/contact?type=organizer" className="btn btn-primary">
-              導入について相談する
-            </Link>
-            <Link href="/operator" className="btn btn-outline">
-              サービス紹介を見る
-            </Link>
+      {/* 料金スタット帯 */}
+      <section className={styles.pricingBand} aria-label="料金">
+        <div className={styles.pricingGrid}>
+          <div className={styles.pricingCard}>
+            <span className={styles.pricingLabel}>初期費用</span>
+            <span className={styles.pricingValue}>{pricing.initialFee}</span>
           </div>
-        </section>
-      </div>
+          <div className={styles.pricingCard}>
+            <span className={styles.pricingLabel}>月額費用</span>
+            <span className={styles.pricingValue}>{pricing.monthlyFee}</span>
+          </div>
+          <div className={styles.pricingCard}>
+            <span className={styles.pricingLabel}>販売手数料</span>
+            <span className={styles.pricingValue}>
+              {organizerCommissionRate}
+              <small>のみ</small>
+            </span>
+          </div>
+        </div>
+        <p className={styles.pricingNote}>
+          システム利用料や発券手数料のような別建ての費用はありません。販売手数料を主催者負担にするか
+          購入者負担にするかは、イベントごとにお選びいただけます。詳しくは
+          <Link href="/fees#organizer">手数料について</Link>をご覧ください。
+        </p>
+      </section>
+
+      {/* カテゴリブロック */}
+      {groups.map(({ category, items }, index) => {
+        const meta = CATEGORY_META[category] ?? {};
+        const Mockup = meta.Mockup;
+        return (
+          <section
+            key={category}
+            className={`${styles.categoryBlock} ${index % 2 === 1 ? styles.categoryBlockReverse : ""}`}
+          >
+            <div className={styles.categoryIntro}>
+              <div className={styles.categoryHead}>
+                <span className={styles.categoryIndex}>Feature {String(index + 1).padStart(2, "0")}</span>
+                <h2>{category}</h2>
+                {meta.lead && <p className={styles.categoryLead}>{meta.lead}</p>}
+              </div>
+              {Mockup && (
+                <div className={styles.categoryVisual}>
+                  <Mockup />
+                </div>
+              )}
+            </div>
+            <ul className={styles.featureGrid}>
+              {items.map((item) => {
+                const Icon = ICONS[item.icon] ?? Check;
+                const pendingItem = !isPublishedFeature(item);
+                return (
+                  <li key={item.id} id={`f-${item.id}`} className={styles.featureCard}>
+                    <span className={styles.featureIcon}>
+                      <Icon size={18} strokeWidth={1.9} aria-hidden="true" />
+                    </span>
+                    <div className={styles.featureBody}>
+                      <h3>
+                        {item.name}
+                        {pendingItem && <span className={styles.pendingBadge}>確認待ち</span>}
+                      </h3>
+                      <p>{featureDescText(item)}</p>
+                      {item.limit && <span className={styles.limitBadge}>{item.limit}</span>}
+                      {pendingItem && item.note && (
+                        <p className={styles.pendingNote}>【開発表示】{item.note}</p>
+                      )}
+                    </div>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        );
+      })}
+
+      {/* 注意事項・関連導線 */}
+      <section className={styles.notes}>
+        <Notice>
+          <p>
+            入場受付には通信環境が必要です。電波が届きにくい会場では、会場のWi-Fiや
+            モバイルルーターのご用意をおすすめします。
+          </p>
+        </Notice>
+        <Notice>
+          <p>
+            費用の詳細は<Link href="/fees#organizer"> 手数料について </Link>
+            を、導入の流れやよくいただくご質問は
+            <Link href="/faq/organizer"> 運営者向けのよくある質問 </Link>
+            をご覧ください。
+          </p>
+        </Notice>
+      </section>
+
+      {/* CTA帯 */}
+      <section className={styles.ctaBand}>
+        <h2>まずはお気軽にご相談ください</h2>
+        <p>運営スタイルに合わせた使い方をご提案します。</p>
+        <div className={shared.ctaRow}>
+          <Link href="/contact?type=organizer" className="btn btn-primary">
+            導入について相談する
+          </Link>
+          <Link href="/operator" className={styles.ctaGhostBtn}>
+            サービス紹介を見る
+            <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+          </Link>
+        </div>
+      </section>
     </PageShell>
   );
 }

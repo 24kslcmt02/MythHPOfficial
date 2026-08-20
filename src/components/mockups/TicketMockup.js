@@ -30,17 +30,25 @@ export default function TicketMockup() {
       <div className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
           <div className={styles.logoIcon} />
-          <div className={styles.logoText} />
+          <div className={styles.logoText}>My-th</div>
         </div>
         <nav className={styles.sidebarNav}>
-          <div className={styles.navItem} />
-          <div className={styles.navItem} />
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>ホーム</div>
+          </div>
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>イベント</div>
+          </div>
           <div className={`${styles.navItem} ${styles.navActive}`}>
             <div className={styles.navDot} />
             <div className={styles.navLabel}>販売設定</div>
           </div>
-          <div className={styles.navItem} />
-          <div className={styles.navItem} />
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>チェキ券</div>
+          </div>
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>売上管理</div>
+          </div>
         </nav>
       </div>
 

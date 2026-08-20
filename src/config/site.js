@@ -139,6 +139,15 @@ export const payments = {
 export const organizerCommissionRate = "5%";
 
 /**
+ * 運営者向け料金（確定値）— /operator の料金セクションで公開済みの事実
+ * 費用は販売手数料（organizerCommissionRate）のみで、別建ての固定費はない
+ */
+export const pricing = {
+  initialFee: "0円",
+  monthlyFee: "0円",
+};
+
+/**
  * 手数料（FR-08）— 2026-08-19 確定
  *
  * 販売手数料5%は「主催者負担」「購入者負担」のどちらにするかを主催者がイベントごとに選べる。

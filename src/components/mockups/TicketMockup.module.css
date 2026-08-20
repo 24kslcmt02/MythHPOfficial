@@ -42,10 +42,11 @@
 }
 
 .logoText {
-  height: 8px;
-  width: 60%;
-  background: #d0d3d9;
-  border-radius: 2px;
+  font-family: var(--font-logo), var(--font-display), sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  font-style: italic;
+  color: #333;
 }
 
 .sidebarNav {
@@ -78,8 +79,12 @@
 
 .navLabel {
   font-size: 7px;
-  color: #333;
+  color: #99a2ad;
   white-space: nowrap;
+}
+
+.navActive .navLabel {
+  color: #333;
 }
 
 /* Main */
