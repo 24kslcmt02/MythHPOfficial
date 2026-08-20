@@ -8,6 +8,7 @@ import FAQ from "@/components/FAQ";
 import AIChatBot from "@/components/AIChatBot";
 import InquiryForm from "@/components/contact/InquiryForm";
 import { userFaq } from "@/content/faq/user";
+import { organizerCommissionRate } from "@/config/site";
 import { publishedFaq } from "@/lib/faq.mjs";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
 import styles from "../app/page.module.css";
@@ -239,6 +240,20 @@ export default function UserView({ onViewModeChange }) {
                 </motion.div>
               );
             })}
+          </div>
+
+          {/* 手数料のシンプルさ（ファン向け）。数値は site.js から差し込む */}
+          <div className={styles.feeStrip}>
+            <p className={styles.feeStripText}>
+              チケット代金のほかに、システム利用料・発券手数料などが上乗せされない設計です。
+              <span className={styles.feeStripNote}>
+                ※販売手数料{organizerCommissionRate}の負担（主催者・購入者）はイベントごとに設定されます
+              </span>
+            </p>
+            <Link href="/fees" className={styles.feeStripLink}>
+              手数料について
+              <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </motion.section>

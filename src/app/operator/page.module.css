@@ -278,6 +278,12 @@
   max-width: 440px;
 }
 
+.solutionsMore {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-3xl);
+}
+
 /* === Pricing === */
 .pricing {
   background: var(--color-bg-alt);

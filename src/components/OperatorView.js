@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import StepFlow from "@/components/StepFlow";
 import { ArrowRight, Banknote, Check, ClipboardList, Files, Camera, Ticket } from "lucide-react";
 import DashboardMockup from "@/components/DashboardMockup";
@@ -174,6 +175,12 @@ export default function OperatorView({ onViewModeChange }) {
                 </div>
               </motion.div>
             ))}
+          </div>
+          <div className={styles.solutionsMore}>
+            <Link href="/operator/features" className="btn btn-outline">
+              すべての機能を見る
+              <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
