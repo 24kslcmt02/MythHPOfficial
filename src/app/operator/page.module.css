@@ -337,7 +337,7 @@
 /* === Contact === */
 .contact {
   padding: var(--space-5xl) 0;
-  background: linear-gradient(135deg, rgba(74, 173, 232, 0.08), rgba(244, 114, 182, 0.06));
+  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(74, 173, 232, 0.04) 100%);
 }
 
 .contactInner {
@@ -355,11 +355,6 @@
 .contactInner p {
   font-size: 1.125rem;
   max-width: 560px;
-}
-
-/* === Contact === */
-.contact {
-  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(74, 173, 232, 0.04) 100%);
 }
 
 /* === CTA === */

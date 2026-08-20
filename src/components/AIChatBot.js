@@ -11,10 +11,10 @@ const PRESET_MESSAGES = [
 ];
 
 const FAQS = {
-  "チケットの買い方は？": "アプリ内の「チケット」タブから、対象のイベントを選んで購入できます！事前決済で当日の入場もQRコードをかざすだけでスムーズです✨",
-  "チェキ券はどう使うの？": "ライブ会場の物販や特典会エリアでスタッフに「チェキ券を使う」画面を見せてください。QRコードをスキャンするだけで完了します📸",
-  "このアプリは無料？": "はい！ファンの方のアプリ利用（ダウンロード・会員登録）は完全無料です。チケットやチェキを購入する時だけ料金がかかります🙌",
-  "default": "ご質問ありがとうございます！詳しい使い方や運営へのお問い合わせは、下の「イベンター・運営の方はこちら」メニューなどからご確認いただけます。一緒に推し活を楽しみましょう！🎉"
+  "チケットの買い方は？": "アプリ内の「チケット」タブから、対象のイベントを選んで購入できます！事前決済で当日の入場もQRコードをかざすだけでスムーズです",
+  "チェキ券はどう使うの？": "ライブ会場の物販や特典会エリアでスタッフに「チェキ券を使う」画面を見せてください。QRコードをスキャンするだけで完了します",
+  "このアプリは無料？": "はい！ファンの方のアプリ利用（ダウンロード・会員登録）は完全無料です。チケットやチェキを購入する時だけ料金がかかります",
+  "default": "ご質問ありがとうございます！詳しい使い方や運営へのお問い合わせは、下の「イベンター・運営の方はこちら」メニューなどからご確認いただけます。一緒に推し活を楽しみましょう！"
 };
 
 /**
@@ -22,7 +22,7 @@ const FAQS = {
  */
 export default function AIChatBot({ compact = false }) {
   const [messages, setMessages] = useState([
-    { role: "assistant", content: "こんにちは！My-th AIガイドです✨ 何かお手伝いできることはありますか？" }
+    { role: "assistant", content: "こんにちは！My-th AIガイドです。何かお手伝いできることはありますか？" }
   ]);
   const [inputValue, setInputValue] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -71,7 +71,7 @@ export default function AIChatBot({ compact = false }) {
         <Image src="/images/Mythlogo.svg" alt="My-th" width={compact ? 24 : 28} height={compact ? 24 : 28} className={styles.headerLogo} />
         <div className={styles.headerTitle}>
           <span className={styles.botName}>My-th AIガイド</span>
-          <span className={styles.status}>🟢 オンライン</span>
+          <span className={styles.status}>オンライン</span>
         </div>
       </div>
 

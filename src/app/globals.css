@@ -18,6 +18,10 @@
   --color-secondary-dark: #2B8CCB;
   --color-secondary-subtle: #E3F2FD;
 
+  /* rgba()合成用のRGB値（brand colorと常に同期させる） */
+  --color-primary-rgb: 245, 214, 35;
+  --color-secondary-rgb: 74, 173, 232;
+
   /* Accent (from stage lighting in manga material) */
   --color-accent-pink: #F472B6;
   --color-accent-cyan: #22D3EE;
@@ -54,6 +58,7 @@
   --radius-md: 0.75rem;
   --radius-lg: 1rem;
   --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
   --radius-full: 9999px;
 
   /* Shadows */
