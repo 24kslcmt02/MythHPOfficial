@@ -30,7 +30,7 @@
 }
 
 .heroLabel {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -39,7 +39,7 @@
 }
 
 .heroTitle {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(2.25rem, 5vw, 3.75rem);
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -132,7 +132,7 @@
 }
 
 .dashValue {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text-primary);
@@ -255,7 +255,7 @@
 }
 
 .priceNumber {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1;
@@ -266,7 +266,7 @@
 }
 
 .priceUnit {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
   color: var(--color-secondary);
@@ -349,7 +349,7 @@
 }
 
 .contactInner h2 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
 }
 
 .contactInner p {
@@ -371,7 +371,7 @@
 }
 
 .ctaInner h2 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
 }
 

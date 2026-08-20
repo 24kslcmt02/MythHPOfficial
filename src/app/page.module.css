@@ -66,7 +66,7 @@
 }
 
 .heroLabel {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
@@ -75,7 +75,7 @@
 }
 
 .heroTitle {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(2.25rem, 5vw, 3.75rem);
   letter-spacing: -0.03em;
   line-height: 1.15;
@@ -427,7 +427,7 @@
 }
 
 .ctaInner h2 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
 }
 
 .ctaInner p {
@@ -472,7 +472,7 @@
 }
 
 .promoCardContent h3 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   margin-bottom: var(--space-md);
   color: var(--color-text-primary);

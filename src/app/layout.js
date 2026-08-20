@@ -1,4 +1,4 @@
-import { Outfit, Noto_Sans_JP, Jost } from "next/font/google";
+import { Outfit, Noto_Sans_JP, Jost, Zen_Kaku_Gothic_New } from "next/font/google";
 import "./globals.css";
 import { site, company, contact, stores } from "@/config/site";
 
@@ -14,6 +14,16 @@ const notoSansJP = Noto_Sans_JP({
   variable: "--font-body",
   weight: ["400", "500", "600", "700"],
   display: "swap",
+});
+
+// 和文見出し用ディスプレイ書体。JPグリフはunicode-rangeスライスで遅延取得されるため
+// preloadはlatin分のみ無効化してよい（見出しは和文中心）
+const zenKaku = Zen_Kaku_Gothic_New({
+  subsets: ["latin"],
+  variable: "--font-display-ja",
+  weight: ["700", "900"],
+  display: "swap",
+  preload: false,
 });
 
 const logoFont = Jost({
@@ -74,7 +84,7 @@ const appJsonLd = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="ja" className={`${outfit.variable} ${notoSansJP.variable} ${logoFont.variable}`}>
+    <html lang="ja" className={`${outfit.variable} ${notoSansJP.variable} ${logoFont.variable} ${zenKaku.variable}`}>
       <body style={{ fontFamily: "var(--font-body), sans-serif" }}>
         {children}
         <script

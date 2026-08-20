@@ -37,7 +37,7 @@
 }
 
 .logoText {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-weight: 700;
   font-size: 1.25rem;
   margin-top: var(--space-xs);

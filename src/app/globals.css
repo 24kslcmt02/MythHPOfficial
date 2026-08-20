@@ -1,26 +1,28 @@
 /* ============================================
-   My-th Design System
-   Stripe-inspired: Light base × Vivid gradients × Card UI
+   My-th Design System v0.3
+   Stage Navy × Penlight Yellow × Cyalume Blue
+   ライトベース＋濃紺ダークセクション／実機UI主役
+   ブランド色はロゴ実色（Mythlogo.svg）と同期させる
    ============================================ */
 
 /* --- Google Fonts are loaded via next/font in layout.js --- */
 
 /* === Design Tokens === */
 :root {
-  /* Brand Colors */
-  --color-primary: #F5D623;
-  --color-primary-light: #FBE96A;
-  --color-primary-dark: #D4B800;
-  --color-primary-subtle: #FFF9DB;
+  /* Brand Colors（ロゴ実色: 黄 #F4E338 / 青 #25ABF1） */
+  --color-primary: #F4E338;
+  --color-primary-light: #F9EF7A;
+  --color-primary-dark: #D8C61A;
+  --color-primary-subtle: #FDFAE0;
 
-  --color-secondary: #4AADE8;
-  --color-secondary-light: #7DC4F0;
-  --color-secondary-dark: #2B8CCB;
-  --color-secondary-subtle: #E3F2FD;
+  --color-secondary: #25ABF1;
+  --color-secondary-light: #6BC6F6;
+  --color-secondary-dark: #1489CC;
+  --color-secondary-subtle: #E3F4FE;
 
   /* rgba()合成用のRGB値（brand colorと常に同期させる） */
-  --color-primary-rgb: 245, 214, 35;
-  --color-secondary-rgb: 74, 173, 232;
+  --color-primary-rgb: 244, 227, 56;
+  --color-secondary-rgb: 37, 171, 241;
 
   /* Accent (from stage lighting in manga material) */
   --color-accent-pink: #F472B6;
@@ -35,12 +37,30 @@
   --color-border: #E2E8F0;
   --color-border-light: #F1F5F9;
 
+  /* Dark sections（暗転した会場の濃紺。ヒーロー・帯セクション用） */
+  --color-dark-bg: #0E1B2C;
+  --color-dark-bg-alt: #16263C;
+  --color-dark-border: rgba(255, 255, 255, 0.08);
+  --color-text-on-dark-secondary: #A8B6CC;
+
   /* Text */
   --color-text-primary: #0F172A;
   --color-text-secondary: #475569;
   --color-text-tertiary: #94A3B8;
   --color-text-on-primary: #0F172A;
   --color-text-on-dark: #FFFFFF;
+
+  /* Font size scale（Module内のrem直書きはこのスケールへ移行する） */
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.375rem;
+  --text-2xl: clamp(1.5rem, 2.5vw, 1.75rem);
+  --text-3xl: clamp(1.75rem, 3vw, 2.25rem);
+  --text-4xl: clamp(2rem, 3.5vw, 2.75rem);
+  --text-5xl: clamp(2.5rem, 5vw, 3.75rem);
+  --text-6xl: clamp(2.75rem, 6vw, 4.5rem);
 
   /* Spacing */
   --space-xs: 0.25rem;
@@ -124,19 +144,24 @@ button {
 
 /* === Typography === */
 h1, h2, h3, h4 {
-  line-height: 1.2;
+  /* 見出しはZen Kaku Gothic New（和文）。英数字はOutfitが先に受ける */
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
+  font-feature-settings: "palt"; /* 和文プロポーショナル詰め */
+  line-height: 1.25;
   font-weight: 700;
   color: var(--color-text-primary);
 }
 
 h1 {
   font-size: clamp(2rem, 5vw, 3.5rem);
-  letter-spacing: -0.02em;
+  font-weight: 900;
+  letter-spacing: 0.01em;
 }
 
 h2 {
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
-  letter-spacing: -0.01em;
+  font-weight: 900;
+  letter-spacing: 0.01em;
 }
 
 h3 {
@@ -175,6 +200,15 @@ p {
   font-size: 1.125rem;
 }
 
+/* 左寄せ版セクションヘッダー（リズム多様化用） */
+.section-header--left {
+  text-align: left;
+}
+
+.section-header--left p {
+  margin: 0;
+}
+
 .section-label {
   display: inline-block;
   font-size: 0.8125rem;
@@ -202,24 +236,24 @@ p {
 .btn-primary {
   background: var(--color-primary);
   color: var(--color-text-on-primary);
-  box-shadow: 0 2px 8px rgba(245, 214, 35, 0.3);
+  box-shadow: 0 2px 8px rgba(var(--color-primary-rgb), 0.3);
 }
 
 .btn-primary:hover {
   background: var(--color-primary-dark);
-  box-shadow: 0 4px 16px rgba(245, 214, 35, 0.4);
+  box-shadow: 0 4px 16px rgba(var(--color-primary-rgb), 0.4);
   transform: translateY(-1px);
 }
 
 .btn-secondary {
   background: var(--color-secondary);
   color: var(--color-text-on-dark);
-  box-shadow: 0 2px 8px rgba(74, 173, 232, 0.3);
+  box-shadow: 0 2px 8px rgba(var(--color-secondary-rgb), 0.3);
 }
 
 .btn-secondary:hover {
   background: var(--color-secondary-dark);
-  box-shadow: 0 4px 16px rgba(74, 173, 232, 0.4);
+  box-shadow: 0 4px 16px rgba(var(--color-secondary-rgb), 0.4);
   transform: translateY(-1px);
 }
 
@@ -303,8 +337,8 @@ summary:focus-visible {
 /* === Gradient Backgrounds === */
 .gradient-mesh {
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(245, 214, 35, 0.08) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, rgba(74, 173, 232, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, rgba(var(--color-primary-rgb), 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(var(--color-secondary-rgb), 0.06) 0%, transparent 50%),
     radial-gradient(ellipse at 60% 80%, rgba(244, 114, 182, 0.04) 0%, transparent 50%),
     var(--color-bg);
 }

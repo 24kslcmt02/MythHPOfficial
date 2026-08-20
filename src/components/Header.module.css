@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   gap: var(--space-xs);
-  font-family: var(--font-logo), var(--font-display), sans-serif;
+  font-family: var(--font-logo), var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-weight: 400;
   font-style: italic;
   font-size: 1.5rem;
