@@ -1,89 +1,57 @@
 .flow {
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: var(--space-md);
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-xl);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: none;
 }
 
 .step {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  flex: 1;
-  min-width: 160px;
-  max-width: 220px;
-  position: relative;
+  border-top: 2px solid var(--color-text-primary);
+  padding-top: var(--space-lg);
 }
 
+/* 大型数字。下半分にペンライト黄のマーカーを敷く */
 .number {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-full);
-  background: linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
-  color: var(--color-text-on-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
-  font-size: 1.25rem;
-  font-weight: 700;
-  margin-bottom: var(--space-lg);
-  box-shadow: 0 4px 12px rgba(245, 214, 35, 0.3);
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--color-text-primary);
+}
+
+.number span {
+  padding: 0 0.1em;
+  background: linear-gradient(transparent 58%, rgba(var(--color-primary-rgb), 0.65) 58%);
 }
 
 .content {
+  margin-top: var(--space-md);
   display: flex;
   flex-direction: column;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
 }
 
 .title {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 700;
 }
 
 .desc {
-  font-size: 0.875rem;
+  font-size: var(--text-sm);
   color: var(--color-text-secondary);
-  line-height: 1.6;
-}
-
-.connector {
-  display: none;
-  position: absolute;
-  right: -20px;
-  top: 20px;
-  color: var(--color-text-tertiary);
-}
-
-@media (min-width: 768px) {
-  .flow {
-    flex-wrap: nowrap;
-  }
-  .connector {
-    display: block;
-  }
+  line-height: 1.7;
 }
 
 @media (max-width: 767px) {
   .flow {
-    flex-direction: column;
-    align-items: center;
-    gap: var(--space-xl);
-  }
-  .step {
-    width: 100%;
-    max-width: 320px;
-    flex-direction: row;
-    text-align: left;
-    align-items: flex-start;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: var(--space-lg);
   }
+
   .number {
-    margin-bottom: 0;
-    margin-top: 4px; /* テキストの1行目と高さを合わせる */
-    flex-shrink: 0;
+    font-size: 2.25rem;
   }
 }

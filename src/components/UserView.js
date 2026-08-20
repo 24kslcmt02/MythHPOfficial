@@ -2,8 +2,8 @@
 
 import { useEffect, useRef } from "react";
 import Link from "next/link";
-import FeatureCard from "@/components/FeatureCard";
 import StepFlow from "@/components/StepFlow";
+import { Layers, Smartphone, Images } from "lucide-react";
 import FAQ from "@/components/FAQ";
 import AIChatBot from "@/components/AIChatBot";
 import InquiryForm from "@/components/contact/InquiryForm";
@@ -162,56 +162,46 @@ export default function UserView({ onViewModeChange }) {
         variants={sectionVariants}
       >
         <div className="container">
-          <div className={styles.sectionHeaderWithMascot}>
-            <div className="section-header">
-              <span className="section-label">About</span>
-              <h2>My-thとは</h2>
-              <p>アイドル運営に必要な機能をひとつに統合した業界特化OSアプリ</p>
-            </div>
-            <motion.div
-              className={styles.miniCharAbout}
-              initial={{ opacity: 0, y: 20, rotate: -5 }}
-              whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-            >
-              <CharacterImage variant="mini" size={90} sizes="90px" className={styles.miniCharImg} />
-            </motion.div>
-          </div>
-          <div className={styles.aboutGrid}>
-            <div className={styles.aboutCard}>
-              <div className={styles.aboutIconWrap}>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <circle cx="10" cy="14" r="5" stroke="var(--color-primary)" strokeWidth="2" fill="none" />
-                  <circle cx="18" cy="14" r="5" stroke="var(--color-secondary)" strokeWidth="2" fill="none" />
-                  <path d="M14 10.5V17.5" stroke="var(--color-primary)" strokeWidth="1.5" opacity="0.5" />
-                </svg>
+          <div className={styles.aboutLayout}>
+            <div className={styles.aboutHeader}>
+              <div className="section-header section-header--left">
+                <span className="section-label">About</span>
+                <h2>My-thとは</h2>
+                <p>アイドル運営に必要な機能をひとつに統合した業界特化OSアプリ</p>
               </div>
-              <h3>オールインワン統合</h3>
-              <p>チェキ券・チケット・物販・入場特典管理をMy-thに一元化</p>
+              <motion.div
+                className={styles.miniCharAbout}
+                initial={{ opacity: 0, y: 20, rotate: -5 }}
+                whileInView={{ opacity: 1, y: 0, rotate: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.4, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <CharacterImage variant="mini" size={90} sizes="90px" className={styles.miniCharImg} />
+              </motion.div>
             </div>
-            <div className={styles.aboutCard}>
-              <div className={styles.aboutIconWrap}>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <path d="M14 4L17 11H24L18.5 15.5L20.5 23L14 18.5L7.5 23L9.5 15.5L4 11H11L14 4Z" stroke="var(--color-primary)" strokeWidth="1.5" fill="var(--color-primary-subtle)" strokeLinejoin="round" />
-                  <circle cx="14" cy="14" r="3" fill="var(--color-primary)" opacity="0.3" />
-                </svg>
-              </div>
-              <h3>スマートな体験</h3>
-              <p>スマホひとつで購入から入場まで、<span className="noBreak">すべて</span>がシームレスに</p>
-            </div>
-            <div className={styles.aboutCard}>
-              <div className={styles.aboutIconWrap}>
-                <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
-                  <rect x="5" y="7" width="18" height="14" rx="3" stroke="var(--color-primary)" strokeWidth="1.5" fill="none" />
-                  <rect x="8" y="10" width="5" height="5" rx="1" fill="var(--color-secondary)" opacity="0.3" />
-                  <rect x="15" y="10" width="5" height="5" rx="1" fill="var(--color-primary)" opacity="0.3" />
-                  <rect x="8" y="16" width="12" height="1.5" rx="0.75" fill="var(--color-primary)" opacity="0.2" />
-                </svg>
-              </div>
-              <h3>データ資産化</h3>
-              <p>チェキ券がデジタルアルバムに。<span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span></p>
-            </div>
+            <ul className={styles.aboutList}>
+              <li className={styles.aboutItem}>
+                <span className={styles.aboutIcon}><Layers size={24} strokeWidth={1.8} aria-hidden="true" /></span>
+                <div>
+                  <h3>オールインワン統合</h3>
+                  <p>チェキ券・チケット・物販・入場特典管理をMy-thに一元化</p>
+                </div>
+              </li>
+              <li className={styles.aboutItem}>
+                <span className={styles.aboutIcon}><Smartphone size={24} strokeWidth={1.8} aria-hidden="true" /></span>
+                <div>
+                  <h3>スマートな体験</h3>
+                  <p>スマホひとつで購入から入場まで、<span className="noBreak">すべて</span>がシームレスに</p>
+                </div>
+              </li>
+              <li className={styles.aboutItem}>
+                <span className={styles.aboutIcon}><Images size={24} strokeWidth={1.8} aria-hidden="true" /></span>
+                <div>
+                  <h3>データ資産化</h3>
+                  <p>チェキ券がデジタルアルバムに。<span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span></p>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </motion.section>
@@ -230,26 +220,41 @@ export default function UserView({ onViewModeChange }) {
             <h2>主な機能</h2>
             <p><span className="noBreak">推し活</span>に必要な<span className="noBreak">すべて</span>が、ここに</p>
           </div>
-          <div className={styles.featureGrid}>
+          <div className={styles.showcase}>
             {features.map((f, i) => {
               const screenshot = screenshotMap[f.mockup];
               return (
-                <FeatureCard key={i} title={f.title} description={f.description} accent={f.accent}>
-                  {screenshot ? (
-                    <div className={styles.featureScreenshot}>
-                      <Image
-                        src={screenshot.src}
-                        alt={screenshot.alt}
-                        width={280}
-                        height={607}
-                        unoptimized
-                        className={styles.screenshotImg}
-                      />
-                    </div>
-                  ) : f.mockup === "pass" ? (
-                    <UserPassMockup />
-                  ) : null}
-                </FeatureCard>
+                <motion.div
+                  key={f.title}
+                  className={`${styles.showcaseRow} ${i % 2 === 1 ? styles.showcaseRowReverse : ""}`}
+                  initial={{ opacity: 0, x: i % 2 === 1 ? 48 : -48 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  viewport={{ once: true, margin: "-80px" }}
+                  transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <div className={styles.showcaseVisual}>
+                    {screenshot ? (
+                      <div className={styles.showcasePhone}>
+                        <Image
+                          src={screenshot.src}
+                          alt={screenshot.alt}
+                          width={647}
+                          height={1403}
+                          sizes="(max-width: 767px) 70vw, 280px"
+                          className={styles.screenshotImg}
+                        />
+                      </div>
+                    ) : (
+                      <div className={styles.showcaseMockPanel}>
+                        <UserPassMockup />
+                      </div>
+                    )}
+                  </div>
+                  <div className={styles.showcaseText}>
+                    <h3>{f.title}</h3>
+                    <p>{f.description}</p>
+                  </div>
+                </motion.div>
               );
             })}
           </div>
@@ -265,7 +270,7 @@ export default function UserView({ onViewModeChange }) {
         variants={sectionVariants}
       >
         <div className="container">
-          <div className={styles.promoCard}>
+          <div className={styles.promoTicket}>
             <div className={styles.promoCardContent}>
               <span className={styles.promoLabel}>COLLECTION PLAN</span>
               <h3>チェキ券の新しい楽しみ方</h3>
@@ -277,8 +282,9 @@ export default function UserView({ onViewModeChange }) {
                 コレクション機能について詳しく見る
               </Link>
             </div>
+            <div className={styles.promoDivider} aria-hidden="true" />
             <div className={styles.promoCardVisual}>
-              <CharacterImage variant="subscriptionKv" size={300} sizes="300px" className={styles.screenshotImg} style={{ borderRadius: "24px", boxShadow: "0 20px 40px rgba(0,0,0,0.1)" }} />
+              <CharacterImage variant="subscriptionKv" size={260} sizes="260px" className={styles.promoKv} />
             </div>
           </div>
         </div>
