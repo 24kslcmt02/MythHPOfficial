@@ -83,21 +83,6 @@ const itemVariants = {
   exit: { opacity: 0, y: -20, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
 };
 
-const characterVariants = {
-  hidden: { opacity: 0, y: 50, filter: "blur(10px)" },
-  visible: {
-    opacity: 1,
-    y: 0,
-    filter: "blur(0px)",
-    transition: {
-      delay: 1.2,
-      duration: 1.0,
-      ease: [0.22, 1, 0.36, 1]
-    }
-  },
-  exit: { opacity: 0, scale: 0.95, transition: { duration: 0.3 } }
-};
-
 const sectionVariants = {
   hidden: { opacity: 0, y: 40 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
@@ -121,26 +106,18 @@ export default function UserView({ onViewModeChange }) {
       animate="visible"
       exit="exit"
     >
-      {/* Hero */}
+      {/* Hero — 濃紺ステージ×実機UI主役 */}
       <section className={styles.hero}>
         <FlowingBackground variant="btoc" />
-        <motion.div
-          className={styles.stageBg}
-          style={{ backgroundImage: 'url(/images/stage-bg.jpg)', backgroundSize: 'cover', backgroundPosition: 'center' }}
-          initial={{ opacity: 0, scale: 1.05 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1.5, ease: "easeOut" }}
-          exit={{ opacity: 0, transition: { duration: 0.5 } }}
-        />
-        <div className={styles.stageOverlay} />
-
         <div className={`container ${styles.heroInner}`}>
           <motion.div className={styles.heroContent} variants={containerVariants}>
             <motion.p layoutId="hero-label" variants={itemVariants} className={styles.heroLabel}>MY-TH OS V1.0</motion.p>
             <motion.h1 layoutId="hero-title" variants={itemVariants} className={styles.heroTitle}>
               すべての
               <br className="brSp" />
-              体験をつなぐ
+              体験を
+              <br className="brPc" />
+              つなぐ
               <br className="brSp" />
               <span className={`${styles.heroAccent} noBreak`}>アイドルOS</span>
             </motion.h1>
@@ -160,31 +137,17 @@ export default function UserView({ onViewModeChange }) {
 
           </motion.div>
 
-          <motion.div className={styles.heroVisualCenter} variants={characterVariants}>
-            <div className={styles.characterWrap}>
-              <CharacterImage
-                variant="standing"
-                width={700}
-                height={900}
-                sizes="(max-width: 767px) 70vw, 640px"
+          <motion.div className={styles.heroVisual} variants={itemVariants}>
+            <div className={styles.heroPhone}>
+              <Image
+                src="/images/screenshots/screenshot-home.webp"
+                alt="My-th ホーム画面"
+                width={647}
+                height={1403}
+                sizes="(max-width: 767px) 78vw, 380px"
                 priority
-                className={styles.characterImg}
+                className={styles.screenshotImg}
               />
-            </div>
-          </motion.div>
-
-          <motion.div className={styles.heroVisualRight} variants={itemVariants}>
-            <div className={styles.smartphoneWrap}>
-              <div className={styles.screenshotPhone}>
-                <Image
-                  src="/images/screenshots/screenshot-home.webp"
-                  alt="My-th ホーム画面"
-                  width={324}
-                  height={702}
-                  unoptimized
-                  className={styles.screenshotImg}
-                />
-              </div>
             </div>
           </motion.div>
         </div>

@@ -80,30 +80,29 @@ export default function FlowingBackground({ variant = "btob" }) {
         xmlns="http://www.w3.org/2000/svg"
       >
         <defs>
-          {/* BtoB Gradients — blue → indigo → soft pink */}
+          {/* ブランド2色のペンライト光跡（黄 → 青）。トークンと同期させるためvar()参照 */}
           <linearGradient id={`${id}-grad1`} x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#60A5FA" stopOpacity="0.6" />
-            <stop offset="40%" stopColor="#818CF8" stopOpacity="0.5" />
-            <stop offset="70%" stopColor="#A78BFA" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#F0ABFC" stopOpacity="0.2" />
+            <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.85" />
+            <stop offset="55%" stopColor="var(--color-secondary)" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="var(--color-secondary)" stopOpacity="0" />
           </linearGradient>
 
           <linearGradient id={`${id}-grad2`} x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#93C5FD" stopOpacity="0.4" />
-            <stop offset="50%" stopColor="#C4B5FD" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#FBCFE8" stopOpacity="0.15" />
+            <stop offset="0%" stopColor="var(--color-secondary)" stopOpacity="0.4" />
+            <stop offset="60%" stopColor="var(--color-secondary-light)" stopOpacity="0.25" />
+            <stop offset="100%" stopColor="var(--color-primary)" stopOpacity="0" />
           </linearGradient>
 
           <linearGradient id={`${id}-grad3`} x1="100%" y1="0%" x2="20%" y2="80%">
-            <stop offset="0%" stopColor="#3B82F6" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#8B5CF6" stopOpacity="0.1" />
+            <stop offset="0%" stopColor="var(--color-primary)" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="var(--color-secondary)" stopOpacity="0.08" />
           </linearGradient>
         </defs>
 
         {isB2C ? (
           <>
             {/* BtoC: 2 ribbon bundles, gentler and more restrained
-                (stage-bg.jpg is the hero, ribbons are subtle accompaniment) */}
+                (濃紺ヒーローの上に淡く敷くペンライト光跡) */}
             {generateRibbon({
               lineCount: 35,
               mainPath: btocRibbon1,

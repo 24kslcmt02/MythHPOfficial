@@ -1,4 +1,4 @@
-/* === Hero === */
+/* === Hero（濃紺ステージ×実機UI主役） === */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -6,46 +6,23 @@
   align-items: center;
   padding-top: 64px;
   overflow: hidden;
-  background: var(--color-bg);
-}
-
-/* Stage Background */
-.stageBg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.heroLoaded .stageBg {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.stageOverlay {
-  position: absolute;
-  inset: 0;
   background:
-    linear-gradient(to right, rgba(250, 251, 254, 0.95) 0%, rgba(250, 251, 254, 0.6) 50%, rgba(250, 251, 254, 0.1) 100%),
-    linear-gradient(to top, rgba(250, 251, 254, 0.95) 0%, transparent 40%);
-  z-index: 1;
+    radial-gradient(ellipse 55% 45% at 76% 40%, rgba(var(--color-primary-rgb), 0.09) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 55% at 12% 85%, rgba(var(--color-secondary-rgb), 0.1) 0%, transparent 60%),
+    var(--color-dark-bg);
 }
 
 .heroInner {
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr 1.6fr 1fr; /* キャラクター(中央)を8割程度見せる定率 */
-  gap: 40px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 56px;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  min-height: 80vh;
-  /* Override global container to provide a wider staging area */
-  max-width: 1540px !important;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  min-height: 78vh;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
@@ -76,17 +53,15 @@
 
 .heroTitle {
   font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  letter-spacing: -0.03em;
-  line-height: 1.15;
-  color: var(--color-text-primary);
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+  letter-spacing: 0.01em;
+  line-height: 1.18;
+  color: var(--color-white);
 }
 
 .heroAccent {
-  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-primary);
 }
 
 @media (max-width: 767px) {
@@ -160,9 +135,9 @@
 }
 
 .heroDesc {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--color-text-secondary);
+  font-size: var(--text-lg);
+  line-height: 1.9;
+  color: var(--color-text-on-dark-secondary);
   max-width: 480px;
 }
 
@@ -201,48 +176,24 @@
   color: var(--color-primary);
 }
 
-/* Character Visual */
-.heroVisualCenter {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-/* Smartphone Mockup */
-.heroVisualRight {
+/* Hero Visual — 実機スクショ単一フレーム */
+.heroVisual {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
-.smartphoneWrap {
-  position: relative;
+/* スクショはベゼル焼き込み済みのため枠は付けず、
+   焼き込みベゼルの角丸（幅の約11.5%）でトリムして影とグロウのみ足す */
+.heroPhone {
+  max-width: 340px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.6s,
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 1.6s;
-}
-
-.heroLoaded .smartphoneWrap {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.smartphoneImg {
-  object-fit: contain;
-}
-
-/* Screenshot Phone Display (real app screenshots) */
-.screenshotPhone {
-  border-radius: 28px;
+  border-radius: 39px; /* 焼き込みベゼル角丸 ≒ 幅の11.5% */
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  width: 100%;
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.45),
+    0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 120px rgba(var(--color-primary-rgb), 0.14);
 }
 
 .screenshotImg {
@@ -260,31 +211,6 @@
   width: 100%;
   margin: 0 auto;
 }
-
-.characterWrap {
-  position: relative;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s,
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 1.2s;
-  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.25)); /* Re-add shadow for character */
-}
-
-.heroLoaded .characterWrap {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.characterImg {
-  width: auto;
-  height: 85vh; /* 画面の約85%の高さ */
-  max-height: 860px; /* 余白を確保して上限設定 */
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
-  margin-bottom: -5vh; /* 下部にはみ出させるダイナミックな配置 */
-}
-
 
 /* === About === */
 .about {
@@ -505,24 +431,14 @@
     max-width: 100%;
   }
 
-  .heroVisualCenter {
-    order: -1;
-    justify-content: center;
-  }
-
-  .heroVisualRight {
+  .heroVisual {
     order: 1;
-    justify-content: center;
     margin-top: var(--space-xl);
   }
 
-  .characterImg {
-    max-height: 45vh;
-  }
-
-  .stageOverlay {
-    background:
-      linear-gradient(to bottom, rgba(250, 251, 254, 0.6) 0%, rgba(250, 251, 254, 0.85) 60%, rgba(250, 251, 254, 1) 100%);
+  .heroPhone {
+    max-width: 320px;
+    border-radius: 37px;
   }
 
   .aboutGrid {
@@ -555,8 +471,9 @@
 }
 
 @media (max-width: 767px) {
-  .characterImg {
-    max-height: 35vh;
+  .heroPhone {
+    max-width: 280px;
+    border-radius: 32px;
   }
 
   .heroBtns,
