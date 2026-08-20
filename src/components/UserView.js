@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import Link from "next/link";
 import StepFlow from "@/components/StepFlow";
-import { Layers, Smartphone, Images } from "lucide-react";
+import { Layers, Smartphone, Images, ArrowRight } from "lucide-react";
 import FAQ from "@/components/FAQ";
 import AIChatBot from "@/components/AIChatBot";
 import InquiryForm from "@/components/contact/InquiryForm";
@@ -310,7 +310,8 @@ export default function UserView({ onViewModeChange }) {
           <FAQ items={faqItems} />
           <div className={styles.faqMoreWrap}>
             <Link href="/faq" className={styles.faqMoreLink}>
-              よくある質問をすべて見る →
+              よくある質問をすべて見る
+              <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
             </Link>
           </div>
 
@@ -351,8 +352,9 @@ export default function UserView({ onViewModeChange }) {
               <Image src="/images/badge-googleplay.svg" alt="Google Playで手に入れよう" width={168} height={50} unoptimized />
             </a>
           </div>
-          <Link href="/subscription" className={styles.heroSwitch} style={{ marginTop: 'var(--space-md)', display: 'inline-flex', alignItems: 'center', gap: '4px', fontSize: '0.9375rem', fontWeight: '600', color: 'var(--color-text-tertiary)', transition: 'color 0.2s' }}>
-            コレクション機能について詳しく見る →
+          <Link href="/subscription" className={styles.ctaSubLink}>
+            コレクション機能について詳しく見る
+            <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
           </Link>
         </div>
       </section>

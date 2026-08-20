@@ -428,6 +428,23 @@
   margin-top: var(--space-sm);
 }
 
+/* CTA下のサブリンク（ダーク上） */
+.ctaSubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-on-dark-secondary);
+  transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.ctaSubLink:hover {
+  color: var(--color-primary);
+  gap: 10px;
+}
+
 /* === Promo Section（チケット半券モチーフのダーク帯） === */
 .promo {
   background: var(--color-dark-bg);

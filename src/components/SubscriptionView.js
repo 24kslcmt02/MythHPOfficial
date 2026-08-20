@@ -160,9 +160,9 @@ export default function SubscriptionView() {
               <Image
                 src="/images/screenshots/screenshot-collection.webp"
                 alt="コレクション画面"
-                width={280}
-                height={607}
-                unoptimized
+                width={647}
+                height={1403}
+                sizes="(max-width: 767px) 70vw, 280px"
                 className={styles.screenshotImg}
               />
             </div>
