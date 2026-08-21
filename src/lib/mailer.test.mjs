@@ -34,7 +34,7 @@ test("自動返信には問い合わせ内容の控えと返信目安が入る",
   assert.match(reply.subject, /お問い合わせ/);
   assert.match(reply.text, /田中 太郎/);
   assert.match(reply.text, /導入について相談したいです。/);
-  assert.match(reply.text, /2営業日以内/);
+  assert.match(reply.text, /24時間以内/);
 });
 
 test("自動返信はこのメールに返信しても届かない旨を明示しない（reply_to を窓口にする）", () => {
@@ -75,7 +75,7 @@ test("会員登録の自動返信は担当者がログインURLをメールで�
   assert.match(reply.subject, /会員登録/);
   assert.match(reply.text, /田中 花子/);
   assert.match(reply.text, /ログインURL/);
-  assert.match(reply.text, /2営業日以内/);
+  assert.match(reply.text, /24時間以内/);
   assert.doesNotMatch(reply.text, /以下の内容で承りました/);
 });
 

@@ -285,7 +285,7 @@ export default function OperatorView({ onViewModeChange }) {
             <span className="section-label">Contact</span>
             <h2>無料で会員登録・導入のご相談</h2>
             <p>
-              お名前とメールアドレスだけで会員登録をお申し込みいただけます。担当者が2営業日以内にログインURLをお送りします。
+              お名前とメールアドレスだけで会員登録をお申し込みいただけます。担当者が24時間以内にログインURLをお送りします。
             </p>
           </div>
           <InquiryForm

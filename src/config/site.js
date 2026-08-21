@@ -61,7 +61,7 @@ export const contact = {
   /** @todo 確定必要 例: "平日 11:00〜18:00（土日祝を除く）" */
   telHours: null,
   /** 返信目安（既存フォームの記載を踏襲） */
-  replyTarget: "2営業日以内",
+  replyTarget: "24時間以内",
   /** @todo 確定必要 イベント当日の緊急窓口があれば */
   emergency: null,
 };

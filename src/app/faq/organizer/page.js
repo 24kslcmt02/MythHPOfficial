@@ -41,7 +41,7 @@ export default function OrganizerFaqPage() {
         <Notice>
           <p>
             導入のご相談は<Link href="/contact?type=organizer"> お問い合わせ </Link>
-            より承ります。担当者が2営業日以内にご連絡いたします。
+            より承ります。担当者が24時間以内にご連絡いたします。
           </p>
         </Notice>
       </div>
