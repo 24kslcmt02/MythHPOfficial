@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import Pending from "@/components/common/Pending";
 import Notice from "@/components/common/Notice";
@@ -22,6 +24,8 @@ export const metadata = {
 const tokushoho = legalLinks.find((item) => item.key === "tokushoho");
 
 export default function FeesPage() {
+  if (!isRoutePublished("/fees")) notFound();
+
   return (
     <PageShell
       eyebrow="Fees"

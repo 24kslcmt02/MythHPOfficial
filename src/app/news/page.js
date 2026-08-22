@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import { sortedNews } from "@/content/news";
 import styles from "@/components/common/page.module.css";
@@ -12,6 +14,8 @@ export const metadata = {
 };
 
 export default function NewsPage() {
+  if (!isRoutePublished("/news")) notFound();
+
   const entries = sortedNews();
 
   return (

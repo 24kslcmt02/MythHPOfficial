@@ -2,6 +2,7 @@ import Link from "next/link";
 import PageShell from "@/components/common/PageShell";
 import Notice from "@/components/common/Notice";
 import { organizerCommissionRate, pricing } from "@/config/site";
+import { contactHref, feesHref } from "@/config/routes";
 import { features } from "@/content/features";
 import { publishedFeatures, isPublishedFeature, featureDescText, groupFeaturesByCategory } from "@/lib/features.mjs";
 import EventCreateMockup from "@/components/mockups/EventCreateMockup";
@@ -96,7 +97,7 @@ export default function OperatorFeaturesPage() {
         <p className={styles.pricingNote}>
           システム利用料や発券手数料のような別建ての費用はありません。販売手数料を主催者負担にするか
           購入者負担にするかは、イベントごとにお選びいただけます。詳しくは
-          <Link href="/fees#organizer">手数料について</Link>をご覧ください。
+          <Link href={feesHref("organizer")}>手数料について</Link>をご覧ください。
         </p>
       </section>
 
@@ -159,7 +160,7 @@ export default function OperatorFeaturesPage() {
         </Notice>
         <Notice>
           <p>
-            費用の詳細は<Link href="/fees#organizer"> 手数料について </Link>
+            費用の詳細は<Link href={feesHref("organizer")}> 手数料について </Link>
             を、導入の流れやよくいただくご質問は
             <Link href="/faq/organizer"> 運営者向けのよくある質問 </Link>
             をご覧ください。
@@ -172,7 +173,7 @@ export default function OperatorFeaturesPage() {
         <h2>まずはお気軽にご相談ください</h2>
         <p>運営スタイルに合わせた使い方をご提案します。</p>
         <div className={shared.ctaRow}>
-          <Link href="/contact?type=organizer" className="btn btn-primary">
+          <Link href={contactHref("organizer")} className="btn btn-primary">
             導入について相談する
           </Link>
           <Link href="/operator" className={styles.ctaGhostBtn}>

@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import Pending from "@/components/common/Pending";
 import ExternalLink from "@/components/common/ExternalLink";
@@ -24,6 +26,8 @@ function Row({ term, children }) {
 }
 
 export default function CompanyPage() {
+  if (!isRoutePublished("/company")) notFound();
+
   const address = [company.postalCode, company.address].filter(Boolean).join(" ");
   const hasDetails = Boolean(
     company.address || company.representative || company.founded || company.capital || company.business

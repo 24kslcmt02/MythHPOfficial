@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import Pending from "@/components/common/Pending";
 import Notice from "@/components/common/Notice";
@@ -13,6 +15,8 @@ export const metadata = {
 };
 
 export default function EnvironmentPage() {
+  if (!isRoutePublished("/guide/environment")) notFound();
+
   const hasOsInfo = Boolean(requirements.ios || requirements.android);
 
   return (

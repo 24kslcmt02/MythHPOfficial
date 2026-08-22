@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import { ShieldCheck, Smartphone, Globe, MailWarning } from "lucide-react";
 import PageShell from "@/components/common/PageShell";
 import Notice from "@/components/common/Notice";
@@ -16,6 +18,8 @@ export const metadata = {
 const privacy = legalLinks.find((item) => item.key === "privacy");
 
 export default function SecurityPage() {
+  if (!isRoutePublished("/security")) notFound();
+
   return (
     <PageShell
       eyebrow="Safety & Security"

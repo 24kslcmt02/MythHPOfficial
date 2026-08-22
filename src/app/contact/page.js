@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import { Mail, Phone, Clock } from "lucide-react";
 import PageShell from "@/components/common/PageShell";
 import InquiryForm from "@/components/contact/InquiryForm";
@@ -16,6 +18,8 @@ export const metadata = {
 
 /** /contact?type=organizer で運営者向けの入力欄を初期表示する */
 export default async function ContactPage({ searchParams }) {
+  if (!isRoutePublished("/contact")) notFound();
+
   const params = await searchParams;
   const requestedType = Array.isArray(params?.type) ? params.type[0] : params?.type;
   const defaultType = CONTACT_TYPES.includes(requestedType) ? requestedType : "user";

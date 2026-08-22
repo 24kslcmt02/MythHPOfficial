@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { isRoutePublished } from "@/config/routes";
 import { notFound } from "next/navigation";
 import PageShell from "@/components/common/PageShell";
 import { findNews, news } from "@/content/news";
@@ -7,6 +8,7 @@ import styles from "@/components/common/page.module.css";
 import newsStyles from "../news.module.css";
 
 export function generateStaticParams() {
+  if (!isRoutePublished("/news")) return [];
   return news.map((entry) => ({ slug: entry.slug }));
 }
 
@@ -29,6 +31,8 @@ export async function generateMetadata({ params }) {
 }
 
 export default async function NewsDetailPage({ params }) {
+  if (!isRoutePublished("/news")) notFound();
+
   const { slug } = await params;
   const entry = findNews(slug);
   if (!entry) notFound();

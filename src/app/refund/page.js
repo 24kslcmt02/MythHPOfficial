@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import Notice from "@/components/common/Notice";
 import Pending from "@/components/common/Pending";
@@ -17,6 +19,8 @@ const terms = legalLinks.find((item) => item.key === "terms");
 const tokushoho = legalLinks.find((item) => item.key === "tokushoho");
 
 export default function RefundPage() {
+  if (!isRoutePublished("/refund")) notFound();
+
   return (
     <PageShell
       eyebrow="Refund"

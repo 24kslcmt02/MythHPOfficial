@@ -13,8 +13,9 @@ const ALL = "すべて";
  * @param {object} props
  * @param {Array} props.items 表示する設問（公開判定済みのものを渡す）
  * @param {string[]} props.categories カテゴリの表示順
+ * @param {string} [props.contactHref] 検索結果ゼロ件時に案内する問い合わせ先
  */
-export default function FaqBrowser({ items, categories }) {
+export default function FaqBrowser({ items, categories, contactHref = "/#contact" }) {
   const [query, setQuery] = useState("");
   const [activeCategory, setActiveCategory] = useState(ALL);
   const [openIds, setOpenIds] = useState(() => new Set());
@@ -99,7 +100,7 @@ export default function FaqBrowser({ items, categories }) {
           <p>該当する質問が見つかりませんでした。</p>
           <p>
             キーワードを変えてお試しいただくか、
-            <a href="/contact">お問い合わせ</a>よりご連絡ください。
+            <a href={contactHref}>お問い合わせ</a>よりご連絡ください。
           </p>
         </div>
       ) : (

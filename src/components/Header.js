@@ -5,19 +5,28 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ChevronDown, CircleHelp } from "lucide-react";
+import { UNPUBLISHED_ROUTES, contactHref } from "@/config/routes";
+import { filterPublishedLinks } from "@/lib/route-visibility.mjs";
 import styles from "./Header.module.css";
 
-const HELP_LINKS = [
-  { href: "/faq", label: "よくある質問（購入者）" },
-  { href: "/faq/organizer", label: "よくある質問（運営者）" },
-  { href: "/guide", label: "使い方ガイド" },
-  { href: "/contact", label: "お問い合わせ" },
-];
+/** ヘルプメニュー。公開保留中のページへのリンクは自動で外れる */
+function buildHelpLinks(audience) {
+  return filterPublishedLinks(
+    [
+      { href: "/faq", label: "よくある質問（購入者）" },
+      { href: "/faq/organizer", label: "よくある質問（運営者）" },
+      { href: "/guide", label: "使い方ガイド" },
+      { href: contactHref(audience), label: "お問い合わせ" },
+    ],
+    UNPUBLISHED_ROUTES,
+  );
+}
 
 export default function Header({ variant = "user", onViewModeChange }) {
   const isUser = variant === "user";
   const isOperator = variant === "operator";
   const router = useRouter();
+  const helpLinks = buildHelpLinks(isOperator ? "organizer" : "user");
 
   const [helpOpen, setHelpOpen] = useState(false);
   const helpRef = useRef(null);
@@ -107,7 +116,7 @@ export default function Header({ variant = "user", onViewModeChange }) {
             </button>
             {helpOpen && (
               <ul className={styles.helpMenu} id="header-help-menu">
-                {HELP_LINKS.map((link) => (
+                {helpLinks.map((link) => (
                   <li key={link.href}>
                     <Link href={link.href} onClick={() => setHelpOpen(false)}>
                       {link.label}

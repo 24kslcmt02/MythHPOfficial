@@ -4,6 +4,7 @@ import FaqBrowser from "@/components/FaqBrowser";
 import Notice from "@/components/common/Notice";
 import { organizerFaq, organizerFaqCategories } from "@/content/faq/organizer";
 import { publishedFaq, faqToJsonLd } from "@/lib/faq.mjs";
+import { contactHref } from "@/config/routes";
 import styles from "@/components/common/page.module.css";
 
 export const metadata = {
@@ -35,12 +36,12 @@ export default function OrganizerFaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <FaqBrowser items={items} categories={organizerFaqCategories} />
+      <FaqBrowser items={items} categories={organizerFaqCategories} contactHref={contactHref("organizer")} />
 
       <div className={styles.block} style={{ marginTop: "var(--space-3xl)", maxWidth: 860 }}>
         <Notice>
           <p>
-            導入のご相談は<Link href="/contact?type=organizer"> お問い合わせ </Link>
+            導入のご相談は<Link href={contactHref("organizer")}> お問い合わせ </Link>
             より承ります。担当者が24時間以内にご連絡いたします。
           </p>
         </Notice>

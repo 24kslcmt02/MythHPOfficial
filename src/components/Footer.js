@@ -14,6 +14,45 @@ import {
   payments,
   stores,
 } from "@/config/site";
+import { UNPUBLISHED_ROUTES, contactHref, feesHref, isRoutePublished } from "@/config/routes";
+import { filterPublishedLinks } from "@/lib/route-visibility.mjs";
+
+/** フッターのリンク群。公開保留中のページへのリンクは自動で外れる */
+function buildFooterLinks(audience) {
+  const published = (links) => filterPublishedLinks(links, UNPUBLISHED_ROUTES);
+  return {
+    support: published([
+      { href: "/faq", label: "よくある質問（購入者）" },
+      { href: "/faq/organizer", label: "よくある質問（運営者）" },
+      { href: "/guide", label: "使い方ガイド" },
+      { href: feesHref(audience), label: "手数料について" },
+      { href: "/refund", label: "払い戻し・公演中止時の対応" },
+      { href: contactHref(audience), label: "お問い合わせ" },
+      { href: "/faq#q-withdraw", label: "退会について" },
+    ]),
+    safety: published([
+      { href: "/security", label: "安全への取り組み" },
+      { href: "/guide/environment", label: "動作環境" },
+      { href: "/news", label: "お知らせ" },
+      { href: "/security#official-channels", label: "偽サイト・偽アプリにご注意" },
+    ]),
+  };
+}
+
+function LinkGroup({ title, links, children }) {
+  if (links.length === 0 && !children) return null;
+  return (
+    <div className={styles.linkGroup}>
+      <h2 className={styles.groupTitle}>{title}</h2>
+      {links.map((link) => (
+        <Link key={link.href} href={link.href}>
+          {link.label}
+        </Link>
+      ))}
+      {children}
+    </div>
+  );
+}
 
 /**
  * サイト共通フッター（v0.2 要件定義 FR-01 / 3.3）
@@ -25,6 +64,7 @@ import {
  */
 export default function Footer({ variant = "user", onViewModeChange }) {
   const router = useRouter();
+  const footerLinks = buildFooterLinks(variant === "operator" ? "organizer" : "user");
 
   // トップページ（SPA）ではビュー切替、それ以外のページではルート遷移
   const goToView = (mode) => {
@@ -85,28 +125,13 @@ export default function Footer({ variant = "user", onViewModeChange }) {
               <Link href="/operator/features">機能一覧（運営者向け）</Link>
             </div>
 
-            <div className={styles.linkGroup}>
-              <h2 className={styles.groupTitle}>サポート</h2>
-              <Link href="/faq">よくある質問（購入者）</Link>
-              <Link href="/faq/organizer">よくある質問（運営者）</Link>
-              <Link href="/guide">使い方ガイド</Link>
-              <Link href="/fees">手数料について</Link>
-              <Link href="/refund">払い戻し・公演中止時の対応</Link>
-              <Link href="/contact">お問い合わせ</Link>
-              <Link href="/faq#q-withdraw">退会について</Link>
-            </div>
+            <LinkGroup title="サポート" links={footerLinks.support} />
 
-            <div className={styles.linkGroup}>
-              <h2 className={styles.groupTitle}>安心・安全</h2>
-              <Link href="/security">安全への取り組み</Link>
-              <Link href="/guide/environment">動作環境</Link>
-              <Link href="/news">お知らせ</Link>
-              <Link href="/security#official-channels">偽サイト・偽アプリにご注意</Link>
-            </div>
+            <LinkGroup title="安心・安全" links={footerLinks.safety} />
 
             <div className={styles.linkGroup}>
               <h2 className={styles.groupTitle}>会社情報・規約</h2>
-              <Link href="/company">運営会社</Link>
+              {isRoutePublished("/company") && <Link href="/company">運営会社</Link>}
               {externalLegal.map((item) => (
                 <a
                   key={item.key}

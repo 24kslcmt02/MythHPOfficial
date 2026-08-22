@@ -9,6 +9,7 @@ import AIChatBot from "@/components/AIChatBot";
 import InquiryForm from "@/components/contact/InquiryForm";
 import { userFaq } from "@/content/faq/user";
 import { organizerCommissionRate } from "@/config/site";
+import { feesHref } from "@/config/routes";
 import { publishedFaq } from "@/lib/faq.mjs";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
 import styles from "../app/page.module.css";
@@ -250,7 +251,7 @@ export default function UserView({ onViewModeChange }) {
                 ※販売手数料{organizerCommissionRate}の負担（主催者・購入者）はイベントごとに設定されます
               </span>
             </p>
-            <Link href="/fees" className={styles.feeStripLink}>
+            <Link href={feesHref("user")} className={styles.feeStripLink}>
               手数料について
               <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
             </Link>

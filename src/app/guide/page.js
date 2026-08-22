@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { notFound } from "next/navigation";
+import { isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import Notice from "@/components/common/Notice";
 import styles from "@/components/common/page.module.css";
@@ -30,6 +32,8 @@ const STEPS = [
 ];
 
 export default function GuidePage() {
+  if (!isRoutePublished("/guide")) notFound();
+
   return (
     <PageShell
       eyebrow="Guide"

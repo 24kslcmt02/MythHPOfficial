@@ -1,7 +1,11 @@
 import { site } from "@/config/site";
+import { isRoutePublished } from "@/config/routes";
 import { news } from "@/content/news";
 
-/** 公開ページの一覧（NFR-02） */
+/**
+ * 全ページの一覧（NFR-02）。
+ * 公開保留中のルート（src/config/routes.js の UNPUBLISHED_ROUTES）は出力時に除外される。
+ */
 const ROUTES = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
   { path: "/operator", priority: 0.9, changeFrequency: "weekly" },
@@ -21,15 +25,17 @@ const ROUTES = [
 
 export default function sitemap() {
   const now = new Date();
+  const publishedRoutes = ROUTES.filter((route) => isRoutePublished(route.path));
+  const publishedNews = isRoutePublished("/news") ? news : [];
 
   return [
-    ...ROUTES.map((route) => ({
+    ...publishedRoutes.map((route) => ({
       url: `${site.url}${route.path}`,
       lastModified: now,
       changeFrequency: route.changeFrequency,
       priority: route.priority,
     })),
-    ...news.map((entry) => ({
+    ...publishedNews.map((entry) => ({
       url: `${site.url}/news/${entry.slug}`,
       lastModified: new Date(entry.date),
       changeFrequency: "yearly",

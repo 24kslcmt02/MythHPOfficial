@@ -4,6 +4,7 @@ import FaqBrowser from "@/components/FaqBrowser";
 import Notice from "@/components/common/Notice";
 import { userFaq, userFaqCategories } from "@/content/faq/user";
 import { publishedFaq, faqToJsonLd } from "@/lib/faq.mjs";
+import { contactHref } from "@/config/routes";
 import styles from "@/components/common/page.module.css";
 
 export const metadata = {
@@ -33,12 +34,12 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <FaqBrowser items={items} categories={userFaqCategories} />
+      <FaqBrowser items={items} categories={userFaqCategories} contactHref={contactHref("user")} />
 
       <div className={styles.block} style={{ marginTop: "var(--space-3xl)", maxWidth: 860 }}>
         <Notice>
           <p>
-            ここで解決しない場合は<Link href="/contact"> お問い合わせ </Link>
+            ここで解決しない場合は<Link href={contactHref("user")}> お問い合わせ </Link>
             よりご連絡ください。運営者の方は
             <Link href="/faq/organizer"> 運営者向けのよくある質問 </Link>
             をご覧ください。
