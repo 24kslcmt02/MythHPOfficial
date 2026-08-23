@@ -5,11 +5,8 @@ import Link from "next/link";
 import StepFlow from "@/components/StepFlow";
 import { Layers, Smartphone, Images, ArrowRight } from "lucide-react";
 import FAQ from "@/components/FAQ";
-import AIChatBot from "@/components/AIChatBot";
 import InquiryForm from "@/components/contact/InquiryForm";
 import { userFaq } from "@/content/faq/user";
-import { organizerCommissionRate } from "@/config/site";
-import { feesHref } from "@/config/routes";
 import { publishedFaq } from "@/lib/faq.mjs";
 import UserPassMockup from "@/components/mockups/UserPassMockup";
 import styles from "../app/page.module.css";
@@ -23,13 +20,8 @@ import { makeViewContainer, itemFadeUp, sectionFadeUp, slideIn, blurIn, EASE_OUT
 const APP_STORE_URL = "https://apps.apple.com/jp/app/my-th/id6759365931";
 const GOOGLE_PLAY_URL = "https://play.google.com/store/apps/details?id=jp.ms_capital.my_th";
 
+// 主な機能（表示順もこの配列順。2026-08-23 EJレビューで順番・名称を確定）
 const features = [
-  {
-    title: "デジタルチェキ券",
-    description: <>紙チェキ券を廃止し、購入から使用まで<br className="brPc" />アプリで完結。<br className="brSp" />QRコードで偽造・紛失リスクゼロ。<br className="brPc" />限定チェキや抽選販売も対応。</>,
-    accent: "primary",
-    mockup: "cheki",
-  },
   {
     title: "チケット購入",
     description: <>公式チケットをアプリで一括購入。<br className="brPc" />Bot対策で公平な販売を実現し、<br className="brSp" />お目当て特典も自動で受け取れます。</>,
@@ -43,8 +35,14 @@ const features = [
     mockup: "pass",
   },
   {
-    title: "デジタルアルバム",
-    description: <>撮影したチェキや入場特典はアプリ内の<br className="brPc" />アルバム機能でいつでも見返すことができます。<br className="brSp" /><span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span>。</>,
+    title: "チェキ券のデジタル管理",
+    description: <>紙チェキ券を廃止し、購入から使用まで<br className="brPc" />アプリで完結。<br className="brSp" />QRコードで偽造・紛失リスクゼロ。<br className="brPc" />限定チェキや抽選販売も対応。</>,
+    accent: "primary",
+    mockup: "cheki",
+  },
+  {
+    title: "コレクション",
+    description: <>撮影したチェキや受け取った入場特典は<br className="brPc" />アプリ内のコレクションにまとまり、いつでも見返せます。<br className="brSp" /><span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span>。</>,
     accent: "cyan",
     mockup: "album",
   },
@@ -65,7 +63,7 @@ const screenshotMap = {
   cheki: { src: "/images/screenshots/screenshot-collection.webp", alt: "チェキ券コレクション画面" },
   ticket: { src: "/images/screenshots/screenshot-tickets.webp", alt: "チケットコレクション画面" },
   pass: null, // 入場特典は既存モックを維持（該当スクリーンショットなし）
-  album: { src: "/images/screenshots/screenshot-cheki-detail.webp", alt: "デジタルアルバム詳細画面" },
+  album: { src: "/images/screenshots/screenshot-cheki-detail.webp", alt: "コレクション詳細画面" },
 };
 
 const containerVariants = makeViewContainer({ stagger: 0.2, delay: 0.6 });
@@ -118,7 +116,26 @@ export default function UserView({ onViewModeChange }) {
                 <Image src="/images/badge-googleplay.svg" alt="Google Playで手に入れよう" width={168} height={50} unoptimized />
               </a>
             </motion.div>
-
+            <motion.div variants={itemVariants}>
+              {onViewModeChange ? (
+                <button
+                  type="button"
+                  className={styles.heroSwitch}
+                  onClick={() => {
+                    onViewModeChange("operator");
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                  }}
+                >
+                  イベンター・運営の方はこちら
+                  <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+                </button>
+              ) : (
+                <Link href="/operator" className={styles.heroSwitch}>
+                  イベンター・運営の方はこちら
+                  <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+                </Link>
+              )}
+            </motion.div>
           </motion.div>
 
           <motion.div className={styles.heroVisual} variants={blurIn}>
@@ -182,7 +199,7 @@ export default function UserView({ onViewModeChange }) {
                 <span className={styles.aboutIcon}><Images size={24} strokeWidth={1.8} aria-hidden="true" /></span>
                 <div>
                   <h3>データ資産化</h3>
-                  <p>チェキ券がデジタルアルバムに。<span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span></p>
+                  <p>チェキ券がコレクションに。<span className="noBreak">推し活</span>の思い出を<span className="noBreak">永久保存</span></p>
                 </div>
               </li>
             </ul>
@@ -243,16 +260,13 @@ export default function UserView({ onViewModeChange }) {
             })}
           </div>
 
-          {/* 手数料のシンプルさ（ファン向け）。数値は site.js から差し込む */}
-          <div className={styles.feeStrip}>
-            <p className={styles.feeStripText}>
-              チケット代金のほかに、システム利用料・発券手数料などが上乗せされない設計です。
-              <span className={styles.feeStripNote}>
-                ※販売手数料{organizerCommissionRate}の負担（主催者・購入者）はイベントごとに設定されます
-              </span>
+          {/* よくある質問への導線（手数料の話はファン向けページには載せない） */}
+          <div className={styles.faqStrip}>
+            <p className={styles.faqStripText}>
+              使い方や購入方法など、気になることはこちらでご確認いただけます。
             </p>
-            <Link href={feesHref("user")} className={styles.feeStripLink}>
-              手数料について
+            <Link href="/faq" className={styles.faqStripLink}>
+              よくある質問はこちら
               <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
             </Link>
           </div>
@@ -273,8 +287,8 @@ export default function UserView({ onViewModeChange }) {
               <span className={styles.promoLabel}>COLLECTION PLAN</span>
               <h3>チェキ券の新しい楽しみ方</h3>
               <p>
-                「My-th Collection」では、紙チェキだけでなく月額制の新しいコレクション機能を提供しています。<br className="brPc"/>
-                デジタルアルバムをもっと特別に残したい方はこちらから。
+                コレクション機能では、紙チェキだけでなく月額制の新しいチェキの楽しみ方を提供しています。<br className="brPc"/>
+                推し活の思い出をもっと特別に残したい方はこちらから。
               </p>
               <Link href="/subscription" className="btn btn-primary" style={{ marginTop: 'var(--space-md)' }}>
                 コレクション機能について詳しく見る
@@ -318,10 +332,7 @@ export default function UserView({ onViewModeChange }) {
           <div className="section-header">
             <span className="section-label">FAQ</span>
             <h2>よくある質問</h2>
-            <p>わからないことはAIガイドに気軽に聞いてみよう</p>
-          </div>
-          <div className={styles.faqChatWrap}>
-            <AIChatBot compact />
+            <p>はじめての方からよくいただくご質問をまとめました</p>
           </div>
           <FAQ items={faqItems} />
           <div className={styles.faqMoreWrap}>

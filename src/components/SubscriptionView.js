@@ -67,7 +67,7 @@ export default function SubscriptionView() {
         <div className={styles.heroBg}>
           <CharacterImage
             variant="subscriptionKv"
-            alt="My-th Collection Key Visual"
+            alt="コレクション機能 キービジュアル"
             fill
             sizes="100vw"
             quality={90}

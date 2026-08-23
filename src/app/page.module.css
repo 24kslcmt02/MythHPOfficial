@@ -169,13 +169,22 @@
 }
 
 .heroSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-md);
+  padding: 0;
   font-size: 0.875rem;
-  color: var(--color-text-tertiary);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: color var(--transition-fast);
 }
 
 .heroSwitch:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
 }
 
 /* Hero Visual — 実機スクショ単一フレーム */
@@ -364,10 +373,6 @@
   background: var(--color-bg);
 }
 
-.faqChatWrap {
-  margin-bottom: var(--space-2xl);
-}
-
 /* FAQ内Contact統合ブロック */
 .faqContactBlock {
   margin-top: var(--space-4xl);
@@ -447,7 +452,7 @@
 }
 
 /* ファン向け手数料ストリップ（Features末尾） */
-.feeStrip {
+.faqStrip {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -460,21 +465,14 @@
   border-radius: var(--radius-lg);
 }
 
-.feeStripText {
+.faqStripText {
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text-primary);
   line-height: 1.8;
 }
 
-.feeStripNote {
-  display: block;
-  font-size: var(--text-xs);
-  font-weight: 400;
-  color: var(--color-text-secondary);
-}
-
-.feeStripLink {
+.faqStripLink {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -485,7 +483,7 @@
   transition: color var(--transition-fast);
 }
 
-.feeStripLink:hover {
+.faqStripLink:hover {
   color: var(--color-secondary);
 }
 
