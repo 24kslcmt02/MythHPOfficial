@@ -347,7 +347,8 @@ export default function UserView({ onViewModeChange }) {
       </motion.section>
 
       {/* Download CTA */}
-      <section className={styles.cta}>
+      {/* id="app": 運営者ページの「ファン向けアプリはこちら」（/#app）の着地点 */}
+      <section id="app" className={styles.cta}>
         <div className={`container ${styles.ctaInner}`}>
           <motion.div
             className={styles.miniCharCta}

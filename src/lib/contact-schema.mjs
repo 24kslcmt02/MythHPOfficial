@@ -21,6 +21,9 @@ export const SIGNUP_CATEGORY = "無料で会員登録";
  */
 export const SIGNUP_MESSAGE = "会員登録申請 — このまま送信してください。";
 
+/** 会員登録申請で選ぶ運営種別（件名・本文に入り、運営側の振り分けに使う） */
+export const ORGANIZER_KINDS = Object.freeze(["アイドル運営", "イベンター"]);
+
 /** 問い合わせ種別ごとのカテゴリ */
 export const CONTACT_CATEGORIES = Object.freeze({
   user: Object.freeze([
@@ -60,7 +63,7 @@ const LIMITS = Object.freeze({
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-const OPTIONAL_FIELDS = Object.freeze(["phone", "organization", "subjectRef"]);
+const OPTIONAL_FIELDS = Object.freeze(["phone", "organization", "subjectRef", "organizerKind"]);
 
 const asText = (value) => (typeof value === "string" ? value.trim() : "");
 
@@ -126,6 +129,13 @@ export function validateContact(input) {
     errors.email = "正しいメールアドレスを入力してください";
   }
 
+  // 運営種別: 会員登録申請では必須。指定があれば選択肢のいずれかであること
+  if (isSignupRequest(data) && !data.organizerKind) {
+    errors.organizerKind = "運営種別を選択してください";
+  } else if (data.organizerKind && !ORGANIZER_KINDS.includes(data.organizerKind)) {
+    errors.organizerKind = "運営種別を選択してください";
+  }
+
   // 会員登録は本文なしで送信できる（名前・メールアドレスだけで受け付ける）
   if (!data.message && !isSignupRequest(data)) {
     errors.message = "お問い合わせ内容を入力してください";
@@ -134,7 +144,7 @@ export function validateContact(input) {
   }
 
   for (const key of OPTIONAL_FIELDS) {
-    if (data[key].length > LIMITS[key]) {
+    if (LIMITS[key] && data[key].length > LIMITS[key]) {
       errors[key] = `${LIMITS[key]}文字以内で入力してください`;
     }
   }
@@ -152,6 +162,7 @@ export function buildMailText(data) {
     signup ? SIGNUP_ACTION_NOTE : "",
     `【お問い合わせ種別】${CONTACT_TYPE_LABELS[data.type] ?? data.type}`,
     `【カテゴリ】${data.category}`,
+    data.organizerKind ? `【運営種別】${data.organizerKind}` : "",
     `【お名前】${data.name}`,
     `【メールアドレス】${data.email}`,
     data.organization ? `【団体名・事務所名】${data.organization}` : "",
@@ -166,13 +177,14 @@ export function buildMailText(data) {
 
 /**
  * 管理者宛メールの件名。
- * 会員登録申請: `[My-th 会員登録申請] 企業名 / 氏名 様`（企業名が未記入なら氏名のみ）
+ * 会員登録申請: `My-th 会員登録申請 — 運営種別 / 企業名 / 氏名 様`（未記入の項目は省く）
+ *   ※ 申請ごとに件名を変えているのは、同一件名だとメーラーが別件を1スレッドにまとめてしまうため
  * 通常の問い合わせ: `[My-th お問い合わせ/種別] カテゴリ — 氏名 様`
  */
 export function buildMailSubject(data) {
   if (isSignupRequest(data)) {
-    const applicant = [data.organization, data.name].filter(Boolean).join(" / ");
-    return `[My-th 会員登録申請] ${applicant} 様`;
+    const applicant = [data.organizerKind, data.organization, data.name].filter(Boolean).join(" / ");
+    return `My-th 会員登録申請 — ${applicant} 様`;
   }
   const who = CONTACT_TYPE_LABELS[data.type] ?? data.type;
   return `[My-th お問い合わせ/${who}] ${data.category} — ${data.name} 様`;

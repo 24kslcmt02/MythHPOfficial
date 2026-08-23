@@ -284,7 +284,7 @@ export default function OperatorView({ onViewModeChange }) {
             <span className="section-label">Contact</span>
             <h2>導入のご相談・無料で会員登録</h2>
             <p>
-              導入のご相談やご質問はこちらからお送りください。会員登録は「無料で会員登録」を選ぶと、お名前・企業名・メールアドレスだけでお申し込みいただけます。
+              導入のご相談やご質問はこちらからお送りください。会員登録は「無料で会員登録」を選び、運営種別・お名前・企業名・メールアドレスだけでお申し込みいただけます。
             </p>
           </div>
           <InquiryForm defaultType="organizer" showTypeSwitch={false} signupSwitch />

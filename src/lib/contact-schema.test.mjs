@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import {
   CONTACT_CATEGORIES,
+  ORGANIZER_KINDS,
   SIGNUP_CATEGORY,
   SIGNUP_MESSAGE,
   isSignupRequest,
@@ -21,6 +22,7 @@ const valid = {
 const signupInput = {
   type: "organizer",
   category: "無料で会員登録",
+  organizerKind: "アイドル運営",
   name: "田中 花子",
   email: "hanako@example.com",
   organization: "株式会社スターライト",
@@ -177,19 +179,44 @@ test("SIGNUP_MESSAGE は「このまま送信」を促す定型文で、会員�
   assert.equal(r.data.message, SIGNUP_MESSAGE);
 });
 
-test("会員登録申請の件名は「会員登録申請」＋企業名＋氏名で、運営側が一目で判別できる", () => {
+test("会員登録申請の件名は「My-th 会員登録申請」で始まり、運営種別・企業名・氏名が続く", () => {
   const { data } = validateContact({ ...signupInput, message: SIGNUP_MESSAGE });
   const subject = buildMailSubject(data);
-  assert.match(subject, /^\[My-th 会員登録申請\]/);
-  assert.match(subject, /株式会社スターライト/);
-  assert.match(subject, /田中 花子/);
-  assert.equal(subject.indexOf("株式会社スターライト") < subject.indexOf("田中 花子"), true, "企業名 → 氏名の順");
+  assert.equal(subject, "My-th 会員登録申請 — アイドル運営 / 株式会社スターライト / 田中 花子 様");
 });
 
-test("会員登録申請で企業名が未記入なら件名は氏名のみ（区切り記号が残らない）", () => {
+test("会員登録申請で企業名が未記入なら件名は運営種別と氏名（区切り記号が残らない）", () => {
   const { data } = validateContact({ ...signupInput, organization: "", message: SIGNUP_MESSAGE });
-  const subject = buildMailSubject(data);
-  assert.match(subject, /^\[My-th 会員登録申請\] 田中 花子 様$/);
+  assert.equal(buildMailSubject(data), "My-th 会員登録申請 — アイドル運営 / 田中 花子 様");
+});
+
+// ───────────────────────── 運営種別（アイドル運営／イベンター）
+test("運営種別の選択肢はアイドル運営とイベンター", () => {
+  assert.deepEqual([...ORGANIZER_KINDS], ["アイドル運営", "イベンター"]);
+});
+
+test("会員登録申請では運営種別が必須", () => {
+  const r = validateContact({ ...signupInput, organizerKind: "" });
+  assert.equal(r.ok, false);
+  assert.match(r.errors.organizerKind, /選択してください/);
+});
+
+test("運営種別は定義された選択肢以外を受け付けない", () => {
+  const r = validateContact({ ...signupInput, organizerKind: "芸能事務所" });
+  assert.equal(r.ok, false);
+  assert.ok(r.errors.organizerKind);
+});
+
+test("通常の問い合わせでは運営種別は不要（未指定でも通る）", () => {
+  const r = validateContact({ ...signupInput, category: "導入相談", organizerKind: "", message: "相談です" });
+  assert.equal(r.ok, true, JSON.stringify(r.errors));
+  assert.equal(r.data.organizerKind, "");
+});
+
+test("会員登録申請の管理者宛本文に運営種別が入る", () => {
+  const { data } = validateContact({ ...signupInput, organizerKind: "イベンター", message: SIGNUP_MESSAGE });
+  assert.match(buildMailText(data), /【運営種別】イベンター/);
+  assert.match(buildMailSubject(data), /^My-th 会員登録申請 — イベンター \//);
 });
 
 test("会員登録申請の本文には定型文がそのまま残る（運営側が受信メールで判別できる）", () => {

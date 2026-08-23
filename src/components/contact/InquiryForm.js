@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2, Info } from "lucide-react";
+import Link from "next/link";
+import { Send, CheckCircle2, AlertCircle, Loader2, Info, ArrowRight } from "lucide-react";
 import {
   CONTACT_CATEGORIES,
   CONTACT_TYPES,
   CONTACT_TYPE_LABELS,
+  ORGANIZER_KINDS,
   SIGNUP_CATEGORY,
   SIGNUP_MESSAGE,
   isSignupRequest,
@@ -18,12 +20,16 @@ import styles from "./InquiryForm.module.css";
 /** 会員登録タブへ直接飛ぶためのアンカー（/operator#signup） */
 export const SIGNUP_ANCHOR = "signup";
 
+/** ファン向けアプリの案内先: トップページのダウンロード帯（UserView の id="app"） */
+export const FAN_APP_HREF = "/#app";
+
 const EMPTY_FORM = {
   type: "user",
   category: "",
   name: "",
   email: "",
   organization: "",
+  organizerKind: "",
   phone: "",
   subjectRef: "",
   message: "",
@@ -43,7 +49,9 @@ function withCategory(prev, category) {
     if (wasSignup && !willBeSignup && prev.message === SIGNUP_MESSAGE) return "";
     return prev.message;
   })();
-  return { ...prev, category, message };
+  // 運営種別は会員登録申請だけの項目なので、会員登録から出るときは空に戻す
+  const organizerKind = willBeSignup ? prev.organizerKind : "";
+  return { ...prev, category, message, organizerKind };
 }
 
 /**
@@ -195,18 +203,56 @@ export default function InquiryForm({
       id={signupSwitch ? SIGNUP_ANCHOR : undefined}
     >
       {signupSwitch && (
-        <SignupModeSwitch mode={isSignup ? "signup" : "inquiry"} onChange={switchMode} />
+        <>
+          <SignupModeSwitch mode={isSignup ? "signup" : "inquiry"} onChange={switchMode} />
+          <p className={styles.fanNote}>
+            ファンの方（チケットをご購入になる方）は会員登録は不要です。
+            <Link href={FAN_APP_HREF} className={styles.fanLink}>
+              ファン向けアプリはこちら
+              <ArrowRight size={14} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
+          </p>
+        </>
       )}
 
       {showSignupFields && (
-        <div className={styles.infoBox} role="note">
-          <Info size={18} aria-hidden="true" />
-          <p>
-            <strong>お名前・企業名・メールアドレスを入力して、そのまま送信してください。</strong>
-            <br />
-            担当者より{contactConfig.replyTarget}に、管理画面のログインURLをメールでお送りします。
-          </p>
-        </div>
+        <>
+          <div className={styles.infoBox} role="note">
+            <Info size={18} aria-hidden="true" />
+            <p>
+              <strong>運営種別を選び、お名前・企業名・メールアドレスを入力して、そのまま送信してください。</strong>
+              <br />
+              担当者より{contactConfig.replyTarget}に、管理画面のログインURLをメールでお送りします。
+            </p>
+          </div>
+
+          <div className={styles.field}>
+            <label htmlFor="contact-organizerKind" className={styles.label}>
+              運営種別 <span className={styles.required}>必須</span>
+            </label>
+            <select
+              id="contact-organizerKind"
+              name="organizerKind"
+              value={form.organizerKind}
+              onChange={handleChange}
+              className={`${styles.select} ${errors.organizerKind ? styles.inputError : ""}`}
+              aria-invalid={Boolean(errors.organizerKind)}
+              aria-describedby={errors.organizerKind ? "err-organizerKind" : undefined}
+            >
+              <option value="">選択してください</option>
+              {ORGANIZER_KINDS.map((kind) => (
+                <option key={kind} value={kind}>
+                  {kind}
+                </option>
+              ))}
+            </select>
+            {errors.organizerKind && (
+              <span className={styles.error} id="err-organizerKind">
+                {errors.organizerKind}
+              </span>
+            )}
+          </div>
+        </>
       )}
 
       {showTypeSwitch && (

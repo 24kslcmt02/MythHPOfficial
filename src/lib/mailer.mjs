@@ -69,6 +69,7 @@ function buildSignupReply(data) {
       "",
       "──────────────────",
       `お申し込み種別: ${CONTACT_TYPE_LABELS[data.type] ?? data.type}`,
+      data.organizerKind ? `運営種別: ${data.organizerKind}` : null,
       data.organization ? `団体名・事務所名: ${data.organization}` : null,
       // 定型文のままなら申込者への控えには載せない（自分で書いた要望だけを載せる）
       data.message && data.message !== SIGNUP_MESSAGE ? `補足・ご要望: ${data.message}` : null,

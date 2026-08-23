@@ -65,6 +65,7 @@ test("入力値を変更しない", () => {
 const signupData = {
   ...data,
   category: SIGNUP_CATEGORY,
+  organizerKind: "アイドル運営",
   name: "田中 花子",
   email: "hanako@example.com",
   message: "",
@@ -88,9 +89,14 @@ test("会員登録の管理者宛メールは件名で判別でき、reply_to �
 
 test("定型文のまま送られた会員登録申請は、管理者宛には定型文が残り、申込者への控えには載らない", () => {
   const [admin, reply] = buildEmails({ ...signupData, message: SIGNUP_MESSAGE }, env);
-  assert.match(admin.subject, /^\[My-th 会員登録申請\] 株式会社スターライト \/ 田中 花子 様$/);
+  assert.equal(admin.subject, "My-th 会員登録申請 — アイドル運営 / 株式会社スターライト / 田中 花子 様");
   assert.match(admin.text, /このまま送信してください/);
   assert.doesNotMatch(reply.text, /補足・ご要望/);
+});
+
+test("会員登録申請の自動返信には運営種別が載る", () => {
+  const [, reply] = buildEmails({ ...signupData, message: SIGNUP_MESSAGE }, env);
+  assert.match(reply.text, /運営種別: アイドル運営/);
 });
 
 test("会員登録申請で自分の要望を書いた場合は申込者への控えにも載る", () => {
