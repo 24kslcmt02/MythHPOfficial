@@ -14,6 +14,13 @@
  */
 export const SIGNUP_CATEGORY = "無料で会員登録";
 
+/**
+ * 会員登録申請の定型本文。フォームで「無料で会員登録」を選ぶと本文欄にあらかじめ入り、
+ * 申込者は何も書かずに送信できる（メールのテンプレートと同じ発想）。
+ * 運営側は受信メールの本文でも申請だと判別できる。
+ */
+export const SIGNUP_MESSAGE = "会員登録申請 — このまま送信してください。";
+
 /** 問い合わせ種別ごとのカテゴリ */
 export const CONTACT_CATEGORIES = Object.freeze({
   user: Object.freeze([
@@ -157,12 +164,17 @@ export function buildMailText(data) {
   return lines.filter((line) => line !== "").join("\n");
 }
 
-/** 管理者宛メールの件名（会員登録は一目で判別できるよう接頭辞を変える） */
+/**
+ * 管理者宛メールの件名。
+ * 会員登録申請: `[My-th 会員登録申請] 企業名 / 氏名 様`（企業名が未記入なら氏名のみ）
+ * 通常の問い合わせ: `[My-th お問い合わせ/種別] カテゴリ — 氏名 様`
+ */
 export function buildMailSubject(data) {
-  const who = CONTACT_TYPE_LABELS[data.type] ?? data.type;
   if (isSignupRequest(data)) {
-    return `[My-th 会員登録希望/${who}] ${data.name} 様 — ログインURL送付`;
+    const applicant = [data.organization, data.name].filter(Boolean).join(" / ");
+    return `[My-th 会員登録申請] ${applicant} 様`;
   }
+  const who = CONTACT_TYPE_LABELS[data.type] ?? data.type;
   return `[My-th お問い合わせ/${who}] ${data.category} — ${data.name} 様`;
 }
 

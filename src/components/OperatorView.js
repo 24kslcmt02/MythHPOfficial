@@ -12,8 +12,7 @@ import { organizerCommissionRate, pricing } from "@/config/site";
 import styles from "../app/operator/page.module.css";
 import { motion } from "framer-motion";
 import { makeViewContainer, itemFadeUp, slideIn } from "@/components/motion";
-import InquiryForm from "@/components/contact/InquiryForm";
-import { SIGNUP_CATEGORY } from "@/lib/contact-schema.mjs";
+import InquiryForm, { SIGNUP_ANCHOR } from "@/components/contact/InquiryForm";
 
 const problems = [
   {
@@ -122,7 +121,7 @@ export default function OperatorView({ onViewModeChange }) {
             </motion.ul>
 
             <motion.div variants={itemVariants} className={styles.heroCtas}>
-              <a href="#contact" className="btn btn-primary">
+              <a href={`#${SIGNUP_ANCHOR}`} className="btn btn-primary">
                 無料で会員登録
               </a>
               <Link href="/operator/features" className={styles.heroCtaLink}>
@@ -283,16 +282,12 @@ export default function OperatorView({ onViewModeChange }) {
         <div className="container">
           <div className="section-header">
             <span className="section-label">Contact</span>
-            <h2>無料で会員登録・導入のご相談</h2>
+            <h2>導入のご相談・無料で会員登録</h2>
             <p>
-              お名前とメールアドレスだけで会員登録をお申し込みいただけます。担当者が24時間以内にログインURLをお送りします。
+              導入のご相談やご質問はこちらからお送りください。会員登録は「無料で会員登録」を選ぶと、お名前・企業名・メールアドレスだけでお申し込みいただけます。
             </p>
           </div>
-          <InquiryForm
-            defaultType="organizer"
-            defaultCategory={SIGNUP_CATEGORY}
-            showTypeSwitch={false}
-          />
+          <InquiryForm defaultType="organizer" showTypeSwitch={false} signupSwitch />
         </div>
       </section>
     </motion.div>

@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   CONTACT_CATEGORIES,
   SIGNUP_CATEGORY,
+  SIGNUP_MESSAGE,
   isSignupRequest,
   validateContact,
   buildMailText,
@@ -165,4 +166,41 @@ test("会員登録の管理者宛メールは件名・本文でログインURL�
 test("会員登録で補足が入力されていれば本文に含める", () => {
   const { data } = validateContact({ ...signupInput, message: "来月の公演から使いたいです。" });
   assert.match(buildMailText(data), /来月の公演から使いたいです。/);
+});
+
+// ───────────────────────── 会員登録申請の件名・定型本文（2026-08-23 EJフィードバック）
+test("SIGNUP_MESSAGE は「このまま送信」を促す定型文で、会員登録の本文として検証を通る", () => {
+  assert.match(SIGNUP_MESSAGE, /会員登録/);
+  assert.match(SIGNUP_MESSAGE, /このまま送信/);
+  const r = validateContact({ ...signupInput, message: SIGNUP_MESSAGE });
+  assert.equal(r.ok, true, JSON.stringify(r.errors));
+  assert.equal(r.data.message, SIGNUP_MESSAGE);
+});
+
+test("会員登録申請の件名は「会員登録申請」＋企業名＋氏名で、運営側が一目で判別できる", () => {
+  const { data } = validateContact({ ...signupInput, message: SIGNUP_MESSAGE });
+  const subject = buildMailSubject(data);
+  assert.match(subject, /^\[My-th 会員登録申請\]/);
+  assert.match(subject, /株式会社スターライト/);
+  assert.match(subject, /田中 花子/);
+  assert.equal(subject.indexOf("株式会社スターライト") < subject.indexOf("田中 花子"), true, "企業名 → 氏名の順");
+});
+
+test("会員登録申請で企業名が未記入なら件名は氏名のみ（区切り記号が残らない）", () => {
+  const { data } = validateContact({ ...signupInput, organization: "", message: SIGNUP_MESSAGE });
+  const subject = buildMailSubject(data);
+  assert.match(subject, /^\[My-th 会員登録申請\] 田中 花子 様$/);
+});
+
+test("会員登録申請の本文には定型文がそのまま残る（運営側が受信メールで判別できる）", () => {
+  const { data } = validateContact({ ...signupInput, message: SIGNUP_MESSAGE });
+  assert.match(buildMailText(data), new RegExp(SIGNUP_MESSAGE.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+});
+
+test("通常の問い合わせの件名には選択したカテゴリと氏名が入る", () => {
+  const { data } = validateContact({ ...signupInput, category: "導入相談", message: "相談です" });
+  const subject = buildMailSubject(data);
+  assert.match(subject, /導入相談/);
+  assert.match(subject, /田中 花子/);
+  assert.doesNotMatch(subject, /会員登録申請/);
 });
