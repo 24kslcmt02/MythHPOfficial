@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import CharacterImage from "@/components/common/CharacterImage";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { makeViewContainer, itemFadeUp, sectionFadeUp, EASE_OUT } from "@/components/motion";
 import CollectionMockup from "@/components/mockups/CollectionMockup";
 import styles from "../app/subscription/page.module.css";
 
@@ -48,28 +50,9 @@ const features = [
   },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15, delayChildren: 0.3 }
-  },
-  exit: {
-    opacity: 0,
-    transition: { duration: 0.4 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.4 } }
-};
-
-const sectionVariants = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } }
-};
+const containerVariants = makeViewContainer({ stagger: 0.15, delay: 0.3 });
+const itemVariants = itemFadeUp;
+const sectionVariants = sectionFadeUp;
 
 export default function SubscriptionView() {
   return (
@@ -82,15 +65,14 @@ export default function SubscriptionView() {
       {/* Hero */}
       <section className={styles.hero}>
         <div className={styles.heroBg}>
-          <Image 
-            src="/images/kv-subscription-final-v3.png" 
-            alt="My-th Collection Key Visual" 
-            legacyBehavior={false}
-            fill 
+          <CharacterImage
+            variant="subscriptionKv"
+            alt="コレクション機能 キービジュアル"
+            fill
             sizes="100vw"
             quality={90}
             priority
-            className={styles.heroBgImage} 
+            className={styles.heroBgImage}
           />
           <div className={styles.heroBgOverlay}></div>
         </div>
@@ -148,7 +130,7 @@ export default function SubscriptionView() {
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.7, delay: i * 0.12, ease: [0.22, 1, 0.36, 1] }}
+                transition={{ duration: 0.7, delay: i * 0.12, ease: EASE_OUT }}
               >
                 <div className={styles.featureIconWrap}>
                   {f.icon}
@@ -178,9 +160,9 @@ export default function SubscriptionView() {
               <Image
                 src="/images/screenshots/screenshot-collection.webp"
                 alt="コレクション画面"
-                width={280}
-                height={607}
-                unoptimized
+                width={647}
+                height={1403}
+                sizes="(max-width: 767px) 70vw, 280px"
                 className={styles.screenshotImg}
               />
             </div>
@@ -276,9 +258,9 @@ export default function SubscriptionView() {
             initial={{ opacity: 0, y: 20, rotate: -5 }}
             whileInView={{ opacity: 1, y: 0, rotate: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.2, duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ delay: 0.2, duration: 0.6, ease: EASE_OUT }}
           >
-            <Image src="/images/character_mini.png" alt="" width={100} height={100} unoptimized className={styles.miniCharImg} />
+            <CharacterImage variant="mini" size={100} sizes="100px" className={styles.miniCharImg} />
           </motion.div>
           <h2>
             「好き」をもっと深く、

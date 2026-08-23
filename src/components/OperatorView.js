@@ -1,29 +1,34 @@
 "use client";
 
-import FeatureCard from "@/components/FeatureCard";
+import Link from "next/link";
 import StepFlow from "@/components/StepFlow";
-import DashboardMockup from "@/components/DashboardMockup";
+import { ArrowRight, Banknote, Check, ClipboardList, Files, Camera, Ticket } from "lucide-react";
+import AdminGhostCollage from "@/components/AdminGhostCollage";
 import ChekiMockup from "@/components/mockups/ChekiMockup";
 import TicketMockup from "@/components/mockups/TicketMockup";
 import DigitalPassMockup from "@/components/mockups/DigitalPassMockup";
 import AnalyticsMockup from "@/components/mockups/AnalyticsMockup";
+import { organizerCommissionRate, pricing } from "@/config/site";
 import styles from "../app/operator/page.module.css";
 import { motion } from "framer-motion";
-import FlowingBackground from "@/components/FlowingBackground";
-import ContactForm from "@/components/ContactForm";
+import { makeViewContainer, itemFadeUp, slideIn } from "@/components/motion";
+import InquiryForm, { SIGNUP_ANCHOR } from "@/components/contact/InquiryForm";
 
 const problems = [
   {
     title: "紙の管理業務",
     description: "紙チェキ券・紙チケットの紛失リスク、偽造リスク、管理の煩雑さ",
+    Icon: Files,
   },
   {
     title: "印刷・郵送コスト",
     description: "イベントごとの準備コストと人的リソースの浪費",
+    Icon: Banknote,
   },
   {
     title: "属人化した売上管理",
     description: "Excel・手書きノートによる集計ミスと遅延",
+    Icon: ClipboardList,
   },
 ];
 
@@ -61,23 +66,8 @@ const implementSteps = [
   { title: "運用開始", description: "イベントですぐに使えます" },
 ];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.1, delayChildren: 0.1 }
-  },
-  exit: {
-    opacity: 0,
-    transition: { staggerChildren: 0.05, staggerDirection: -1, duration: 0.4 }
-  }
-};
-
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-  exit: { opacity: 0, y: -20, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] } }
-};
+const containerVariants = makeViewContainer({ stagger: 0.1, delay: 0.1 });
+const itemVariants = itemFadeUp;
 
 function MockupComponent({ type }) {
   switch (type) {
@@ -89,36 +79,6 @@ function MockupComponent({ type }) {
   }
 }
 
-/* SVG Problem Icons — replaces emoji */
-function ProblemIcon({ type }) {
-  const icons = {
-    paper: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <rect x="6" y="3" width="20" height="26" rx="3" fill="#E3F2FD" stroke="#4AADE8" strokeWidth="1.5"/>
-        <line x1="10" y1="10" x2="22" y2="10" stroke="#4AADE8" strokeWidth="1.2" strokeLinecap="round"/>
-        <line x1="10" y1="14" x2="22" y2="14" stroke="#4AADE8" strokeWidth="1.2" strokeLinecap="round" opacity="0.6"/>
-        <line x1="10" y1="18" x2="18" y2="18" stroke="#4AADE8" strokeWidth="1.2" strokeLinecap="round" opacity="0.4"/>
-        <path d="M20 22L22 24L26 18" stroke="#10b981" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
-    cost: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <circle cx="16" cy="16" r="12" fill="#FFF9DB" stroke="#F5D623" strokeWidth="1.5"/>
-        <path d="M16 8V24M12 12C12 10.3 13.8 9 16 9C18.2 9 20 10.3 20 12C20 14 16 14 16 16M16 20V20.5" stroke="#D4B800" strokeWidth="1.5" strokeLinecap="round"/>
-      </svg>
-    ),
-    analytics: (
-      <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-        <rect x="3" y="14" width="6" height="14" rx="1.5" fill="#FCE4EC" stroke="#F472B6" strokeWidth="1"/>
-        <rect x="13" y="8" width="6" height="20" rx="1.5" fill="#E3F2FD" stroke="#4AADE8" strokeWidth="1"/>
-        <rect x="23" y="4" width="6" height="24" rx="1.5" fill="#F0FDF4" stroke="#22c55e" strokeWidth="1"/>
-        <line x1="1" y1="28" x2="31" y2="28" stroke="#CBD5E1" strokeWidth="1"/>
-      </svg>
-    ),
-  };
-  return icons[type] || null;
-}
-
 export default function OperatorView({ onViewModeChange }) {
   return (
     <motion.div
@@ -127,9 +87,9 @@ export default function OperatorView({ onViewModeChange }) {
       animate="visible"
       exit="exit"
     >
-      {/* Hero */}
-      <section className={`${styles.hero} gradient-mesh`}>
-        <FlowingBackground variant="btob" />
+      {/* Hero — 背景に管理画面が透けるゴーストコラージュ */}
+      <section className={styles.hero}>
+        <AdminGhostCollage />
         <div className={`container ${styles.heroInner}`}>
           <motion.div className={styles.heroContent} variants={containerVariants}>
             <motion.p layoutId="hero-label" variants={itemVariants} className={styles.heroLabel}>FOR OPERATORS</motion.p>
@@ -140,18 +100,35 @@ export default function OperatorView({ onViewModeChange }) {
               <br />
               ゼロへ
             </motion.h1>
-            <motion.p layoutId="hero-desc" variants={itemVariants} style={{ fontSize: '0.9375rem', lineHeight: '1.6', color: 'var(--color-text-tertiary)', maxWidth: '480px', marginTop: '1rem' }}>
+            <motion.p layoutId="hero-desc" variants={itemVariants} className={styles.heroDesc}>
               チェキ券・チケット・入場特典・売上管理を完全自動化。アイドル運営に特化したOSアプリで、クリエイティブな業務に集中できます。
             </motion.p>
 
-            <motion.div variants={itemVariants} style={{ marginTop: '0.5rem' }}>
-              <a href="#contact" className={styles.heroSwitch} style={{ display: 'inline-flex', alignItems: 'center', textDecoration: 'none', fontWeight: '600' }}>
-                導入のご相談はこちら →
+            {/* 半券スタットチップ（数値はsite.jsから差し込み） */}
+            <motion.ul variants={itemVariants} className={styles.statChips}>
+              <li className={styles.statChip}>
+                <span className={styles.statChipLabel}>初期費用・月額</span>
+                <span className={styles.statChipValue}><em>{pricing.initialFee}</em></span>
+              </li>
+              <li className={styles.statChip}>
+                <span className={styles.statChipLabel}>販売手数料</span>
+                <span className={styles.statChipValue}><em>{organizerCommissionRate}</em>のみ</span>
+              </li>
+              <li className={styles.statChip}>
+                <span className={styles.statChipLabel}>イベント作成</span>
+                <span className={styles.statChipValue}><em>AI入力</em>対応</span>
+              </li>
+            </motion.ul>
+
+            <motion.div variants={itemVariants} className={styles.heroCtas}>
+              <a href={`#${SIGNUP_ANCHOR}`} className="btn btn-primary">
+                無料で会員登録
               </a>
+              <Link href="/operator/features" className={styles.heroCtaLink}>
+                すべての機能を見る
+                <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+              </Link>
             </motion.div>
-          </motion.div>
-          <motion.div className={styles.heroVisual} variants={itemVariants}>
-            <DashboardMockup />
           </motion.div>
         </div>
       </section>
@@ -159,24 +136,28 @@ export default function OperatorView({ onViewModeChange }) {
       {/* Problems */}
       <section className={`section ${styles.problems}`}>
         <div className="container">
-          <div className="section-header">
-            <span className="section-label">Current Situation</span>
-            <h2>業界課題</h2>
-            <p>「現場のアナログ」が体験価値向上のボトルネックになっている</p>
-          </div>
-          <div className={styles.problemGrid}>
-            {problems.map((p, i) => (
-              <div key={i} className={styles.problemCard}>
-                <div className={styles.problemIconWrap}>
-                  <ProblemIcon type={["paper", "cost", "analytics"][i]} />
-                </div>
-                <h3>{p.title}</h3>
-                <p>{p.description}</p>
-              </div>
-            ))}
+          <div className={styles.problemLayout}>
+            <div className="section-header section-header--left">
+              <span className="section-label">Current Situation</span>
+              <h2>業界課題</h2>
+              <p>「現場のアナログ」が体験価値向上のボトルネックになっている</p>
+            </div>
+            <ul className={styles.problemList}>
+              {problems.map(({ title, description, Icon }) => (
+                <li key={title} className={styles.problemItem}>
+                  <span className={styles.problemIcon}>
+                    <Icon size={24} strokeWidth={1.8} aria-hidden="true" />
+                  </span>
+                  <div>
+                    <h3>{title}</h3>
+                    <p>{description}</p>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
           <div className={styles.problemResult}>
-            <p>→ 本来の業務を圧迫し、ファン体験の向上に集中できない</p>
+            <p>本来の業務を圧迫し、ファン体験の向上に集中できない</p>
           </div>
         </div>
       </section>
@@ -189,17 +170,33 @@ export default function OperatorView({ onViewModeChange }) {
             <h2>My-thが解決します</h2>
             <p>4つのソリューションで現場を変革</p>
           </div>
-          <div className={styles.solutionGrid}>
-            {solutions.map((s, i) => (
-              <FeatureCard
-                key={i}
-                title={s.title}
-                description={s.description}
-                accent={s.accent}
+          <div className={styles.solutionShowcase}>
+            {solutions.map((sol, i) => (
+              <motion.div
+                key={sol.title}
+                className={`${styles.solutionRow} ${i % 2 === 1 ? styles.solutionRowReverse : ""}`}
+                variants={slideIn(i % 2 === 1 ? 48 : -48)}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-80px" }}
               >
-                <MockupComponent type={s.mockup} />
-              </FeatureCard>
+                <div className={styles.solutionVisual}>
+                  <div className={styles.solutionMockInner}>
+                    <MockupComponent type={sol.mockup} />
+                  </div>
+                </div>
+                <div className={styles.solutionText}>
+                  <h3>{sol.title}</h3>
+                  <p>{sol.description}</p>
+                </div>
+              </motion.div>
             ))}
+          </div>
+          <div className={styles.solutionsMore}>
+            <Link href="/operator/features" className="btn btn-outline">
+              すべての機能を見る
+              <ArrowRight size={16} strokeWidth={2.2} aria-hidden="true" />
+            </Link>
           </div>
         </div>
       </section>
@@ -217,11 +214,7 @@ export default function OperatorView({ onViewModeChange }) {
             <div className={styles.priceCard}>
               <div className={styles.priceHeader}>
                 <div className={styles.priceIconWrap}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="2" y="4" width="20" height="16" rx="3" fill="#E3F2FD" stroke="#4AADE8" strokeWidth="1.2"/>
-                    <path d="M2 10H22" stroke="#4AADE8" strokeWidth="1.2"/>
-                    <circle cx="7" cy="15" r="1.5" fill="#4AADE8"/>
-                  </svg>
+                  <Ticket size={22} strokeWidth={1.8} aria-hidden="true" />
                 </div>
                 <h3>チケット販売</h3>
               </div>
@@ -229,23 +222,21 @@ export default function OperatorView({ onViewModeChange }) {
                 <span className={styles.priceNumber}>5</span>
                 <span className={styles.priceUnit}>%</span>
               </div>
-              <p className={styles.priceNote}>販売手数料のみ</p>
+              <p className={styles.priceNote}>販売手数料のみ（負担者は主催者・購入者から選択可）</p>
               <ul className={styles.priceFeatures}>
-                <li>初期費用 無料</li>
-                <li>月額費用 無料</li>
-                <li>即座に利用開始可能</li>
-                <li>ファン向けBot対策標準装備</li>
+                {["初期費用 無料", "月額費用 無料", "即座に利用開始可能", "ファン向けBot対策標準装備"].map((item) => (
+                  <li key={item}>
+                    <Check size={16} strokeWidth={2.4} aria-hidden="true" />
+                    {item}
+                  </li>
+                ))}
               </ul>
             </div>
             {/* Cheki Sales */}
             <div className={styles.priceCard}>
               <div className={styles.priceHeader}>
                 <div className={styles.priceIconWrap}>
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                    <rect x="3" y="2" width="18" height="20" rx="3" fill="#FCE4EC" stroke="#F472B6" strokeWidth="1.2"/>
-                    <circle cx="12" cy="10" r="4" fill="#F472B6" opacity="0.3"/>
-                    <rect x="7" y="16" width="10" height="2" rx="1" fill="#F472B6" opacity="0.4"/>
-                  </svg>
+                  <Camera size={22} strokeWidth={1.8} aria-hidden="true" />
                 </div>
                 <h3>チェキ販売</h3>
               </div>
@@ -253,7 +244,7 @@ export default function OperatorView({ onViewModeChange }) {
                 <span className={styles.priceNumber}>5</span>
                 <span className={styles.priceUnit}>%</span>
               </div>
-              <p className={styles.priceNote}>販売手数料のみ</p>
+              <p className={styles.priceNote}>販売手数料のみ（負担者は主催者・購入者から選択可）</p>
               <div className={styles.simulation}>
                 <h4>収益シミュレーション</h4>
                 <div className={styles.simRow}>
@@ -280,7 +271,7 @@ export default function OperatorView({ onViewModeChange }) {
           <div className="section-header">
             <span className="section-label">Implementation</span>
             <h2>導入までの流れ</h2>
-            <p>最短1週間で運用開始可能。専門スタッフがサポートします</p>
+            <p>最短30分で運用開始可能。専門スタッフがサポートします</p>
           </div>
           <StepFlow steps={implementSteps} />
         </div>
@@ -291,10 +282,12 @@ export default function OperatorView({ onViewModeChange }) {
         <div className="container">
           <div className="section-header">
             <span className="section-label">Contact</span>
-            <h2>導入をご検討の運営者様へ</h2>
-            <p>まずはお気軽にご相談ください。担当者が2営業日以内にご連絡いたします。</p>
+            <h2>導入のご相談・無料で会員登録</h2>
+            <p>
+              導入のご相談やご質問はこちらからお送りください。会員登録は「無料で会員登録」を選び、運営種別・お名前・企業名・メールアドレスだけでお申し込みいただけます。
+            </p>
           </div>
-          <ContactForm />
+          <InquiryForm defaultType="organizer" showTypeSwitch={false} signupSwitch />
         </div>
       </section>
     </motion.div>

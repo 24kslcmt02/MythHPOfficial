@@ -1,0 +1,193 @@
+/**
+ * お問い合わせフォームの入力検証（FR-04 / NFR-06）
+ *
+ * サーバー・クライアント双方から同じ関数を使うため、副作用のない純粋関数として実装する。
+ * 入力値は変更せず、常に新しいオブジェクトを返す。
+ */
+
+/**
+ * 運営者の「無料で会員登録」カテゴリ。
+ *
+ * 管理画面のログインURLはHP上に掲載しない方針のため、会員登録はこのフォーム経由で受け付け、
+ * 運営側が手動でログインURLをメール返信する（暫定運用）。
+ * 心理的ハードルを下げるため、このカテゴリだけはお問い合わせ本文を任意にする。
+ */
+export const SIGNUP_CATEGORY = "無料で会員登録";
+
+/**
+ * 会員登録申請の定型本文。フォームで「無料で会員登録」を選ぶと本文欄にあらかじめ入り、
+ * 申込者は何も書かずに送信できる（メールのテンプレートと同じ発想）。
+ * 運営側は受信メールの本文でも申請だと判別できる。
+ */
+export const SIGNUP_MESSAGE = "会員登録申請 — このまま送信してください。";
+
+/** 会員登録申請で選ぶ運営種別（件名・本文に入り、運営側の振り分けに使う） */
+export const ORGANIZER_KINDS = Object.freeze(["アイドル運営", "イベンター"]);
+
+/** 問い合わせ種別ごとのカテゴリ */
+export const CONTACT_CATEGORIES = Object.freeze({
+  user: Object.freeze([
+    "アカウント・ログイン",
+    "購入・支払い",
+    "チケット・チェキ券の表示／入場",
+    "払い戻し・キャンセル",
+    "不具合の報告",
+    "その他",
+  ]),
+  organizer: Object.freeze([
+    SIGNUP_CATEGORY,
+    "導入相談",
+    "料金・手数料",
+    "売上・入金",
+    "イベント当日の運用",
+    "その他",
+  ]),
+});
+
+export const CONTACT_TYPES = Object.freeze(Object.keys(CONTACT_CATEGORIES));
+
+/** 種別ごとの表示名 */
+export const CONTACT_TYPE_LABELS = Object.freeze({
+  user: "ファン・購入者の方",
+  organizer: "イベンター・運営の方",
+});
+
+const LIMITS = Object.freeze({
+  name: 100,
+  email: 254,
+  phone: 30,
+  organization: 200,
+  subjectRef: 100,
+  message: 5000,
+});
+
+const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+const OPTIONAL_FIELDS = Object.freeze(["phone", "organization", "subjectRef", "organizerKind"]);
+
+const asText = (value) => (typeof value === "string" ? value.trim() : "");
+
+/** 運営者の会員登録（ログインURL送付希望）かどうか */
+export function isSignupRequest(data) {
+  return Boolean(data) && data.type === "organizer" && data.category === SIGNUP_CATEGORY;
+}
+
+/**
+ * 入力値を検証して正規化する。
+ * @returns {{ ok: boolean, data: object, errors: Record<string,string>, botDetected: boolean }}
+ */
+export function validateContact(input) {
+  if (input === null || typeof input !== "object" || Array.isArray(input)) {
+    return {
+      ok: false,
+      data: {},
+      errors: { form: "入力内容を読み取れませんでした。もう一度お試しください。" },
+      botDetected: false,
+    };
+  }
+
+  // honeypot: 人間には見えない項目。値が入っていればボットとみなす。
+  if (asText(input.website) !== "") {
+    return { ok: false, data: {}, errors: {}, botDetected: true };
+  }
+
+  const type = asText(input.type);
+  const category = asText(input.category);
+  const data = {
+    type,
+    category,
+    name: asText(input.name),
+    email: asText(input.email),
+    message: asText(input.message),
+    ...Object.fromEntries(OPTIONAL_FIELDS.map((key) => [key, asText(input[key])])),
+  };
+
+  const errors = {};
+
+  if (!CONTACT_TYPES.includes(type)) {
+    errors.type = "お問い合わせ種別を選択してください";
+  }
+
+  const allowedCategories = CONTACT_CATEGORIES[type] ?? [];
+  if (!category) {
+    errors.category = "お問い合わせカテゴリを選択してください";
+  } else if (!allowedCategories.includes(category)) {
+    errors.category = "お問い合わせカテゴリを選択してください";
+  }
+
+  if (!data.name) {
+    errors.name = "お名前を入力してください";
+  } else if (data.name.length > LIMITS.name) {
+    errors.name = `お名前は${LIMITS.name}文字以内で入力してください`;
+  }
+
+  if (!data.email) {
+    errors.email = "メールアドレスを入力してください";
+  } else if (data.email.length > LIMITS.email) {
+    errors.email = `メールアドレスは${LIMITS.email}文字以内で入力してください`;
+  } else if (!EMAIL_PATTERN.test(data.email)) {
+    errors.email = "正しいメールアドレスを入力してください";
+  }
+
+  // 運営種別: 会員登録申請では必須。指定があれば選択肢のいずれかであること
+  if (isSignupRequest(data) && !data.organizerKind) {
+    errors.organizerKind = "運営種別を選択してください";
+  } else if (data.organizerKind && !ORGANIZER_KINDS.includes(data.organizerKind)) {
+    errors.organizerKind = "運営種別を選択してください";
+  }
+
+  // 会員登録は本文なしで送信できる（名前・メールアドレスだけで受け付ける）
+  if (!data.message && !isSignupRequest(data)) {
+    errors.message = "お問い合わせ内容を入力してください";
+  } else if (data.message.length > LIMITS.message) {
+    errors.message = `お問い合わせ内容は${LIMITS.message}文字以内で入力してください`;
+  }
+
+  for (const key of OPTIONAL_FIELDS) {
+    if (LIMITS[key] && data[key].length > LIMITS[key]) {
+      errors[key] = `${LIMITS[key]}文字以内で入力してください`;
+    }
+  }
+
+  return { ok: Object.keys(errors).length === 0, data, errors, botDetected: false };
+}
+
+/** 会員登録希望メールに付ける運営向けの対応メモ */
+const SIGNUP_ACTION_NOTE = "※ 会員登録のお申し込みです。申込者へ管理画面のログインURLをメールで返信してください。";
+
+/** 管理者宛メールの本文を組み立てる */
+export function buildMailText(data) {
+  const signup = isSignupRequest(data);
+  const lines = [
+    signup ? SIGNUP_ACTION_NOTE : "",
+    `【お問い合わせ種別】${CONTACT_TYPE_LABELS[data.type] ?? data.type}`,
+    `【カテゴリ】${data.category}`,
+    data.organizerKind ? `【運営種別】${data.organizerKind}` : "",
+    `【お名前】${data.name}`,
+    `【メールアドレス】${data.email}`,
+    data.organization ? `【団体名・事務所名】${data.organization}` : "",
+    data.phone ? `【電話番号】${data.phone}` : "",
+    data.subjectRef ? `【イベント名・注文番号】${data.subjectRef}` : "",
+    "",
+    signup ? "【補足・ご要望】" : "【お問い合わせ内容】",
+    data.message || (signup ? "（記入なし）" : ""),
+  ];
+  return lines.filter((line) => line !== "").join("\n");
+}
+
+/**
+ * 管理者宛メールの件名。
+ * 会員登録申請: `My-th 会員登録申請 — 運営種別 / 企業名 / 氏名 様`（未記入の項目は省く）
+ *   ※ 申請ごとに件名を変えているのは、同一件名だとメーラーが別件を1スレッドにまとめてしまうため
+ * 通常の問い合わせ: `[My-th お問い合わせ/種別] カテゴリ — 氏名 様`
+ */
+export function buildMailSubject(data) {
+  if (isSignupRequest(data)) {
+    const applicant = [data.organizerKind, data.organization, data.name].filter(Boolean).join(" / ");
+    return `My-th 会員登録申請 — ${applicant} 様`;
+  }
+  const who = CONTACT_TYPE_LABELS[data.type] ?? data.type;
+  return `[My-th お問い合わせ/${who}] ${data.category} — ${data.name} 様`;
+}
+
+export { LIMITS as CONTACT_LIMITS };

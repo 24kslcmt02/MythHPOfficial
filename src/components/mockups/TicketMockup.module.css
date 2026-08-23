@@ -9,7 +9,7 @@
   border: 1px solid rgba(0,0,0,0.06);
   box-shadow: 0 8px 32px rgba(0,0,0,0.08);
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--font-body), sans-serif;
   font-size: 9px;
   color: #333;
 }
@@ -42,10 +42,11 @@
 }
 
 .logoText {
-  height: 8px;
-  width: 60%;
-  background: #d0d3d9;
-  border-radius: 2px;
+  font-family: var(--font-logo), var(--font-display), sans-serif;
+  font-size: 10px;
+  font-weight: 500;
+  font-style: italic;
+  color: #333;
 }
 
 .sidebarNav {
@@ -78,8 +79,12 @@
 
 .navLabel {
   font-size: 7px;
-  color: #333;
+  color: #99a2ad;
   white-space: nowrap;
+}
+
+.navActive .navLabel {
+  color: #333;
 }
 
 /* Main */
@@ -251,7 +256,7 @@
 .total {
   font-weight: 700;
   color: #111;
-  font-family: -apple-system, BlinkMacSystemFont, monospace;
+  font-family: var(--font-body), sans-serif;
 }
 
 .statusBadge {

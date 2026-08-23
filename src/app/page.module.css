@@ -1,4 +1,4 @@
-/* === Hero === */
+/* === Hero（ライトステージ×実機UI主役） === */
 .hero {
   position: relative;
   min-height: 100vh;
@@ -6,46 +6,23 @@
   align-items: center;
   padding-top: 64px;
   overflow: hidden;
-  background: var(--color-bg);
-}
-
-/* Stage Background */
-.stageBg {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  opacity: 0;
-  transform: scale(1.05);
-  transition: opacity 1.2s cubic-bezier(0.22, 1, 0.36, 1),
-              transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.heroLoaded .stageBg {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.stageOverlay {
-  position: absolute;
-  inset: 0;
   background:
-    linear-gradient(to right, rgba(250, 251, 254, 0.95) 0%, rgba(250, 251, 254, 0.6) 50%, rgba(250, 251, 254, 0.1) 100%),
-    linear-gradient(to top, rgba(250, 251, 254, 0.95) 0%, transparent 40%);
-  z-index: 1;
+    radial-gradient(ellipse 55% 45% at 76% 40%, rgba(var(--color-primary-rgb), 0.16) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 55% at 12% 85%, rgba(var(--color-secondary-rgb), 0.12) 0%, transparent 60%),
+    var(--color-bg);
 }
 
 .heroInner {
   position: relative;
   z-index: 10;
   display: grid;
-  grid-template-columns: 1fr 1.6fr 1fr; /* キャラクター(中央)を8割程度見せる定率 */
-  gap: 40px;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: 56px;
   align-items: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  min-height: 80vh;
-  /* Override global container to provide a wider staging area */
-  max-width: 1540px !important;
+  padding-top: 48px;
+  padding-bottom: 48px;
+  min-height: 78vh;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
 }
@@ -66,27 +43,27 @@
 }
 
 .heroLabel {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
   text-transform: uppercase;
 }
 
 .heroTitle {
-  font-family: var(--font-display), sans-serif;
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 5.2vw, 4.25rem);
+  letter-spacing: 0.01em;
+  line-height: 1.18;
   color: var(--color-text-primary);
 }
 
+/* 墨色＋ペンライト黄マーカー（ライト基調の強調） */
 .heroAccent {
-  background: linear-gradient(135deg, var(--color-primary-dark), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  padding: 0 0.06em;
+  background: linear-gradient(transparent 62%, rgba(var(--color-primary-rgb), 0.7) 62%);
 }
 
 @media (max-width: 767px) {
@@ -160,8 +137,8 @@
 }
 
 .heroDesc {
-  font-size: 1.125rem;
-  line-height: 1.8;
+  font-size: var(--text-lg);
+  line-height: 1.9;
   color: var(--color-text-secondary);
   max-width: 480px;
 }
@@ -192,57 +169,41 @@
 }
 
 .heroSwitch {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: var(--space-md);
+  padding: 0;
   font-size: 0.875rem;
-  color: var(--color-text-tertiary);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  background: none;
+  border: none;
+  cursor: pointer;
   transition: color var(--transition-fast);
 }
 
 .heroSwitch:hover {
-  color: var(--color-primary);
+  color: var(--color-secondary-dark);
 }
 
-/* Character Visual */
-.heroVisualCenter {
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-}
-
-/* Smartphone Mockup */
-.heroVisualRight {
+/* Hero Visual — 実機スクショ単一フレーム */
+.heroVisual {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
-.smartphoneWrap {
-  position: relative;
+/* スクショはベゼル焼き込み済みのため枠は付けず、
+   焼き込みベゼルの角丸（幅の約11.5%）でトリムして影とグロウのみ足す */
+.heroPhone {
+  max-width: 340px;
   width: 100%;
-  display: flex;
-  justify-content: center;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.6s,
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 1.6s;
-}
-
-.heroLoaded .smartphoneWrap {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.smartphoneImg {
-  object-fit: contain;
-}
-
-/* Screenshot Phone Display (real app screenshots) */
-.screenshotPhone {
-  border-radius: 28px;
+  border-radius: 39px; /* 焼き込みベゼル角丸 ≒ 幅の11.5% */
   overflow: hidden;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 4px 16px rgba(0, 0, 0, 0.1);
-  max-width: 300px;
-  width: 100%;
+  box-shadow:
+    0 28px 70px rgba(14, 27, 44, 0.2),
+    0 4px 18px rgba(14, 27, 44, 0.1);
 }
 
 .screenshotImg {
@@ -260,31 +221,6 @@
   width: 100%;
   margin: 0 auto;
 }
-
-.characterWrap {
-  position: relative;
-  opacity: 0;
-  transform: translateY(40px) scale(0.95);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1) 1.2s,
-              transform 1s cubic-bezier(0.22, 1, 0.36, 1) 1.2s;
-  filter: drop-shadow(0 8px 32px rgba(0, 0, 0, 0.25)); /* Re-add shadow for character */
-}
-
-.heroLoaded .characterWrap {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-
-.characterImg {
-  width: auto;
-  height: 85vh; /* 画面の約85%の高さ */
-  max-height: 860px; /* 余白を確保して上限設定 */
-  object-fit: contain;
-  object-position: bottom center;
-  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.15));
-  margin-bottom: -5vh; /* 下部にはみ出させるダイナミックな配置 */
-}
-
 
 /* === About === */
 .about {
@@ -305,19 +241,10 @@
 }
 
 /* Mini Character — About section */
-.sectionHeaderWithMascot {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 .miniCharAbout {
-  position: absolute;
-  right: 5%;
-  top: -10px;
   width: 90px;
   height: 90px;
+  margin-top: var(--space-lg);
   pointer-events: auto;
 }
 
@@ -328,46 +255,112 @@
   margin-bottom: var(--space-sm);
 }
 
-.aboutGrid {
+.aboutLayout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-4xl);
+  align-items: start;
 }
 
-.aboutCard {
-  text-align: center;
-  padding: var(--space-2xl);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  align-items: center;
+.aboutHeader :global(.section-header) {
+  margin-bottom: 0;
 }
 
-.aboutIconWrap {
-  width: 56px;
-  height: 56px;
-  border-radius: 16px;
-  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+.aboutList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.aboutItem {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.aboutItem:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.aboutIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: var(--space-sm);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-md);
+  background: var(--color-primary-subtle);
+  color: var(--color-text-primary);
 }
 
-.aboutCard h3 {
-  font-size: 1.125rem;
+.aboutItem h3 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-xs);
 }
 
-.aboutCard p {
-  font-size: 0.9375rem;
+.aboutItem p {
+  font-size: var(--text-sm);
+  line-height: 1.8;
 }
 
-/* === Features === */
-.featureGrid {
+/* === Features（左右交互ショーケース。実機スクショが主役） === */
+.showcase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+}
+
+.showcaseRow {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2xl);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-4xl);
+  align-items: center;
+}
+
+.showcaseRowReverse .showcaseVisual {
+  order: 2;
+}
+
+.showcaseVisual {
+  display: flex;
+  justify-content: center;
+}
+
+/* ベゼル焼き込みスクショの単一フレーム（ヒーローと同比率の角丸） */
+.showcasePhone {
+  max-width: 280px;
+  width: 100%;
+  border-radius: 32px;
+  overflow: hidden;
+  box-shadow: 0 24px 60px rgba(14, 27, 44, 0.16), 0 4px 16px rgba(14, 27, 44, 0.08);
+}
+
+.showcaseMockPanel {
+  width: 100%;
+  max-width: 340px;
+  padding: var(--space-xl);
+  border-radius: var(--radius-xl);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border-light);
+  display: flex;
+  justify-content: center;
+}
+
+.showcaseText h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 3px solid var(--color-primary);
+  display: inline-block;
+}
+
+.showcaseText h3 + p,
+.showcaseText p {
+  font-size: var(--text-base);
+  line-height: 2;
+  max-width: 440px;
 }
 
 /* === How to Use === */
@@ -378,10 +371,6 @@
 /* === FAQ === */
 .faq {
   background: var(--color-bg);
-}
-
-.faqChatWrap {
-  margin-bottom: var(--space-2xl);
 }
 
 /* FAQ内Contact統合ブロック */
@@ -412,10 +401,13 @@
   margin: 0 auto;
 }
 
-/* === CTA === */
+/* === CTA（ペンライト黄のライト帯・ヒーローと対） === */
 .cta {
   padding: var(--space-5xl) 0;
-  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
+  background:
+    radial-gradient(ellipse 50% 60% at 82% 20%, rgba(var(--color-primary-rgb), 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 45% 55% at 12% 90%, rgba(var(--color-secondary-rgb), 0.12) 0%, transparent 60%),
+    var(--color-primary-subtle);
 }
 
 .ctaInner {
@@ -427,11 +419,13 @@
 }
 
 .ctaInner h2 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
+  color: var(--color-text-primary);
 }
 
 .ctaInner p {
-  font-size: 1.125rem;
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
 }
 
 .ctaBtns {
@@ -440,18 +434,111 @@
   margin-top: var(--space-sm);
 }
 
-/* === Promo Section === */
-.promoCard {
-  background: linear-gradient(135deg, var(--color-primary-subtle), var(--color-secondary-subtle));
-  border-radius: var(--radius-2xl);
-  padding: var(--space-4xl);
+/* CTA下のサブリンク（ダーク上） */
+.ctaSubLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: var(--space-md);
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.ctaSubLink:hover {
+  color: var(--color-secondary-dark);
+  gap: 10px;
+}
+
+/* ファン向け手数料ストリップ（Features末尾） */
+.faqStrip {
   display: flex;
   align-items: center;
-  gap: var(--space-4xl);
-  box-shadow: var(--shadow-xl);
-  border: 1px solid var(--color-border-light);
-  overflow: hidden;
+  justify-content: space-between;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+  margin-top: var(--space-3xl);
+  padding: var(--space-lg) var(--space-xl);
+  background: var(--color-primary-subtle);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.4);
+  border-radius: var(--radius-lg);
+}
+
+.faqStripText {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  line-height: 1.8;
+}
+
+.faqStripLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-secondary-dark);
+  white-space: nowrap;
+  transition: color var(--transition-fast);
+}
+
+.faqStripLink:hover {
+  color: var(--color-secondary);
+}
+
+/* === Promo Section（チケット半券モチーフのライト帯） === */
+.promo {
+  background: var(--color-bg-alt);
+}
+
+.promoTicket {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: var(--space-3xl);
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-card);
+  padding: var(--space-3xl);
   position: relative;
+}
+
+/* 半券のミシン目＋ノッチ（上下の丸い切り欠き） */
+.promoDivider {
+  align-self: stretch;
+  width: 0;
+  border-left: 2px dashed rgba(15, 23, 42, 0.18);
+  position: relative;
+  margin: calc(-1 * var(--space-3xl)) 0;
+}
+
+.promoDivider::before,
+.promoDivider::after {
+  content: "";
+  position: absolute;
+  left: -13px;
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-alt);
+  border: 1px solid var(--color-border);
+}
+
+.promoDivider::before {
+  top: -12px;
+}
+
+.promoDivider::after {
+  bottom: -12px;
+}
+
+.promoKv {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-lg);
 }
 
 .promoCardContent {
@@ -460,27 +547,26 @@
 
 .promoLabel {
   display: inline-block;
-  font-size: 0.8125rem;
+  font-size: var(--text-xs);
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--color-secondary);
-  background: var(--color-bg);
-  padding: 4px 12px;
+  color: var(--color-dark-bg);
+  background: var(--color-primary);
+  padding: 4px 14px;
   border-radius: var(--radius-full);
   margin-bottom: var(--space-md);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
 .promoCardContent h3 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
   margin-bottom: var(--space-md);
   color: var(--color-text-primary);
 }
 
 .promoCardContent p {
-  font-size: 1.0625rem;
-  line-height: 1.8;
+  font-size: var(--text-base);
+  line-height: 1.9;
   color: var(--color-text-secondary);
 }
 
@@ -505,47 +591,79 @@
     max-width: 100%;
   }
 
-  .heroVisualCenter {
-    order: -1;
-    justify-content: center;
-  }
-
-  .heroVisualRight {
+  .heroVisual {
     order: 1;
-    justify-content: center;
     margin-top: var(--space-xl);
   }
 
-  .characterImg {
-    max-height: 45vh;
+  .heroPhone {
+    max-width: 320px;
+    border-radius: 37px;
   }
 
-  .stageOverlay {
-    background:
-      linear-gradient(to bottom, rgba(250, 251, 254, 0.6) 0%, rgba(250, 251, 254, 0.85) 60%, rgba(250, 251, 254, 1) 100%);
-  }
-
-  .aboutGrid {
+  .aboutLayout {
     grid-template-columns: 1fr;
-    gap: var(--space-md);
+    gap: var(--space-xl);
   }
 
-  .featureGrid {
+  .showcaseRow {
     grid-template-columns: 1fr;
+    gap: var(--space-xl);
+    text-align: center;
   }
 
-  .promoCard {
-    flex-direction: column;
+  .showcaseRowReverse .showcaseVisual {
+    order: 0;
+  }
+
+  .showcaseText h3 {
+    padding-top: var(--space-sm);
+  }
+
+  .showcaseText p {
+    max-width: 100%;
+  }
+
+  /* 半券は縦積み＋ミシン目を水平に */
+  .promoTicket {
+    grid-template-columns: 1fr;
     text-align: center;
     padding: var(--space-2xl);
     gap: var(--space-2xl);
   }
 
+  .promoDivider {
+    align-self: auto;
+    width: auto;
+    height: 0;
+    border-left: none;
+    border-top: 2px dashed rgba(15, 23, 42, 0.18);
+    margin: 0 calc(-1 * var(--space-2xl));
+  }
+
+  .promoDivider::before,
+  .promoDivider::after {
+    left: auto;
+    top: -12px;
+  }
+
+  .promoDivider::before {
+    left: -12px;
+  }
+
+  .promoDivider::after {
+    bottom: auto;
+    right: -12px;
+  }
+
+  .promoCardVisual {
+    justify-content: center;
+  }
+
   .miniCharAbout {
-    position: static;
     width: 70px;
     height: 70px;
-    margin: 0 auto var(--space-sm);
+    margin: var(--space-md) auto 0;
   }
 
   .miniCharCta {
@@ -555,8 +673,9 @@
 }
 
 @media (max-width: 767px) {
-  .characterImg {
-    max-height: 35vh;
+  .heroPhone {
+    max-width: 280px;
+    border-radius: 32px;
   }
 
   .heroBtns,
@@ -572,3 +691,29 @@
   }
 }
 
+
+/* --- FAQ「すべて見る」導線（v0.2） --- */
+.faqMoreWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+.faqMoreLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 0.625rem 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
+  border-radius: var(--radius-full);
+  transition: all var(--transition-fast);
+}
+
+.faqMoreLink:hover {
+  border-color: var(--color-secondary);
+  color: var(--color-secondary);
+  background: var(--color-secondary-subtle);
+}

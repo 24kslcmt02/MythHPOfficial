@@ -1,5 +1,6 @@
 "use client";
 
+import { Banknote, Ticket, BarChart3 } from 'lucide-react';
 import styles from "./TicketMockup.module.css";
 import { motion } from "framer-motion";
 
@@ -29,17 +30,25 @@ export default function TicketMockup() {
       <div className={styles.sidebar}>
         <div className={styles.sidebarLogo}>
           <div className={styles.logoIcon} />
-          <div className={styles.logoText} />
+          <div className={styles.logoText}>My-th</div>
         </div>
         <nav className={styles.sidebarNav}>
-          <div className={styles.navItem} />
-          <div className={styles.navItem} />
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>ホーム</div>
+          </div>
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>イベント</div>
+          </div>
           <div className={`${styles.navItem} ${styles.navActive}`}>
             <div className={styles.navDot} />
             <div className={styles.navLabel}>販売設定</div>
           </div>
-          <div className={styles.navItem} />
-          <div className={styles.navItem} />
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>チェキ券</div>
+          </div>
+          <div className={styles.navItem}>
+            <div className={styles.navLabel}>売上管理</div>
+          </div>
         </nav>
       </div>
 
@@ -60,21 +69,21 @@ export default function TicketMockup() {
           {/* Sales Summary */}
           <div className={styles.statsRow}>
             <div className={`${styles.statCard} ${styles.statBlue}`}>
-              <span className={styles.statIcon}>💰</span>
+              <span className={styles.statIcon}><Banknote size={14} strokeWidth={2} aria-hidden="true" /></span>
               <div>
                 <div className={styles.statLabel}>総売上</div>
                 <div className={styles.statValue}>¥504,000</div>
               </div>
             </div>
             <div className={`${styles.statCard} ${styles.statGreen}`}>
-              <span className={styles.statIcon}>🎫</span>
+              <span className={styles.statIcon}><Ticket size={14} strokeWidth={2} aria-hidden="true" /></span>
               <div>
                 <div className={styles.statLabel}>販売枚数</div>
                 <div className={styles.statValue}>180枚</div>
               </div>
             </div>
             <div className={`${styles.statCard} ${styles.statPurple}`}>
-              <span className={styles.statIcon}>📊</span>
+              <span className={styles.statIcon}><BarChart3 size={14} strokeWidth={2} aria-hidden="true" /></span>
               <div>
                 <div className={styles.statLabel}>平均単価</div>
                 <div className={styles.statValue}>¥2,800</div>

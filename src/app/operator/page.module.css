@@ -1,4 +1,4 @@
-/* === Hero (Operator) === */
+/* === Hero (Operator) — 管理画面ゴーストコラージュ×コピー主体 === */
 .hero {
   min-height: 100vh;
   display: flex;
@@ -6,57 +6,145 @@
   padding-top: 64px;
   position: relative;
   overflow: hidden;
+  background:
+    radial-gradient(ellipse 50% 45% at 82% 25%, rgba(var(--color-secondary-rgb), 0.1) 0%, transparent 60%),
+    radial-gradient(ellipse 40% 50% at 8% 90%, rgba(var(--color-primary-rgb), 0.1) 0%, transparent 60%),
+    var(--color-bg);
 }
 
-
 .heroInner {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-4xl);
+  display: flex;
   align-items: center;
   padding-top: var(--space-4xl);
   padding-bottom: var(--space-4xl);
-  max-width: 1540px !important;
+  min-height: 78vh;
+  max-width: 1200px;
   width: 100%;
   margin: 0 auto;
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .heroContent {
   display: flex;
   flex-direction: column;
   gap: var(--space-lg);
+  max-width: 640px;
 }
 
 .heroLabel {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 0.8125rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--color-secondary);
+  color: var(--color-secondary-dark);
   text-transform: uppercase;
 }
 
 .heroTitle {
-  font-family: var(--font-display), sans-serif;
-  font-size: clamp(2.25rem, 5vw, 3.75rem);
-  letter-spacing: -0.03em;
-  line-height: 1.15;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
+  font-weight: 900;
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  letter-spacing: 0.01em;
+  line-height: 1.25;
+  color: var(--color-text-primary);
 }
 
 .heroAccent {
-  background: linear-gradient(135deg, var(--color-accent-pink), var(--color-secondary));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  padding: 0 0.06em;
+  background: linear-gradient(transparent 62%, rgba(var(--color-primary-rgb), 0.7) 62%);
+  white-space: nowrap;
 }
 
 .heroDesc {
-  font-size: 1.125rem;
-  line-height: 1.8;
+  font-size: var(--text-base);
+  line-height: 1.9;
   color: var(--color-text-secondary);
   max-width: 480px;
+  margin-top: var(--space-sm);
+}
+
+/* ヒーロー内のテキストCTA（矢印アイコン付き） */
+.heroCtaLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-secondary-dark);
+  transition: color var(--transition-fast), gap var(--transition-fast);
+}
+
+.heroCtaLink:hover {
+  color: var(--color-secondary);
+  gap: 10px;
+}
+
+/* 半券スタットチップ（左ミシン目＋ノッチの小型チケット） */
+.statChips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  list-style: none;
+  margin: var(--space-sm) 0 0;
+  padding: 0;
+}
+
+.statChip {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 20px 10px 22px;
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border);
+  border-left: 2px dashed rgba(15, 23, 42, 0.28);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+}
+
+/* 半券のノッチ（左中央の切り欠き） */
+.statChip::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 12px;
+  border-radius: var(--radius-full);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+}
+
+.statChipLabel {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.statChipValue {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--color-text-primary);
+}
+
+.statChipValue em {
+  font-style: normal;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
+  font-size: var(--text-xl);
+  font-weight: 800;
+  line-height: 1.2;
+  padding: 0 0.08em;
+  background: linear-gradient(transparent 58%, rgba(var(--color-primary-rgb), 0.65) 58%);
+}
+
+.heroCtas {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-lg);
+  margin-top: var(--space-md);
 }
 
 .heroBtns {
@@ -132,7 +220,7 @@
 }
 
 .dashValue {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text-primary);
@@ -143,63 +231,125 @@
   background: var(--color-bg-alt);
 }
 
-.problemGrid {
+.problemLayout {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--space-xl);
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-4xl);
+  align-items: start;
   margin-bottom: var(--space-2xl);
 }
 
-.problemCard {
-  text-align: center;
-  padding: var(--space-2xl);
-  background: var(--color-bg-card);
-  border-radius: var(--radius-lg);
-  border: 1px solid var(--color-border-light);
-  display: flex;
-  flex-direction: column;
-  gap: var(--space-md);
-  align-items: center;
+.problemLayout :global(.section-header) {
+  margin-bottom: 0;
 }
 
-.problemIconWrap {
-  width: 48px;
-  height: 48px;
+.problemList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.problemItem {
+  display: grid;
+  grid-template-columns: 48px 1fr;
+  gap: var(--space-lg);
+  padding: var(--space-xl) 0;
+  border-top: 1px solid var(--color-border);
+}
+
+.problemItem:last-child {
+  border-bottom: 1px solid var(--color-border);
+}
+
+.problemIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-alt);
+  width: 48px;
+  height: 48px;
   border-radius: var(--radius-md);
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary-dark);
+}
+
+.problemItem h3 {
+  font-size: var(--text-lg);
   margin-bottom: var(--space-xs);
 }
 
-.problemCard h3 {
-  font-size: 1.125rem;
-  color: var(--color-text-primary);
+.problemItem p {
+  font-size: var(--text-sm);
+  line-height: 1.8;
 }
 
-.problemCard p {
-  font-size: 0.9375rem;
-}
-
+/* 帰結の一文。黄の縦罫で引用的に */
 .problemResult {
-  text-align: center;
-  padding: var(--space-xl);
-  background: linear-gradient(135deg, rgba(244, 114, 182, 0.08), rgba(74, 173, 232, 0.08));
-  border-radius: var(--radius-lg);
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-md) var(--space-xl);
+  border-left: 4px solid var(--color-primary);
+  background: var(--color-bg-card);
+  border-radius: 0 var(--radius-md) var(--radius-md) 0;
 }
 
 .problemResult p {
-  font-size: 1rem;
+  font-size: var(--text-base);
   font-weight: 600;
   color: var(--color-text-primary);
 }
 
-/* === Solutions === */
-.solutionGrid {
+/* === Solutions（左右交互ショーケース） === */
+.solutionShowcase {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4xl);
+}
+
+.solutionRow {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-2xl);
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+  gap: var(--space-4xl);
+  align-items: center;
+}
+
+.solutionRowReverse .solutionVisual {
+  order: 2;
+}
+
+.solutionVisual {
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-border-light);
+  background: var(--color-bg-alt);
+  overflow: hidden;
+}
+
+.solutionMockInner {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-xl);
+}
+
+.solutionText h3 {
+  font-size: var(--text-2xl);
+  margin-bottom: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 3px solid var(--color-secondary);
+  display: inline-block;
+}
+
+.solutionText p {
+  font-size: var(--text-base);
+  line-height: 2;
+  max-width: 440px;
+}
+
+.solutionsMore {
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-3xl);
 }
 
 /* === Pricing === */
@@ -237,11 +387,14 @@
 }
 
 .priceIconWrap {
-  width: 36px;
-  height: 36px;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: var(--radius-md);
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary-dark);
 }
 
 .priceHeader h3 {
@@ -255,21 +408,20 @@
 }
 
 .priceNumber {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 3.5rem;
   font-weight: 800;
   line-height: 1;
-  background: linear-gradient(135deg, var(--color-secondary), var(--color-accent-cyan));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  color: var(--color-text-primary);
+  padding: 0 0.1em;
+  background: linear-gradient(transparent 58%, rgba(var(--color-primary-rgb), 0.65) 58%);
 }
 
 .priceUnit {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-secondary);
+  color: var(--color-text-primary);
 }
 
 .priceNote {
@@ -287,16 +439,14 @@
 .priceFeatures li {
   font-size: 0.9375rem;
   color: var(--color-text-secondary);
-  padding-left: 1.5rem;
-  position: relative;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
 }
 
-.priceFeatures li::before {
-  content: "✓";
-  position: absolute;
-  left: 0;
-  color: var(--color-secondary);
-  font-weight: 700;
+.priceFeatures li svg {
+  color: var(--color-secondary-dark);
+  flex-shrink: 0;
 }
 
 .simulation {
@@ -337,7 +487,7 @@
 /* === Contact === */
 .contact {
   padding: var(--space-5xl) 0;
-  background: linear-gradient(135deg, rgba(74, 173, 232, 0.08), rgba(244, 114, 182, 0.06));
+  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(74, 173, 232, 0.04) 100%);
 }
 
 .contactInner {
@@ -349,17 +499,12 @@
 }
 
 .contactInner h2 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
 }
 
 .contactInner p {
   font-size: 1.125rem;
   max-width: 560px;
-}
-
-/* === Contact === */
-.contact {
-  background: linear-gradient(180deg, var(--color-bg) 0%, rgba(74, 173, 232, 0.04) 100%);
 }
 
 /* === CTA === */
@@ -376,7 +521,7 @@
 }
 
 .ctaInner h2 {
-  font-family: var(--font-display), sans-serif;
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
   font-size: clamp(1.75rem, 3vw, 2.5rem);
 }
 
@@ -399,34 +544,31 @@
 
 /* === Responsive === */
 @media (max-width: 1023px) {
-  .heroInner {
+  .heroContent {
+    max-width: 560px;
+  }
+
+  .problemLayout {
     grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+
+  .solutionRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
     text-align: center;
   }
 
-  .heroContent {
-    align-items: center;
+  .solutionRowReverse .solutionVisual {
+    order: 0;
   }
 
-  .heroDesc {
+  .solutionText h3 {
+    padding-top: var(--space-sm);
+  }
+
+  .solutionText p {
     max-width: 100%;
-  }
-
-  .heroVisual {
-    order: 1;
-  }
-
-  .dashboardMockup {
-    width: 100%;
-    max-width: 360px;
-  }
-
-  .problemGrid {
-    grid-template-columns: 1fr;
-  }
-
-  .solutionGrid {
-    grid-template-columns: 1fr;
   }
 
   .pricingGrid {
@@ -441,6 +583,46 @@
   }
 
   .heroBtns .btn {
+    width: 100%;
+  }
+
+  .heroInner {
+    min-height: auto;
+    padding-top: var(--space-2xl);
+  }
+
+  .heroTitle {
+    font-size: 2rem;
+  }
+
+  .heroContent {
+    max-width: 100%;
+  }
+
+  /* チップは行型（ラベル左・数値右）で縦積み */
+  .statChips {
+    width: 100%;
+    gap: var(--space-sm);
+  }
+
+  .statChip {
+    flex: 1 1 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 16px 10px 22px;
+  }
+
+  .statChipValue em {
+    font-size: var(--text-lg);
+  }
+
+  .heroCtas {
+    width: 100%;
+    gap: var(--space-md);
+  }
+
+  .heroCtas :global(.btn) {
     width: 100%;
   }
 }

@@ -1,0 +1,342 @@
+/* サブページ共通スタイル（v0.2） */
+
+.hero {
+  padding: calc(64px + var(--space-3xl)) 0 var(--space-2xl);
+  background:
+    radial-gradient(ellipse at 15% 0%, rgba(245, 214, 35, 0.1) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 20%, rgba(74, 173, 232, 0.08) 0%, transparent 55%),
+    var(--color-bg);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.heroInner {
+  max-width: 780px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-secondary);
+  margin-bottom: var(--space-sm);
+}
+
+.hero h1 {
+  font-size: clamp(1.75rem, 4vw, 2.75rem);
+  margin-bottom: var(--space-md);
+}
+
+.lead {
+  font-size: 1.0625rem;
+  color: var(--color-text-secondary);
+  max-width: 62ch;
+}
+
+/* --- パンくず --- */
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-xs);
+  font-size: 0.8125rem;
+  color: var(--color-text-tertiary);
+  margin-bottom: var(--space-md);
+}
+
+.crumbs a:hover {
+  color: var(--color-secondary);
+  text-decoration: underline;
+}
+
+.crumbSep {
+  opacity: 0.5;
+}
+
+.crumbCurrent {
+  color: var(--color-text-secondary);
+}
+
+/* --- 本文 --- */
+.body {
+  padding: var(--space-3xl) 0 var(--space-5xl);
+}
+
+.prose {
+  max-width: 780px;
+}
+
+.block + .block {
+  margin-top: var(--space-3xl);
+}
+
+.block h2 {
+  font-size: clamp(1.25rem, 2.4vw, 1.625rem);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.block h3 {
+  font-size: 1.0625rem;
+  margin: var(--space-xl) 0 var(--space-sm);
+}
+
+.block p + p {
+  margin-top: var(--space-md);
+}
+
+.list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+}
+
+.list li {
+  position: relative;
+  padding-left: 1.5rem;
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+}
+
+.list li::before {
+  content: "";
+  position: absolute;
+  left: 0.25rem;
+  top: 0.75rem;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--color-primary);
+}
+
+/* --- 定義リスト（会社概要など） --- */
+.defList {
+  border-top: 1px solid var(--color-border-light);
+  margin-top: var(--space-lg);
+}
+
+.defRow {
+  display: grid;
+  grid-template-columns: 190px minmax(0, 1fr);
+  gap: var(--space-lg);
+  padding: var(--space-lg) 0;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.defRow dt {
+  font-weight: 600;
+  font-size: 0.9375rem;
+  color: var(--color-text-primary);
+}
+
+.defRow dd {
+  color: var(--color-text-secondary);
+  font-size: 0.9375rem;
+  line-height: 1.8;
+}
+
+/* --- テーブル --- */
+.tableWrap {
+  overflow-x: auto;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  margin-top: var(--space-lg);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9375rem;
+}
+
+.table th,
+.table td {
+  padding: var(--space-md) var(--space-lg);
+  text-align: left;
+  border-bottom: 1px solid var(--color-border-light);
+  vertical-align: top;
+}
+
+.table th {
+  background: var(--color-bg-alt);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  white-space: nowrap;
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+/* --- 注意書き・補足 --- */
+.notice {
+  display: flex;
+  gap: var(--space-md);
+  padding: var(--space-lg);
+  border-radius: var(--radius-md);
+  background: var(--color-secondary-subtle);
+  border: 1px solid rgba(74, 173, 232, 0.25);
+  margin-top: var(--space-lg);
+}
+
+.noticeWarn {
+  background: #FFF7ED;
+  border-color: #FDBA74;
+}
+
+.notice p {
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+.noticeIcon {
+  flex-shrink: 0;
+  color: var(--color-secondary);
+  margin-top: 2px;
+}
+
+.noticeWarn .noticeIcon {
+  color: #C2410C;
+}
+
+.note {
+  font-size: 0.875rem;
+  color: var(--color-text-tertiary);
+  margin-top: var(--space-sm);
+}
+
+/* --- カードグリッド --- */
+.cardGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.linkCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-lg);
+  padding-right: var(--space-2xl);
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  box-shadow: var(--shadow-card);
+  transition: all var(--transition-base);
+}
+
+.linkCard:hover {
+  border-color: var(--color-secondary);
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.linkCardTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--color-text-primary);
+}
+
+.linkCardDesc {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+}
+
+/* 外部リンクアイコンはカード右上に固定する（本文の回り込みを防ぐ） */
+.linkCard > svg {
+  position: absolute;
+  top: var(--space-lg);
+  right: var(--space-lg);
+  color: var(--color-text-tertiary);
+}
+
+/* --- 手順（ステップ） --- */
+.steps {
+  counter-reset: step;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-top: var(--space-lg);
+}
+
+.steps li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 3rem;
+}
+
+.steps li::before {
+  content: counter(step);
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: var(--color-text-on-primary);
+  font-family: var(--font-display), var(--font-display-ja), var(--font-body), sans-serif;
+  font-weight: 700;
+  font-size: 0.9375rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.steps h3 {
+  margin: 0 0 var(--space-xs);
+  font-size: 1rem;
+}
+
+.steps p {
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+/* --- CTA --- */
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  margin-top: var(--space-xl);
+}
+
+/* --- 準備中 --- */
+.pending {
+  padding: var(--space-xl);
+  border: 1px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-alt);
+  text-align: center;
+  margin-top: var(--space-lg);
+}
+
+.pending p {
+  font-size: 0.9375rem;
+  margin: 0;
+}
+
+@media (max-width: 767px) {
+  .hero {
+    padding: calc(64px + var(--space-xl)) 0 var(--space-xl);
+  }
+
+  .defRow {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+    padding: var(--space-md) 0;
+  }
+}

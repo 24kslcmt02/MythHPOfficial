@@ -2,73 +2,170 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import styles from "./Footer.module.css";
-
 import { useRouter } from "next/navigation";
+import { ExternalLink as ExternalLinkIcon } from "lucide-react";
+import SocialIcons from "./SocialIcons";
+import styles from "./Footer.module.css";
+import {
+  company,
+  legalLinks,
+  organizerTermsUrl,
+  cookiePolicyUrl,
+  payments,
+  stores,
+} from "@/config/site";
+import { UNPUBLISHED_ROUTES, contactHref, feesHref, isRoutePublished } from "@/config/routes";
+import { filterPublishedLinks } from "@/lib/route-visibility.mjs";
 
+/** フッターのリンク群。公開保留中のページへのリンクは自動で外れる */
+function buildFooterLinks(audience) {
+  const published = (links) => filterPublishedLinks(links, UNPUBLISHED_ROUTES);
+  return {
+    support: published([
+      { href: "/faq", label: "よくある質問（購入者）" },
+      { href: "/faq/organizer", label: "よくある質問（運営者）" },
+      { href: "/guide", label: "使い方ガイド" },
+      { href: feesHref(audience), label: "手数料について" },
+      { href: "/refund", label: "払い戻し・公演中止時の対応" },
+      { href: contactHref(audience), label: "お問い合わせ" },
+      { href: "/faq#q-withdraw", label: "退会について" },
+    ]),
+    safety: published([
+      { href: "/security", label: "安全への取り組み" },
+      { href: "/guide/environment", label: "動作環境" },
+      { href: "/news", label: "お知らせ" },
+      { href: "/security#official-channels", label: "偽サイト・偽アプリにご注意" },
+    ]),
+  };
+}
+
+function LinkGroup({ title, links, children }) {
+  if (links.length === 0 && !children) return null;
+  return (
+    <div className={styles.linkGroup}>
+      <h2 className={styles.groupTitle}>{title}</h2>
+      {links.map((link) => (
+        <Link key={link.href} href={link.href}>
+          {link.label}
+        </Link>
+      ))}
+      {children}
+    </div>
+  );
+}
+
+/**
+ * サイト共通フッター（v0.2 要件定義 FR-01 / 3.3）
+ *
+ * ▼ 設計原則
+ * 利用規約・プライバシーポリシー・特定商取引法に基づく表記の正本は
+ * ユーザーが利用するアプリ側（user.my-th.jp）に一本化されている。
+ * このフッターは「正本への遷移導線」であり、HP 側に本文は持たない。
+ */
 export default function Footer({ variant = "user", onViewModeChange }) {
-  const isOperator = variant === "operator";
   const router = useRouter();
+  const footerLinks = buildFooterLinks(variant === "operator" ? "organizer" : "user");
 
-  const handleViewChange = (mode) => {
+  // トップページ（SPA）ではビュー切替、それ以外のページではルート遷移
+  const goToView = (mode) => {
     if (onViewModeChange) {
       onViewModeChange(mode);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } else {
-      router.push("/");
+      router.push(mode === "operator" ? "/operator" : "/");
     }
   };
 
-  const handleContactClick = () => {
-    if (onViewModeChange) {
-      if (!isOperator) {
-        onViewModeChange("operator");
-        setTimeout(() => {
-          document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-        }, 100);
-      } else {
-        document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-      }
-    } else {
-      router.push("/");
-    }
-  };
+  const externalLegal = [
+    ...legalLinks,
+    ...(organizerTermsUrl
+      ? [{ key: "organizer-terms", label: "運営者向け利用規約", url: organizerTermsUrl }]
+      : []),
+    ...(cookiePolicyUrl
+      ? [{ key: "cookie", label: "Cookie・外部送信ポリシー", url: cookiePolicyUrl }]
+      : []),
+  ];
 
   return (
     <footer className={styles.footer}>
       <div className={`container ${styles.inner}`}>
-        <div className={styles.brand}>
-          <div className={styles.brandLogo}>
-            <Image src="/images/Mythlogo.svg" alt="My-th" width={32} height={32} className={styles.logoImg} />
-            <span className={styles.logoText}>My-th</span>
+        <div className={styles.top}>
+          <div className={styles.brand}>
+            <div className={styles.brandLogo}>
+              <Image
+                src="/images/Mythlogo.svg"
+                alt="My-th"
+                width={32}
+                height={32}
+                className={styles.logoImg}
+              />
+              <span className={styles.logoText}>My-th</span>
+            </div>
+            <p className={styles.tagline}>すべての体験をつなぐ アイドルOS</p>
+            <div className={styles.storeLinks}>
+              <a href={stores.appStore} target="_blank" rel="noopener noreferrer">
+                App Store
+              </a>
+              <a href={stores.googlePlay} target="_blank" rel="noopener noreferrer">
+                Google Play
+              </a>
+            </div>
           </div>
-          <p className={styles.tagline}>すべての体験をつなぐ アイドルOS</p>
+
+          <nav className={styles.links} aria-label="フッターナビゲーション">
+            <div className={styles.linkGroup}>
+              <h2 className={styles.groupTitle}>サービス</h2>
+              <button type="button" className={styles.linkBtn} onClick={() => goToView("user")}>
+                ファンの方へ
+              </button>
+              <button type="button" className={styles.linkBtn} onClick={() => goToView("operator")}>
+                イベンター・運営の方へ
+              </button>
+              <Link href="/app">アプリをダウンロード</Link>
+              <Link href="/subscription">コレクション機能</Link>
+              <Link href="/operator/features">機能一覧（運営者向け）</Link>
+            </div>
+
+            <LinkGroup title="サポート" links={footerLinks.support} />
+
+            <LinkGroup title="安心・安全" links={footerLinks.safety} />
+
+            <div className={styles.linkGroup}>
+              <h2 className={styles.groupTitle}>会社情報・規約</h2>
+              {isRoutePublished("/company") && <Link href="/company">運営会社</Link>}
+              {externalLegal.map((item) => (
+                <a
+                  key={item.key}
+                  href={item.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className={styles.externalLink}
+                >
+                  {item.label}
+                  <ExternalLinkIcon size={12} aria-hidden="true" />
+                  <span className="srOnly">（My-thアプリのページが新しいタブで開きます）</span>
+                </a>
+              ))}
+              <p className={styles.groupNote}>
+                規約・ポリシーはMy-thアプリのページに掲載しています
+              </p>
+            </div>
+          </nav>
         </div>
-        <div className={styles.links}>
-          <div className={styles.linkGroup}>
-            <h4>サービス</h4>
-            <button
-              onClick={() => handleViewChange("user")}
-              style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
-            >ファンの方はこちら</button>
-            <button
-              onClick={() => handleViewChange("operator")}
-              style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
-            >イベンター・運営の方はこちら</button>
-            <Link href="/subscription">コレクション機能</Link>
-          </div>
-          <div className={styles.linkGroup}>
-            <h4>サポート</h4>
-            <button
-              onClick={handleContactClick}
-              style={{ background: 'none', border: 'none', padding: 0, font: 'inherit', color: 'inherit', cursor: 'pointer', textAlign: 'left' }}
-            >
-              お問い合わせ
-            </button>
-          </div>
-        </div>
+
         <div className={styles.bottom}>
-          <p>&copy; 2026 My-th. All rights reserved.</p>
+          {payments && (
+            <div className={styles.payments}>
+              <span className={styles.paymentsLabel}>対応決済</span>
+              <span className={styles.paymentsList}>
+                {[...(payments.cards ?? []), ...(payments.convenience ?? []), ...(payments.others ?? [])].join(" / ")}
+              </span>
+            </div>
+          )}
+          <SocialIcons className={styles.social} linkClassName={styles.socialLink} />
+          <p className={styles.copyright}>
+            &copy; 2026 {company.nameEn} All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

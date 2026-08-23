@@ -11,11 +11,11 @@ export const metadata = {
 export default function OperatorPage() {
   return (
     <>
-      <Header mode="operator" />
+      <Header variant="operator" />
       <main>
         <OperatorView />
       </main>
-      <Footer mode="operator" />
+      <Footer variant="operator" />
     </>
   );
 }
