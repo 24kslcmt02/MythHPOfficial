@@ -7,7 +7,7 @@ import { isPublished } from "../lib/faq.mjs";
 import { normalizePath } from "../lib/route-visibility.mjs";
 
 /** 本番で必ず到達できるべきルート（ここが崩れたら導線設計を見直す） */
-const MUST_BE_PUBLISHED = ["/", "/operator", "/operator/features", "/faq", "/faq/organizer", "/subscription"];
+const MUST_BE_PUBLISHED = ["/", "/app", "/operator", "/operator/features", "/faq", "/faq/organizer", "/subscription"];
 
 test("UNPUBLISHED_ROUTES: 先頭スラッシュ付き・末尾スラッシュなし・クエリなしのパスのみ", () => {
   for (const route of UNPUBLISHED_ROUTES) {

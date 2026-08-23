@@ -20,8 +20,8 @@ import styles from "./InquiryForm.module.css";
 /** 会員登録タブへ直接飛ぶためのアンカー（/operator#signup） */
 export const SIGNUP_ANCHOR = "signup";
 
-/** ファン向けアプリの案内先: トップページのダウンロード帯（UserView の id="app"） */
-export const FAN_APP_HREF = "/#app";
+/** ファン向けアプリの案内先: ダウンロードページ（SPAの表示状態に依存しない固定URL） */
+export const FAN_APP_HREF = "/app";
 
 const EMPTY_FORM = {
   type: "user",

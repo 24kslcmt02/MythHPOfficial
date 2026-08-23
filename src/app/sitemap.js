@@ -10,6 +10,7 @@ const ROUTES = [
   { path: "/", priority: 1.0, changeFrequency: "weekly" },
   { path: "/operator", priority: 0.9, changeFrequency: "weekly" },
   { path: "/operator/features", priority: 0.7, changeFrequency: "monthly" },
+  { path: "/app", priority: 0.8, changeFrequency: "monthly" },
   { path: "/subscription", priority: 0.7, changeFrequency: "monthly" },
   { path: "/faq", priority: 0.8, changeFrequency: "monthly" },
   { path: "/faq/organizer", priority: 0.7, changeFrequency: "monthly" },

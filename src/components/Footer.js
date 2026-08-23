@@ -121,6 +121,7 @@ export default function Footer({ variant = "user", onViewModeChange }) {
               <button type="button" className={styles.linkBtn} onClick={() => goToView("operator")}>
                 イベンター・運営の方へ
               </button>
+              <Link href="/app">アプリをダウンロード</Link>
               <Link href="/subscription">コレクション機能</Link>
               <Link href="/operator/features">機能一覧（運営者向け）</Link>
             </div>
