@@ -222,7 +222,7 @@ export const verification = { method: "email" };
  * ここに列挙したもの以外は My-th の公式ではない、と案内するための一覧。
  */
 export const officialChannels = {
-  domains: ["my-th.jp", "www.my-th.jp", "user.my-th.jp"],
+  domains: ["my-th.jp", "www.my-th.jp", "user.my-th.jp", "app.my-th.jp"],
   apps: [
     { store: "App Store", name: "My-th", url: stores.appStore },
     { store: "Google Play", name: "My-th", url: stores.googlePlay },
