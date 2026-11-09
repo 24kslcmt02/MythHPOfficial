@@ -27,7 +27,7 @@ npm run lint           # 警告もエラー扱いにする場合: npx eslint src
 - 設定の単一ソースは `src/config/site.js`。`null` は未確定を表し、ページ側で自動的に非表示または「準備中」になる。値の確定はこのファイルだけを変更する。業務事実を他の場所にハードコードしない
 - 公開/非公開ページは `src/config/routes.js` の `UNPUBLISHED_ROUTES` で切り替える。載っている間はページ本体が404になり、sitemap と導線からも外れる。隠すページを増やすときは page.js 冒頭で `isRoutePublished()` → `notFound()` を呼ぶ。問い合わせ導線は `contactHref()`、手数料導線は `feesHref()` を使う
 - 規約・プライバシーポリシー・特商法の本文は持たない。アプリ側（別リポジトリ msc-my-th/MSCAPTITAL_CHECKI_My-th_Web の Guest/）へ外部リンクする設計で、URL は `Guest/src/main.js` のルート定義を正とする。ドメインは app.my-th.jp を使う。SPA なので未定義パスにも200が返る。curl では正否を判定できないため、ブラウザで本文表示を確認する
-- 会社情報（住所・代表者・連絡先）は特商法ページの表記と一致させる。設立・資本金・事業内容は未確定なので推測で埋めない
+- 会社情報（所在地・代表者・電話番号）はホームページに載せない（BOSS 方針）。/company は UNPUBLISHED_ROUTES に入れたまま。問い合わせ導線はフォームとメールのみ。規約・特商法の正本は app.my-th.jp 側
 - FAQ（`src/content/faq/`）は `answer` が空なら本番非公開、機能一覧（`src/content/features/index.js`）は `desc` が空なら本番非公開。下書きは `draftAnswer` / `draftDesc`、確認事項は `note` に置く
 - 公開判断にあたる変更（`UNPUBLISHED_ROUTES` から外す、`draftAnswer` を `answer` に移す、`draftDesc` を `desc` に移す）は指示なしに行わない
 - 入場受付はオフライン不可、本人確認はメール認証のみ、手数料5%の負担者は主催者が選択。コンテンツのテストが「オフライン受付可」の案内を禁止している

@@ -12,6 +12,7 @@ import { isRouteUnder } from "../lib/route-visibility.mjs";
  * 編集が完了したページは、この配列から外すだけで公開される。ページ側の修正は不要。
  */
 export const UNPUBLISHED_ROUTES = Object.freeze([
+  "/company",
   "/contact",
   "/fees",
   "/guide",
