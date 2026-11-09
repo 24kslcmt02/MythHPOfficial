@@ -17,7 +17,7 @@ export const site = {
   description:
     "チェキ券・チケット・入場特典・売上管理をひとつに統合。アイドル運営のアナログをゼロにする業界特化OSアプリ。",
   url: "https://www.my-th.jp",
-  /** ユーザーが利用するアプリ側サイト（法務文書の正本はこちら） */
+  /** ユーザーが利用するアプリ側サイト（法務文書へのリンクは legalBaseUrl を使う） */
   appUrl: "https://user.my-th.jp",
 };
 
@@ -63,7 +63,7 @@ export const contact = {
 };
 
 /**
- * 法務文書（正本はアプリ側 user.my-th.jp）
+ * 法務文書（正本はアプリ側 app.my-th.jp）
  *
  * ▼ 設計原則（v0.2 要件定義）
  * HP に本文は置かない。二重管理による不整合を避けるため、正本はアプリ側に一本化する。
@@ -72,26 +72,28 @@ export const contact = {
  * URL は別リポジトリ msc-my-th/MSCAPTITAL_CHECKI_My-th_Web の Guest/src/main.js のルート定義を正とする。
  * SPA のため未定義パスにも 200 が返る。verified: true にする前にブラウザで本文の表示を確認すること。
  */
+export const legalBaseUrl = "https://app.my-th.jp";
+
 export const legalLinks = [
   {
     key: "terms",
     label: "利用規約",
     description: "My-thアプリおよび本サービスのご利用条件",
-    url: `${site.appUrl}/terms-of-service`,
+    url: `${legalBaseUrl}/terms-of-service`,
     verified: true,
   },
   {
     key: "privacy",
     label: "プライバシーポリシー",
     description: "個人情報の取扱いと安全管理措置について",
-    url: `${site.appUrl}/privacy-policy`,
+    url: `${legalBaseUrl}/privacy-policy`,
     verified: true,
   },
   {
     key: "tokushoho",
     label: "特定商取引法に基づく表記",
     description: "販売事業者・支払方法・引渡時期・返品に関する表記",
-    url: `${site.appUrl}/act-on-specified-com-transactions`,
+    url: `${legalBaseUrl}/act-on-specified-com-transactions`,
     verified: true,
   },
 ];
@@ -220,7 +222,7 @@ export const verification = { method: "email" };
  * ここに列挙したもの以外は My-th の公式ではない、と案内するための一覧。
  */
 export const officialChannels = {
-  domains: ["my-th.jp", "www.my-th.jp", "user.my-th.jp"],
+  domains: ["my-th.jp", "www.my-th.jp", "user.my-th.jp", "app.my-th.jp"],
   apps: [
     { store: "App Store", name: "My-th", url: stores.appStore },
     { store: "Google Play", name: "My-th", url: stores.googlePlay },
