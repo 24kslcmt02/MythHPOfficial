@@ -32,14 +32,15 @@ export const collectionUrl = "https://user.my-th.jp/collection";
 
 /**
  * 運営会社
- * 特商法表記（アプリ側の正本）と表記を一致させること。
+ * 所在地・代表者はホームページに載せない（BOSS 方針）。特商法ページ（app.my-th.jp）で確認できれば足りる。
+ * このリポジトリは public なので postalCode / address / representative に値を入れないこと。
  */
 export const company = {
   name: "株式会社M's Capital Holdings",
   nameEn: "M's Capital Holdings, Inc.",
-  postalCode: "441-3147",
-  address: "愛知県豊橋市大岩町字火打坂30番地1",
-  representative: "牧野　亘紘",
+  postalCode: null,
+  address: null,
+  representative: null,
   /** @todo 確定必要 例: "2020年4月" */
   founded: null,
   /** @todo 確定必要 例: "1,000万円" */
@@ -53,9 +54,9 @@ export const company = {
 /** お問い合わせ窓口 */
 export const contact = {
   email: "info@my-th.jp",
-  /** 特商法表記（アプリ側の正本）と一致させること */
-  tel: "050-6864-5198",
-  telHours: "10:00〜17:00（土日祝を除く）",
+  /** 電話番号はホームページに載せない（BOSS 方針）。問い合わせ導線はフォームとメールのみ */
+  tel: null,
+  telHours: null,
   /** 返信目安（既存フォームの記載を踏襲） */
   replyTarget: "24時間以内",
   /** @todo 確定必要 イベント当日の緊急窓口があれば */
