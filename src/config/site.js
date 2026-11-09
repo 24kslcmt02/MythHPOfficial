@@ -7,7 +7,7 @@
  * - 値を確定したらこのファイルだけを書き換える。ページ側の修正は不要。
  * - `verified: false` のURLは「推測パス」。アプリ側で実際に開けることを確認してから true にする。
  *
- * ▼ 確定が必要な項目の一覧は docs/v0.2_実装メモ.md を参照
+ * ▼ 確定が必要な項目はこのファイルの @todo を参照。運用ルールの全体は CLAUDE.md を参照
  */
 
 export const site = {
@@ -37,12 +37,9 @@ export const collectionUrl = "https://user.my-th.jp/collection";
 export const company = {
   name: "株式会社M's Capital Holdings",
   nameEn: "M's Capital Holdings, Inc.",
-  /** @todo 確定必要 */
-  postalCode: null,
-  /** @todo 確定必要 */
-  address: null,
-  /** @todo 確定必要 */
-  representative: null,
+  postalCode: "441-3147",
+  address: "愛知県豊橋市大岩町字火打坂30番地1",
+  representative: "牧野　亘紘",
   /** @todo 確定必要 例: "2020年4月" */
   founded: null,
   /** @todo 確定必要 例: "1,000万円" */
@@ -56,10 +53,9 @@ export const company = {
 /** お問い合わせ窓口 */
 export const contact = {
   email: "info@my-th.jp",
-  /** @todo 確定必要 例: "03-0000-0000" */
-  tel: null,
-  /** @todo 確定必要 例: "平日 11:00〜18:00（土日祝を除く）" */
-  telHours: null,
+  /** 特商法表記（アプリ側の正本）と一致させること */
+  tel: "050-6864-5198",
+  telHours: "10:00〜17:00（土日祝を除く）",
   /** 返信目安（既存フォームの記載を踏襲） */
   replyTarget: "24時間以内",
   /** @todo 確定必要 イベント当日の緊急窓口があれば */
@@ -73,29 +69,30 @@ export const contact = {
  * HP に本文は置かない。二重管理による不整合を避けるため、正本はアプリ側に一本化する。
  * ここに定義するのは「正本への遷移先」のみ。
  *
- * @todo verified: false のURLはアプリ側で実際に該当ページが開くことを確認する（SPAのため推測不可）
+ * URL は別リポジトリ msc-my-th/MSCAPTITAL_CHECKI_My-th_Web の Guest/src/main.js のルート定義を正とする。
+ * SPA のため未定義パスにも 200 が返る。verified: true にする前にブラウザで本文の表示を確認すること。
  */
 export const legalLinks = [
   {
     key: "terms",
     label: "利用規約",
     description: "My-thアプリおよび本サービスのご利用条件",
-    url: `${site.appUrl}/terms`,
-    verified: false,
+    url: `${site.appUrl}/terms-of-service`,
+    verified: true,
   },
   {
     key: "privacy",
     label: "プライバシーポリシー",
     description: "個人情報の取扱いと安全管理措置について",
-    url: `${site.appUrl}/privacy`,
-    verified: false,
+    url: `${site.appUrl}/privacy-policy`,
+    verified: true,
   },
   {
     key: "tokushoho",
     label: "特定商取引法に基づく表記",
     description: "販売事業者・支払方法・引渡時期・返品に関する表記",
-    url: `${site.appUrl}/tokushoho`,
-    verified: false,
+    url: `${site.appUrl}/act-on-specified-com-transactions`,
+    verified: true,
   },
 ];
 

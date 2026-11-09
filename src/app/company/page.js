@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { isRoutePublished } from "@/config/routes";
+import { contactHref, isRoutePublished } from "@/config/routes";
 import PageShell from "@/components/common/PageShell";
 import Pending from "@/components/common/Pending";
 import ExternalLink from "@/components/common/ExternalLink";
@@ -10,9 +10,16 @@ import styles from "@/components/common/page.module.css";
 export const metadata = {
   title: "運営会社 | My-th（マイス）",
   description:
-    "My-th（マイス）を運営する会社の概要です。商号・所在地・代表者・事業内容と、規約・ポリシーの掲載場所をご案内します。",
+    "My-th（マイス）を運営する会社の概要です。商号・所在地・代表者と、規約・ポリシーの掲載場所をご案内します。",
   alternates: { canonical: "/company" },
 };
+
+/** 公開保留中のページへのリンクは出さない */
+const RELATED_LINKS = [
+  { href: contactHref(), label: "お問い合わせ", note: "ご質問・導入のご相談はこちら" },
+  { href: "/security", label: "安全への取り組み", note: "転売対策・セキュリティ・偽サイトへの注意" },
+  { href: "/news", label: "お知らせ", note: "サービスに関する最新情報" },
+].filter((link) => isRoutePublished(link.href));
 
 /** 値が未確定の行は表示しない（誤った情報を出さないため） */
 function Row({ term, children }) {
@@ -146,15 +153,11 @@ export default function CompanyPage() {
         <section className={styles.block}>
           <h2>関連ページ</h2>
           <ul className={styles.list}>
-            <li>
-              <Link href="/contact">お問い合わせ</Link> — ご質問・導入のご相談はこちら
-            </li>
-            <li>
-              <Link href="/security">安全への取り組み</Link> — 転売対策・セキュリティ・偽サイトへの注意
-            </li>
-            <li>
-              <Link href="/news">お知らせ</Link> — サービスに関する最新情報
-            </li>
+            {RELATED_LINKS.map((link) => (
+              <li key={link.href}>
+                <Link href={link.href}>{link.label}</Link> — {link.note}
+              </li>
+            ))}
           </ul>
         </section>
       </div>
